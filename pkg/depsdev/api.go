@@ -114,7 +114,6 @@ func GetProject(c *client.Client, projectName string) (Project, error) {
 	var response Project
 
 	var path = fmt.Sprintf(GetProjectPath, url.QueryEscape(projectName))
-
 	if err := c.Get(path, &response); err != nil {
 		return Project{}, err
 	}
@@ -139,9 +138,6 @@ func GetAdvisory(c *client.Client, advisory string) (Advisory, error) {
 	var response Advisory
 
 	var path = fmt.Sprintf(GetAdvisoryPath, advisory)
-
-	fmt.Println(path)
-
 	if err := c.Get(path, &response); err != nil {
 		return Advisory{}, err
 	}
