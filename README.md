@@ -75,6 +75,12 @@ Use "depsdev [command] --help" for more information about a command.
 Examples :bulb:
 ----------
 
+> **Note**
+> The supported package managers are go, npm, cargo, maven, pypi, nuget.
+For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
+
+<br>
+
 Get information about a package, including a list of its available versions, with the default version marked if known.
 ```console
 depsdev info npm @colors/colors
