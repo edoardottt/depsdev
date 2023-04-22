@@ -1,3 +1,17 @@
+/*
+
+depsdev - CLI client for deps.dev API.
+Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
+
+
+@author: edoardottt, https://www.edoardoottavianelli.it/
+
+@repository: https://github.com/edoardottt/depsdev
+
+@license: https://github.com/edoardottt/depsdev/blob/main/LICENSE
+
+*/
+
 package depsdev
 
 import (
@@ -100,7 +114,6 @@ func GetProject(c *client.Client, projectName string) (Project, error) {
 	var response Project
 
 	var path = fmt.Sprintf(GetProjectPath, url.QueryEscape(projectName))
-
 	if err := c.Get(path, &response); err != nil {
 		return Project{}, err
 	}
@@ -125,9 +138,6 @@ func GetAdvisory(c *client.Client, advisory string) (Advisory, error) {
 	var response Advisory
 
 	var path = fmt.Sprintf(GetAdvisoryPath, advisory)
-
-	fmt.Println(path)
-
 	if err := c.Get(path, &response); err != nil {
 		return Advisory{}, err
 	}

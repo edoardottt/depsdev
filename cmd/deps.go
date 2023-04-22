@@ -1,3 +1,17 @@
+/*
+
+depsdev - CLI client for deps.dev API.
+Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
+
+
+@author: edoardottt, https://www.edoardoottavianelli.it/
+
+@repository: https://github.com/edoardottt/depsdev
+
+@license: https://github.com/edoardottt/depsdev/blob/main/LICENSE
+
+*/
+
 package cmd
 
 import (
@@ -11,16 +25,11 @@ import (
 // depsCmd represents the deps command when called with deps subcommand.
 var depsCmd = &cobra.Command{
 	Use:   "deps package-manager package-name version",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Get info about a package's dependencies",
+	Long:  `Get information about a resolved dependency graph for the given package version.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return fmt.Errorf("%s %w", "one", input.ErrArgumentLeast)
+		if len(args) < 3 {
+			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
 		if !input.IsValidPackageManager(args[0]) {
 			return input.ErrInvalidPackageManager
