@@ -1,13 +1,14 @@
 package cmd
 
 import (
-	"errors"
+	"fmt"
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
+	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/spf13/cobra"
 )
 
-// queryCmd represents the query command when called with query subcommand
+// queryCmd represents the query command when called with query subcommand.
 var queryCmd = &cobra.Command{
 	Use:   "query \"query-value\"",
 	Short: "A brief description of your application",
@@ -19,7 +20,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
-			return errors.New("requires one argument")
+			return fmt.Errorf("%s %w", "one", input.ErrArgumentLeast)
 		}
 
 		return nil
