@@ -1,5 +1,15 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+
+depsdev - CLI client for deps.dev API.
+Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
+
+
+@author: edoardottt, https://www.edoardoottavianelli.it/
+
+@repository: https://github.com/edoardottt/depsdev
+
+@license: https://github.com/edoardottt/depsdev/blob/main/LICENSE
+
 */
 
 package cmd
@@ -14,7 +24,7 @@ import (
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
 	Use:   "depsdev",
-	Short: "A brief description of your application",
+	Short: "CLI client for deps.dev API",
 	Long:  output.Banner,
 }
 
