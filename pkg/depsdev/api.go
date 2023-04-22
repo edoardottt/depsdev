@@ -16,22 +16,21 @@ package depsdev
 
 import (
 	"fmt"
-	"log"
 	"net/url"
 
 	"github.com/edoardottt/depsdev/pkg/client"
 )
 
 // InfoHandler is the info subcommand handler.
-func InfoHandler(args []string) {
+func InfoHandler(args []string) (Package, error) {
 	c := client.New(BasePath)
 
 	p, err := GetPackage(c, args[0], args[1])
 	if err != nil {
-		log.Fatal(err)
+		return Package{}, err
 	}
 
-	fmt.Println(p)
+	return p, nil
 }
 
 // GetPackage returns a Package object.
@@ -39,7 +38,6 @@ func GetPackage(c *client.Client, packageManager, packageName string) (Package, 
 	var response Package
 
 	var path = fmt.Sprintf(GetPackagePath, packageManager, url.QueryEscape(packageName))
-
 	if err := c.Get(path, &response); err != nil {
 		return Package{}, err
 	}
@@ -48,15 +46,15 @@ func GetPackage(c *client.Client, packageManager, packageName string) (Package, 
 }
 
 // VersionHandler is the info subcommand handler if version is specified.
-func VersionHandler(args []string) {
+func VersionHandler(args []string) (Version, error) {
 	c := client.New(BasePath)
 
 	v, err := GetVersion(c, args[0], args[1], args[2])
 	if err != nil {
-		log.Fatal(err)
+		return Version{}, err
 	}
 
-	fmt.Println(v)
+	return v, nil
 }
 
 // GetVersion returns a Version object.
@@ -64,7 +62,6 @@ func GetVersion(c *client.Client, packageManager, packageName, version string) (
 	var response Version
 
 	var path = fmt.Sprintf(GetVersionPath, packageManager, url.QueryEscape(packageName), version)
-
 	if err := c.Get(path, &response); err != nil {
 		return Version{}, err
 	}
@@ -73,15 +70,15 @@ func GetVersion(c *client.Client, packageManager, packageName, version string) (
 }
 
 // DepsHandler is the deps subcommand handler.
-func DepsHandler(args []string) {
+func DepsHandler(args []string) (Dependencies, error) {
 	c := client.New(BasePath)
 
 	d, err := GetDependencies(c, args[0], args[1], args[2])
 	if err != nil {
-		log.Fatal(err)
+		return Dependencies{}, err
 	}
 
-	fmt.Println(d)
+	return d, nil
 }
 
 // GetDependencies returns a Dependencies object.
@@ -89,7 +86,6 @@ func GetDependencies(c *client.Client, packageManager, packageName, version stri
 	var response Dependencies
 
 	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.QueryEscape(packageName), version)
-
 	if err := c.Get(path, &response); err != nil {
 		return Dependencies{}, err
 	}
@@ -98,15 +94,15 @@ func GetDependencies(c *client.Client, packageManager, packageName, version stri
 }
 
 // ProjectHandler is the project subcommand handler.
-func ProjectHandler(args []string) {
+func ProjectHandler(args []string) (Project, error) {
 	c := client.New(BasePath)
 
 	p, err := GetProject(c, args[0])
 	if err != nil {
-		log.Fatal(err)
+		return Project{}, err
 	}
 
-	fmt.Println(p)
+	return p, nil
 }
 
 // GetProject returns a Project object.
@@ -122,15 +118,15 @@ func GetProject(c *client.Client, projectName string) (Project, error) {
 }
 
 // AdvisoryHandler is the advisory subcommand handler.
-func AdvisoryHandler(args []string) {
+func AdvisoryHandler(args []string) (Advisory, error) {
 	c := client.New(BasePath)
 
 	a, err := GetAdvisory(c, args[0])
 	if err != nil {
-		log.Fatal(err)
+		return Advisory{}, err
 	}
 
-	fmt.Println(a)
+	return a, nil
 }
 
 // GetAdvisory returns an Advisory object.
@@ -146,15 +142,15 @@ func GetAdvisory(c *client.Client, advisory string) (Advisory, error) {
 }
 
 // QueryHandler is the query subcommand handler.
-func QueryHandler(args []string) {
+func QueryHandler(args []string) (Package, error) {
 	c := client.New(BasePath)
 
 	q, err := GetQuery(c, args[0])
 	if err != nil {
-		log.Fatal(err)
+		return Package{}, err
 	}
 
-	fmt.Println(q)
+	return q, nil
 }
 
 // GetQuery returns a Package object given a query.
