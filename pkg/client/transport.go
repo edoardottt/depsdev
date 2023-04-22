@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	Attempts = 10
+	Attempts = 3
 	Delay    = time.Millisecond * 100
 	Error400 = 400
 	Error500 = 500
@@ -52,13 +52,16 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 
 		if resp.StatusCode >= Error400 {
 			defer func() { _ = resp.Body.Close() }()
+
 			var apiError ErrorResponse
 			if err := json.NewDecoder(resp.Body).Decode(&apiError); err != nil {
 				return fmt.Errorf("server error: %v %v - %w", ErrStatus, resp.StatusCode, err)
 			}
+
 			if resp.StatusCode < Error500 {
 				return retry.Unrecoverable(&apiError)
 			}
+
 			return &apiError
 		}
 

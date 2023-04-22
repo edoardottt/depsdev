@@ -15,7 +15,9 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
@@ -38,6 +40,16 @@ and any given artifact may appear in many package versions.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		depsdev.QueryHandler(args)
+		p, err := depsdev.QueryHandler(args)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		pJSON, err := json.MarshalIndent(p, "", "  ")
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+
+		fmt.Println(string(pJSON))
 	},
 }
