@@ -75,30 +75,46 @@ Use "depsdev [command] --help" for more information about a command.
 Examples :bulb:
 ----------
 
+> **Note**
+> The supported package managers are go, npm, cargo, maven, pypi, nuget.
+For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
+
+<br>
+
 Get information about a package, including a list of its available versions, with the default version marked if known.
 ```console
 depsdev info npm @colors/colors
 ```
+
+<br>
 
 Get information about a specific package version including its licenses and any security advisories known to affect it.
 ```console
 depsdev info npm @colors/colors 1.5.0
 ```
 
+<br>
+
 Get information about a resolved dependency graph for the given package version.
 ```console
 depsdev deps npm @colors/colors 1.5.0
 ```
+
+<br>
 
 Get information about projects hosted by GitHub, GitLab, or BitBucket (if available).
 ```console
 depsdev project github.com/facebook/react
 ```
 
+<br>
+
 Get information about security advisories hosted by OSV.
 ```console
 depsdev advisory GHSA-2qrg-x229-3v8q
 ```
+
+<br>
 
 Get information about multiple package versions, which can be specified by name, content hash, or both.
 ```console
