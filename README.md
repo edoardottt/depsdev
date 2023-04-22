@@ -32,9 +32,11 @@ D
   <a href="#license-">License</a>
 </p>
 
+<!--
 <p align="center">
   <img src="https://github.com/edoardottt/images/blob/main/depsdev/depsdev.gif">
 </p>
+-->
   
 Install 📡
 ----------
@@ -53,17 +55,56 @@ Get Started 🎉
 ----------
 
 ```console
+Usage:
+  depsdev [command]
 
+Available Commands:
+  advisory    Get info about an (OSV) advisory
+  completion  Generate the autocompletion script for the specified shell
+  deps        Get info about a package's dependencies
+  help        Help about any command
+  info        Get info about a package or a specific version of that
+  project     Get info about a project (GitHub, GitLab, or BitBucket)
+  query       Get info about multiple package versions using a query
+
+Flags:
+  -h, --help   help for depsdev
+
+Use "depsdev [command] --help" for more information about a command.
 ```
 
 Examples :bulb:
 ----------
 
-Grab all possible results from single domain
-```bash
-depsdev -u https://www.github.com
+Get information about a package, including a list of its available versions, with the default version marked if known.
+```console
+depsdev info npm @colors/colors
 ```
 
+Get information about a specific package version including its licenses and any security advisories known to affect it.
+```console
+depsdev info npm @colors/colors 1.5.0
+```
+
+Get information about a resolved dependency graph for the given package version.
+```console
+depsdev deps npm @colors/colors 1.5.0
+```
+
+Get information about projects hosted by GitHub, GitLab, or BitBucket (if available).
+```console
+depsdev project github.com/facebook/react
+```
+
+Get information about security advisories hosted by OSV.
+```console
+depsdev advisory GHSA-2qrg-x229-3v8q
+```
+
+Get information about multiple package versions, which can be specified by name, content hash, or both.
+```console
+depsdev query "versionKey.system=NPM&versionKey.name=react&versionKey.version=18.2.0"
+```
 
 Changelog 📌
 -------
@@ -80,6 +121,7 @@ golangci-lint run
 ```
 If there aren't errors, go ahead :)
 
+The HTTP client implementation is partially taken from [@liamg/hackerone](https://github.com/liamg/hackerone).
 
 License 📝
 -------

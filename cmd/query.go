@@ -19,14 +19,13 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
-	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
 // queryCmd represents the query command when called with query subcommand.
 var queryCmd = &cobra.Command{
 	Use:   "query \"query-value\"",
-	Short: output.ShortDescription,
+	Short: "Get info about multiple package versions using a query",
 	Long: `Get information about multiple package versions, which can be specified by name, content hash, or both.
 It is typical for hash queries to return many results; 
 hashes are matched against multiple artifacts that comprise package versions, 

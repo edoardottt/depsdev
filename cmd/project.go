@@ -19,14 +19,13 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
-	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
 // projectCmd represents the project command when called with project subcommand.
 var projectCmd = &cobra.Command{
 	Use:   "project project-name",
-	Short: output.ShortDescription,
+	Short: "Get info about a project (GitHub, GitLab, or BitBucket)",
 	Long:  `Get information about projects hosted by GitHub, GitLab, or BitBucket (if available).`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {

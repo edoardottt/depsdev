@@ -19,18 +19,17 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
-	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
 // depsCmd represents the deps command when called with deps subcommand.
 var depsCmd = &cobra.Command{
 	Use:   "deps package-manager package-name version",
-	Short: output.ShortDescription,
-	Long:  `GetDependencies returns a resolved dependency graph for the given package version.`,
+	Short: "Get info about a package's dependencies",
+	Long:  `Get information about a resolved dependency graph for the given package version.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return fmt.Errorf("%s %w", "one", input.ErrArgumentLeast)
+		if len(args) < 3 {
+			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
 		if !input.IsValidPackageManager(args[0]) {
 			return input.ErrInvalidPackageManager

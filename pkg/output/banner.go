@@ -21,7 +21,7 @@ const (
 	Banner  = `depsdev v` + Version + `
   > https://github.com/edoardottt/depsdev
   > @edoardottt, https://www.edoardoottavianelli.it/`
-	ShortDescription = `CLI client for deps.dev API.`
+	ShortDescription = `CLI client for deps.dev API`
 )
 
 // PrintBanner prints the banner in stdout.

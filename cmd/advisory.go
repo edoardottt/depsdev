@@ -19,14 +19,13 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
-	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
 // advisoryCmd represents the advisory command when called with advisory subcommand.
 var advisoryCmd = &cobra.Command{
 	Use:   "advisory advisory-code",
-	Short: output.ShortDescription,
+	Short: "Get info about an (OSV) advisory",
 	Long:  `Get information about security advisories hosted by OSV.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {

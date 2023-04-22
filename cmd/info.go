@@ -19,14 +19,13 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
-	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
 // infoCmd represents the info command when called with info subcommand.
 var infoCmd = &cobra.Command{
 	Use:   "info package-manager package-name [version]",
-	Short: output.ShortDescription,
+	Short: "Get info about a package or a specific version of that",
 	Long: `Get information about a package, including a list of its available versions, 
 with the default version marked if known.
 If version is also specified, returns information about a specific package version 
