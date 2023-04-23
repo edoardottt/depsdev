@@ -15,12 +15,12 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
+	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
@@ -45,11 +45,11 @@ var depsCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		dJSON, err := json.MarshalIndent(d, "", "  ")
+		dJSON, err := output.IndentJSON(d)
 		if err != nil {
 			log.Fatalf(err.Error())
 		}
 
-		fmt.Println(string(dJSON))
+		fmt.Println(dJSON)
 	},
 }

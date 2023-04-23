@@ -14,17 +14,16 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package output
 
-import "fmt"
-
-const (
-	Version = `0.0.1`
-	Banner  = `depsdev v` + Version + `
-  > https://github.com/edoardottt/depsdev
-  > @edoardottt, https://www.edoardoottavianelli.it/`
-	ShortDescription = `CLI client for deps.dev API`
+import (
+	"encoding/json"
 )
 
-// PrintBanner prints the banner in stdout.
-func PrintBanner() {
-	fmt.Println(Banner)
+// IndentJSON returns an indented version of the input struct.
+func IndentJSON(input any) (string, error) {
+	inputJSON, err := json.MarshalIndent(input, "", "  ")
+	if err != nil {
+		return "", err
+	}
+
+	return string(inputJSON), nil
 }
