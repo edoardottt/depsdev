@@ -31,11 +31,9 @@
   <a href="#license-">License</a>
 </p>
 
-<!--
 <p align="center">
   <img src="https://github.com/edoardottt/images/blob/main/depsdev/depsdev.gif">
 </p>
--->
   
 Install 📡
 ----------
