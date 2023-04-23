@@ -18,7 +18,7 @@ import (
 	"encoding/json"
 )
 
-// IndentJSON returns an indented version of the input struct
+// IndentJSON returns an indented version of the input struct.
 func IndentJSON(input any) (string, error) {
 	inputJSON, err := json.MarshalIndent(input, "", "  ")
 	if err != nil {
