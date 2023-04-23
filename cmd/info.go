@@ -21,6 +21,7 @@ import (
 
 	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
+	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
@@ -62,12 +63,12 @@ including its licenses and any security advisories known to affect it.`,
 				log.Fatal(err)
 			}
 
-			pJSON, err := json.MarshalIndent(p, "", "  ")
+			pJSON, err := output.IndentJSON(p)
 			if err != nil {
 				log.Fatalf(err.Error())
 			}
 
-			fmt.Println(string(pJSON))
+			fmt.Println(pJSON)
 		}
 	},
 }
