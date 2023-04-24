@@ -37,7 +37,7 @@ func InfoHandler(args []string) (Package, error) {
 func GetPackage(c *client.Client, packageManager, packageName string) (Package, error) {
 	var response Package
 
-	var path = fmt.Sprintf(GetPackagePath, packageManager, url.QueryEscape(packageName))
+	var path = fmt.Sprintf(GetPackagePath, packageManager, url.PathEscape(packageName))
 	if err := c.Get(path, &response); err != nil {
 		return Package{}, err
 	}
@@ -61,7 +61,7 @@ func VersionHandler(args []string) (Version, error) {
 func GetVersion(c *client.Client, packageManager, packageName, version string) (Version, error) {
 	var response Version
 
-	var path = fmt.Sprintf(GetVersionPath, packageManager, url.QueryEscape(packageName), version)
+	var path = fmt.Sprintf(GetVersionPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
 		return Version{}, err
 	}
@@ -85,7 +85,7 @@ func DepsHandler(args []string) (Dependencies, error) {
 func GetDependencies(c *client.Client, packageManager, packageName, version string) (Dependencies, error) {
 	var response Dependencies
 
-	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.QueryEscape(packageName), version)
+	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
 		return Dependencies{}, err
 	}
@@ -109,7 +109,7 @@ func ProjectHandler(args []string) (Project, error) {
 func GetProject(c *client.Client, projectName string) (Project, error) {
 	var response Project
 
-	var path = fmt.Sprintf(GetProjectPath, url.QueryEscape(projectName))
+	var path = fmt.Sprintf(GetProjectPath, url.PathEscape(projectName))
 	if err := c.Get(path, &response); err != nil {
 		return Project{}, err
 	}
