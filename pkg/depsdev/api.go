@@ -21,11 +21,11 @@ import (
 	"github.com/edoardottt/depsdev/pkg/client"
 )
 
-// InfoHandler is the info subcommand handler.
-func InfoHandler(args []string) (Package, error) {
+// GetInfo returns information about a package for a specific package manager.
+func GetInfo(packageManager, packageName string) (Package, error) {
 	c := client.New(BasePath)
 
-	p, err := GetPackage(c, args[0], args[1])
+	p, err := getPackage(c, packageManager, packageName)
 	if err != nil {
 		return Package{}, err
 	}
@@ -33,11 +33,11 @@ func InfoHandler(args []string) (Package, error) {
 	return p, nil
 }
 
-// GetPackage returns a Package object.
-func GetPackage(c *client.Client, packageManager, packageName string) (Package, error) {
+// getPackage returns a Package object.
+func getPackage(c *client.Client, packageManager, packageName string) (Package, error) {
 	var response Package
 
-	var path = fmt.Sprintf(GetPackagePath, packageManager, url.QueryEscape(packageName))
+	var path = fmt.Sprintf(GetPackagePath, packageManager, url.PathEscape(packageName))
 	if err := c.Get(path, &response); err != nil {
 		return Package{}, err
 	}
@@ -45,11 +45,12 @@ func GetPackage(c *client.Client, packageManager, packageName string) (Package, 
 	return response, nil
 }
 
-// VersionHandler is the info subcommand handler if version is specified.
-func VersionHandler(args []string) (Version, error) {
+// GetVersion returns information about a specific version of a package
+// for a specific package manager.
+func GetVersion(packageManager, packageName, version string) (Version, error) {
 	c := client.New(BasePath)
 
-	v, err := GetVersion(c, args[0], args[1], args[2])
+	v, err := getVersion(c, packageManager, packageName, version)
 	if err != nil {
 		return Version{}, err
 	}
@@ -57,11 +58,11 @@ func VersionHandler(args []string) (Version, error) {
 	return v, nil
 }
 
-// GetVersion returns a Version object.
-func GetVersion(c *client.Client, packageManager, packageName, version string) (Version, error) {
+// getVersion returns a Version object.
+func getVersion(c *client.Client, packageManager, packageName, version string) (Version, error) {
 	var response Version
 
-	var path = fmt.Sprintf(GetVersionPath, packageManager, url.QueryEscape(packageName), version)
+	var path = fmt.Sprintf(GetVersionPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
 		return Version{}, err
 	}
@@ -69,11 +70,12 @@ func GetVersion(c *client.Client, packageManager, packageName, version string) (
 	return response, nil
 }
 
-// DepsHandler is the deps subcommand handler.
-func DepsHandler(args []string) (Dependencies, error) {
+// GetDependencies returns information about dependencies for a specific version of a package
+// for a specific package manager.
+func GetDependencies(packageManager, packageName, version string) (Dependencies, error) {
 	c := client.New(BasePath)
 
-	d, err := GetDependencies(c, args[0], args[1], args[2])
+	d, err := getDependencies(c, packageManager, packageName, version)
 	if err != nil {
 		return Dependencies{}, err
 	}
@@ -81,11 +83,11 @@ func DepsHandler(args []string) (Dependencies, error) {
 	return d, nil
 }
 
-// GetDependencies returns a Dependencies object.
-func GetDependencies(c *client.Client, packageManager, packageName, version string) (Dependencies, error) {
+// getDependencies returns a Dependencies object.
+func getDependencies(c *client.Client, packageManager, packageName, version string) (Dependencies, error) {
 	var response Dependencies
 
-	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.QueryEscape(packageName), version)
+	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
 		return Dependencies{}, err
 	}
@@ -93,11 +95,11 @@ func GetDependencies(c *client.Client, packageManager, packageName, version stri
 	return response, nil
 }
 
-// ProjectHandler is the project subcommand handler.
-func ProjectHandler(args []string) (Project, error) {
+// GetProject returns information about a project (hosted on GitHub, GitLab or BitBucket).
+func GetProject(projectName string) (Project, error) {
 	c := client.New(BasePath)
 
-	p, err := GetProject(c, args[0])
+	p, err := getProject(c, projectName)
 	if err != nil {
 		return Project{}, err
 	}
@@ -105,11 +107,11 @@ func ProjectHandler(args []string) (Project, error) {
 	return p, nil
 }
 
-// GetProject returns a Project object.
-func GetProject(c *client.Client, projectName string) (Project, error) {
+// getProject returns a Project object.
+func getProject(c *client.Client, projectName string) (Project, error) {
 	var response Project
 
-	var path = fmt.Sprintf(GetProjectPath, url.QueryEscape(projectName))
+	var path = fmt.Sprintf(GetProjectPath, url.PathEscape(projectName))
 	if err := c.Get(path, &response); err != nil {
 		return Project{}, err
 	}
@@ -117,11 +119,11 @@ func GetProject(c *client.Client, projectName string) (Project, error) {
 	return response, nil
 }
 
-// AdvisoryHandler is the advisory subcommand handler.
-func AdvisoryHandler(args []string) (Advisory, error) {
+// GetAdvisory returns information about an advisory.
+func GetAdvisory(advisory string) (Advisory, error) {
 	c := client.New(BasePath)
 
-	a, err := GetAdvisory(c, args[0])
+	a, err := getAdvisory(c, advisory)
 	if err != nil {
 		return Advisory{}, err
 	}
@@ -129,8 +131,8 @@ func AdvisoryHandler(args []string) (Advisory, error) {
 	return a, nil
 }
 
-// GetAdvisory returns an Advisory object.
-func GetAdvisory(c *client.Client, advisory string) (Advisory, error) {
+// getAdvisory returns an Advisory object.
+func getAdvisory(c *client.Client, advisory string) (Advisory, error) {
 	var response Advisory
 
 	var path = fmt.Sprintf(GetAdvisoryPath, advisory)
@@ -141,11 +143,11 @@ func GetAdvisory(c *client.Client, advisory string) (Advisory, error) {
 	return response, nil
 }
 
-// QueryHandler is the query subcommand handler.
-func QueryHandler(args []string) (Package, error) {
+// GetQuery returns the result of the inputted query.
+func GetQuery(query string) (Package, error) {
 	c := client.New(BasePath)
 
-	q, err := GetQuery(c, args[0])
+	q, err := getQuery(c, query)
 	if err != nil {
 		return Package{}, err
 	}
@@ -153,8 +155,8 @@ func QueryHandler(args []string) (Package, error) {
 	return q, nil
 }
 
-// GetQuery returns a Package object given a query.
-func GetQuery(c *client.Client, query string) (Package, error) {
+// getQuery returns a Package object given a query.
+func getQuery(c *client.Client, query string) (Package, error) {
 	var response Package
 
 	var path = GetQueryPath + `?` + query

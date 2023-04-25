@@ -15,7 +15,6 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -46,19 +45,19 @@ including its licenses and any security advisories known to affect it.`,
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 2 {
-			v, err := depsdev.VersionHandler(args)
+			v, err := depsdev.GetVersion(args[0], args[1], args[2])
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			vJSON, err := json.MarshalIndent(v, "", "  ")
+			vJSON, err := output.IndentJSON(v)
 			if err != nil {
 				log.Fatalf(err.Error())
 			}
 
-			fmt.Println(string(vJSON))
+			fmt.Println(vJSON)
 		} else {
-			p, err := depsdev.InfoHandler(args)
+			p, err := depsdev.GetInfo(args[0], args[1])
 			if err != nil {
 				log.Fatal(err)
 			}

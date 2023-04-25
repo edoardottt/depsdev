@@ -40,7 +40,7 @@ var depsCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		d, err := depsdev.DepsHandler(args)
+		d, err := depsdev.GetDependencies(args[0], args[1], args[2])
 		if err != nil {
 			log.Fatal(err)
 		}

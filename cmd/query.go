@@ -40,7 +40,7 @@ and any given artifact may appear in many package versions.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		p, err := depsdev.QueryHandler(args)
+		p, err := depsdev.GetQuery(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}
