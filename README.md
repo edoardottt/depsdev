@@ -2,7 +2,7 @@
   depsdev
   <br>
 </h1>
-<h4 align="center">CLI client (and Golang package) for deps.dev API.<br>Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.</h4>
+<h4 align="center">CLI client (and Golang module) for deps.dev API.<br>Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.</h4>
 
 <h6 align="center"> Coded with 💙 by edoardottt </h6>
 
