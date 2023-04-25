@@ -119,6 +119,26 @@ Get information about multiple package versions, which can be specified by name,
 depsdev query "versionKey.system=NPM&versionKey.name=react&versionKey.version=18.2.0"
 ```
 
+<br>
+
+**Use depsdev as a Go module**
+
+```Go
+import (
+    "fmt"
+    "github.com/edoardottt/depsdev/pkg/depsdev"
+)
+
+func main() {
+    i, err := depsdev.GetInfo("npm", "defangjs")
+    if err != nil {
+		    fmt.Println(err)
+	  }
+
+	  fmt.Println(i)
+}
+```
+
 Changelog 📌
 -------
 Detailed changes for each release are documented in the [release notes](https://github.com/edoardottt/depsdev/releases).
