@@ -37,7 +37,7 @@ var advisoryCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		a, err := depsdev.AdvisoryHandler(args)
+		a, err := depsdev.GetAdvisory(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -37,7 +37,7 @@ var projectCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		p, err := depsdev.ProjectHandler(args)
+		p, err := depsdev.GetProject(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}
