@@ -132,10 +132,10 @@ import (
 func main() {
     i, err := depsdev.GetInfo("npm", "defangjs")
     if err != nil {
-		    fmt.Println(err)
-	  }
-
-	  fmt.Println(i)
+    	fmt.Println(err)
+    }
+    
+    fmt.Println(i)
 }
 ```
 
