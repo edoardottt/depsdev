@@ -23,7 +23,7 @@ type Dependencies struct {
 type Nodes struct {
 	VersionKey VersionKey `json:"versionKey,omitempty"`
 	Bundled    bool       `json:"bundled,omitempty"`
-	Errors     []any      `json:"errors,omitempty"`
+	Errors     []string   `json:"errors,omitempty"`
 }
 
 type Edges struct {
