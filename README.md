@@ -59,6 +59,7 @@ Available Commands:
   advisory    Get info about an (OSV) advisory
   completion  Generate the autocompletion script for the specified shell
   deps        Get info about a package's dependencies
+  graph       Generate a Graphviz compatible dependencies graph
   help        Help about any command
   info        Get info about a package or a specific version of that
   project     Get info about a project (GitHub, GitLab, or BitBucket)
@@ -117,6 +118,13 @@ depsdev advisory GHSA-2qrg-x229-3v8q
 Get information about multiple package versions, which can be specified by name, content hash, or both.
 ```console
 depsdev query "versionKey.system=NPM&versionKey.name=react&versionKey.version=18.2.0"
+```
+
+<br>
+
+Generate a Graphviz compatible dependencies graph for a specific version of a package.
+```console
+depsdev graph npm slice-ansi 6.0.0
 ```
 
 <br>
