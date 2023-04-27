@@ -29,7 +29,7 @@ var (
 )
 
 // GenerateGraph takes as input a Dependencies struct and
-// returns a GraphViz compatible graph.
+// returns a Graphviz compatible graph.
 func GenerateGraph(d depsdev.Dependencies) (string, error) {
 	if d.Error != "" {
 		return "", fmt.Errorf("%w: %s", ErrGraphDependencies, d.Error)
