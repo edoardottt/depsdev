@@ -27,8 +27,8 @@ import (
 // depsCmd represents the deps command when called with deps subcommand.
 var graphCmd = &cobra.Command{
 	Use:   "graph package-manager package-name version",
-	Short: "Generate a Graphviz compatible graph",
-	Long:  `Generate a Graphviz compatible graph for a specific version of a package.`,
+	Short: "Generate a Graphviz compatible dependencies graph",
+	Long:  `Generate a Graphviz compatible dependencies graph for a specific version of a package.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 3 {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
