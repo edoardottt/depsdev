@@ -40,13 +40,13 @@ Install 📡
 
 ### Using Snap
 
-```bash
+```console
 sudo snap install depsdev
 ```
 
 ### Using Go
 
-```
+```console
 go install github.com/edoardottt/depsdev@latest
 ```
 
@@ -73,11 +73,11 @@ Flags:
 Use "depsdev [command] --help" for more information about a command.
 ```
 
-Examples :bulb
+Examples 💡
 ----------
 
 > **Note**
-> The supported package managers are go, npm, cargo, maven, pypi, nuget.
+> The supported package managers are `go`, `npm`, `cargo`, `maven`, `pypi` and `nuget`.
 For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
 
 <br>
