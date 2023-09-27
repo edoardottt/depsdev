@@ -22,6 +22,7 @@ type Dependencies struct {
 
 type Nodes struct {
 	VersionKey VersionKey `json:"versionKey,omitempty"`
+	Relation   string     `json:"relation,omitempty"`
 	Bundled    bool       `json:"bundled,omitempty"`
 	Errors     []string   `json:"errors,omitempty"`
 }
