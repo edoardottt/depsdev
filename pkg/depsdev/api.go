@@ -21,6 +21,24 @@ import (
 	"github.com/edoardottt/depsdev/pkg/client"
 )
 
+type API struct {
+	client *client.Client
+}
+
+func NewAPI() *API {
+	return &API{
+		client: client.New(BasePath),
+	}
+}
+
+func (a *API) GetInfo(packageManager, packageName string) (Package, error) {
+	return getPackage(a.client, packageManager, packageName)
+}
+
+func (a *API) GetVersion(packageManager, packageName, version string) (Version, error) {
+	return getVersion(a.client, packageManager, packageName, version)
+}
+
 // GetInfo returns information about a package for a specific package manager.
 func GetInfo(packageManager, packageName string) (Package, error) {
 	c := client.New(BasePath)
