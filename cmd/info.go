@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
@@ -45,7 +44,7 @@ including its licenses and any security advisories known to affect it.`,
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 2 {
-			v, err := depsdev.GetVersion(args[0], args[1], args[2])
+			v, err := api.GetVersion(args[0], args[1], args[2])
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -57,7 +56,7 @@ including its licenses and any security advisories known to affect it.`,
 
 			fmt.Println(vJSON)
 		} else {
-			p, err := depsdev.GetInfo(args[0], args[1])
+			p, err := api.GetInfo(args[0], args[1])
 			if err != nil {
 				log.Fatal(err)
 			}

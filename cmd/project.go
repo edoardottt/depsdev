@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
@@ -37,7 +36,7 @@ var projectCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		p, err := depsdev.GetProject(args[0])
+		p, err := api.GetProject(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}
