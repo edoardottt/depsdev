@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
@@ -40,7 +39,7 @@ var graphCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		d, err := depsdev.GetDependencies(args[0], args[1], args[2])
+		d, err := api.GetDependencies(args[0], args[1], args[2])
 		if err != nil {
 			log.Fatal(err)
 		}

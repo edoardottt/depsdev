@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
@@ -40,7 +39,7 @@ and any given artifact may appear in many package versions.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		p, err := depsdev.GetQuery(args[0])
+		p, err := api.GetQuery(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}

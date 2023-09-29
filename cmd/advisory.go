@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
@@ -37,7 +36,7 @@ var advisoryCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		a, err := depsdev.GetAdvisory(args[0])
+		a, err := api.GetAdvisory(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}

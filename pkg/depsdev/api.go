@@ -31,24 +31,9 @@ func NewAPI() *API {
 	}
 }
 
+// GetInfo returns information about a package for a specific package manager.
 func (a *API) GetInfo(packageManager, packageName string) (Package, error) {
 	return getPackage(a.client, packageManager, packageName)
-}
-
-func (a *API) GetVersion(packageManager, packageName, version string) (Version, error) {
-	return getVersion(a.client, packageManager, packageName, version)
-}
-
-// GetInfo returns information about a package for a specific package manager.
-func GetInfo(packageManager, packageName string) (Package, error) {
-	c := client.New(BasePath)
-
-	p, err := getPackage(c, packageManager, packageName)
-	if err != nil {
-		return Package{}, err
-	}
-
-	return p, nil
 }
 
 // getPackage returns a Package object.
@@ -65,15 +50,8 @@ func getPackage(c *client.Client, packageManager, packageName string) (Package, 
 
 // GetVersion returns information about a specific version of a package
 // for a specific package manager.
-func GetVersion(packageManager, packageName, version string) (Version, error) {
-	c := client.New(BasePath)
-
-	v, err := getVersion(c, packageManager, packageName, version)
-	if err != nil {
-		return Version{}, err
-	}
-
-	return v, nil
+func (a *API) GetVersion(packageManager, packageName, version string) (Version, error) {
+	return getVersion(a.client, packageManager, packageName, version)
 }
 
 // getVersion returns a Version object.
@@ -90,15 +68,8 @@ func getVersion(c *client.Client, packageManager, packageName, version string) (
 
 // GetDependencies returns information about dependencies for a specific version of a package
 // for a specific package manager.
-func GetDependencies(packageManager, packageName, version string) (Dependencies, error) {
-	c := client.New(BasePath)
-
-	d, err := getDependencies(c, packageManager, packageName, version)
-	if err != nil {
-		return Dependencies{}, err
-	}
-
-	return d, nil
+func (a *API) GetDependencies(packageManager, packageName, version string) (Dependencies, error) {
+	return getDependencies(a.client, packageManager, packageName, version)
 }
 
 // getDependencies returns a Dependencies object.
@@ -114,15 +85,8 @@ func getDependencies(c *client.Client, packageManager, packageName, version stri
 }
 
 // GetProject returns information about a project (hosted on GitHub, GitLab or BitBucket).
-func GetProject(projectName string) (Project, error) {
-	c := client.New(BasePath)
-
-	p, err := getProject(c, projectName)
-	if err != nil {
-		return Project{}, err
-	}
-
-	return p, nil
+func (a *API) GetProject(projectName string) (Project, error) {
+	return getProject(a.client, projectName)
 }
 
 // getProject returns a Project object.
@@ -138,15 +102,8 @@ func getProject(c *client.Client, projectName string) (Project, error) {
 }
 
 // GetAdvisory returns information about an advisory.
-func GetAdvisory(advisory string) (Advisory, error) {
-	c := client.New(BasePath)
-
-	a, err := getAdvisory(c, advisory)
-	if err != nil {
-		return Advisory{}, err
-	}
-
-	return a, nil
+func (a *API) GetAdvisory(advisory string) (Advisory, error) {
+	return getAdvisory(a.client, advisory)
 }
 
 // getAdvisory returns an Advisory object.
@@ -162,15 +119,8 @@ func getAdvisory(c *client.Client, advisory string) (Advisory, error) {
 }
 
 // GetQuery returns the result of the inputted query.
-func GetQuery(query string) (Package, error) {
-	c := client.New(BasePath)
-
-	q, err := getQuery(c, query)
-	if err != nil {
-		return Package{}, err
-	}
-
-	return q, nil
+func (a *API) GetQuery(query string) (Package, error) {
+	return getQuery(a.client, query)
 }
 
 // getQuery returns a Package object given a query.
