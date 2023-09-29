@@ -17,15 +17,21 @@ package cmd
 import (
 	"os"
 
+	"github.com/edoardottt/depsdev/pkg/depsdev"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
+
+var api *depsdev.API
 
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
 	Use:   "depsdev",
 	Short: output.ShortDescription,
 	Long:  output.Banner,
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		api = depsdev.NewAPI()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
