@@ -14,7 +14,6 @@ var (
 )
 
 func BenchmarkGetInfo(b *testing.B) {
-
 	b.Run("function", func(b *testing.B) {
 		var (
 			info Package
