@@ -25,6 +25,7 @@ type API struct {
 	client *client.Client
 }
 
+// NewAPI creates and returns an API object
 func NewAPI() *API {
 	return &API{
 		client: client.New(BasePath),

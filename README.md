@@ -147,10 +147,10 @@ import (
 )
 
 func main() {
-    client:= depsdev.NewAPI()
+    client := depsdev.NewAPI()
     i, err := client.GetInfo("npm", "defangjs")
     if err != nil {
-     fmt.Println(err)
+      fmt.Println(err)
     }
     
     fmt.Println(i)
