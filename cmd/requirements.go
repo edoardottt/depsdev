@@ -19,8 +19,7 @@ var requirementsCmd = &cobra.Command{
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
 		if !input.Contains(args[0], []string{"npm", "maven", "nuget"}) {
-			return input.ErrWithMessage(input.ErrInvalidPackageManager,
-				"requirements are currently available only for Maven, npm and NuGet")
+			return input.ErrInvalidPackageManagerForRequirements
 		}
 		return nil
 	},

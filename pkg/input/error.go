@@ -16,15 +16,11 @@ package input
 
 import (
 	"errors"
-	"fmt"
 )
 
 var (
-	ErrArgumentLeast         = errors.New("argument must be specified")
-	ErrArgumentsLeast        = errors.New("arguments must be specified")
-	ErrInvalidPackageManager = errors.New("invalid package manager specified")
+	ErrArgumentLeast                        = errors.New("argument must be specified")
+	ErrArgumentsLeast                       = errors.New("arguments must be specified")
+	ErrInvalidPackageManager                = errors.New("invalid package manager specified")
+	ErrInvalidPackageManagerForRequirements = errors.New("invalid package manager specified: requirements are currently available only for Maven, npm and NuGet")
 )
-
-func ErrWithMessage(err error, msg string) error {
-	return errors.New(fmt.Sprintf("%v: %v", err, msg))
-}
