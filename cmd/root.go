@@ -50,4 +50,5 @@ func init() {
 	rootCmd.AddCommand(projectCmd)
 	rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(graphCmd)
+	rootCmd.AddCommand(requirementsCmd)
 }

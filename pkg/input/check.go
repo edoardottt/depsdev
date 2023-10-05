@@ -27,3 +27,13 @@ func IsValidPackageManager(input string) bool {
 
 	return false
 }
+
+func Contains(v string, sl []string) bool {
+	for _, item := range sl {
+		if strings.ToLower(v) == item {
+			return true
+		}
+	}
+
+	return false
+}

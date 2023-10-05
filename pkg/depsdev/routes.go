@@ -25,4 +25,5 @@ const (
 	GetProjectPath      = `/projects/%s`
 	GetAdvisoryPath     = `/advisories/%s`
 	GetQueryPath        = `/query`
+	GetRequirementsPath = `/systems/%s/packages/%s/versions/%s:requirements`
 )
