@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var requirementsCmd = &cobra.Command{
-	Use:   "requirements package-manager package-name version",
+var reqsCmd = &cobra.Command{
+	Use:   "reqs package-manager package-name version",
 	Short: "Get info about a package's requirements",
-	Long: `Returns the requirements for a given version in a system-specific format. 
+	Long: `Returns the requirements for a given version in a system-specific format.
 	Requirements are currently available for Maven, npm and NuGet.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 3 {
