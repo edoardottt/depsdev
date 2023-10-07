@@ -14,10 +14,13 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package input
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
-	ErrArgumentLeast         = errors.New("argument must be specified")
-	ErrArgumentsLeast        = errors.New("arguments must be specified")
-	ErrInvalidPackageManager = errors.New("invalid package manager specified")
+	ErrArgumentLeast                        = errors.New("argument must be specified")
+	ErrArgumentsLeast                       = errors.New("arguments must be specified")
+	ErrInvalidPackageManager                = errors.New("invalid package manager specified")
+	ErrInvalidPackageManagerForRequirements = errors.New("invalid package manager specified: requirements are currently available only for Maven, npm and NuGet")
 )

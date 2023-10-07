@@ -135,3 +135,16 @@ func getQuery(c *client.Client, query string) (Package, error) {
 
 	return response, nil
 }
+
+// GetRequirements returns the requirements for a given version in a system-specific format.
+// Requirements are currently available for Maven, npm and NuGet.
+func (a *API) GetRequirements(packageManager, packageName, version string) (Requirements, error) {
+	var response Requirements
+
+	var path = fmt.Sprintf(GetRequirementsPath, packageManager, url.PathEscape(packageName), version)
+	if err := a.client.Get(path, &response); err != nil {
+		return Requirements{}, err
+	}
+
+	return response, nil
+}
