@@ -66,6 +66,7 @@ Available Commands:
   info        Get info about a package or a specific version of that
   project     Get info about a project (GitHub, GitLab, or BitBucket)
   query       Get info about multiple package versions using a query
+  reqs        Get info about a package's requirements
 
 Flags:
   -h, --help   help for depsdev
@@ -134,6 +135,14 @@ Generate a Graphviz compatible dependencies graph for a specific version of a pa
 
 ```console
 depsdev graph npm slice-ansi 6.0.0
+```
+
+<br>
+
+Get information about the package requirements for a given version in a system-specific format.
+
+```console
+depsdev reqs npm slice-ansi 6.0.0
 ```
 
 <br>
