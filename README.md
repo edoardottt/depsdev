@@ -149,7 +149,7 @@ depsdev reqs npm slice-ansi 6.0.0
 
 **Use depsdev as a Go module**
 
-Read the full [`package documentation here`](https://pkg.go.dev/github.com/edoardottt/depsdev/pkg/depsdev)
+Read the full [package documentation here](https://pkg.go.dev/github.com/edoardottt/depsdev/pkg/depsdev)
 ```Go
 import (
     "fmt"
