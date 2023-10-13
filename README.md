@@ -165,6 +165,7 @@ func main() {
     fmt.Println(i)
 }
 ```
+Read the full [`package documentation here`](https://pkg.go.dev/github.com/edoardottt/depsdev/pkg/depsdev)
 
 Changelog 📌
 -------
