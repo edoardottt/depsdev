@@ -148,3 +148,17 @@ func (a *API) GetRequirements(packageManager, packageName, version string) (Requ
 
 	return response, nil
 }
+
+// GetPackageVersions returns the package versions which attest to being created from the specified
+// source code repository (hosted on GitHub, GitLab or BitBucket).
+// At most 1500 package versions are returned.
+func (a *API) GetPackageVersions(projectName string) (PackageVersions, error) {
+	var response PackageVersions
+
+	var path = fmt.Sprintf(GetProjectPackageVersionsPath, url.PathEscape(projectName))
+	if err := a.client.Get(path, &response); err != nil {
+		return PackageVersions{}, err
+	}
+
+	return response, nil
+}

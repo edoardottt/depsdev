@@ -19,11 +19,12 @@ const (
 	BasePath = `https://api.deps.dev/v3alpha`
 
 	// API routes.
-	GetPackagePath      = `/systems/%s/packages/%s`
-	GetVersionPath      = `/systems/%s/packages/%s/versions/%s`
-	GetDependenciesPath = `/systems/%s/packages/%s/versions/%s:dependencies`
-	GetProjectPath      = `/projects/%s`
-	GetAdvisoryPath     = `/advisories/%s`
-	GetQueryPath        = `/query`
-	GetRequirementsPath = `/systems/%s/packages/%s/versions/%s:requirements`
+	GetPackagePath                = `/systems/%s/packages/%s`
+	GetVersionPath                = `/systems/%s/packages/%s/versions/%s`
+	GetDependenciesPath           = `/systems/%s/packages/%s/versions/%s:dependencies`
+	GetProjectPath                = `/projects/%s`
+	GetAdvisoryPath               = `/advisories/%s`
+	GetQueryPath                  = `/query`
+	GetRequirementsPath           = `/systems/%s/packages/%s/versions/%s:requirements`
+	GetProjectPackageVersionsPath = `/projects/%s:packageversions`
 )
