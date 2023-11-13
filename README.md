@@ -64,6 +64,7 @@ Available Commands:
   graph       Generate a Graphviz compatible dependencies graph
   help        Help about any command
   info        Get info about a package or a specific version of that
+  packages    Get info about a project's package versions (GitHub, GitLab, or BitBucket)
   project     Get info about a project (GitHub, GitLab, or BitBucket)
   query       Get info about multiple package versions using a query
   reqs        Get info about a package's requirements
@@ -147,6 +148,14 @@ depsdev reqs npm slice-ansi 6.0.0
 
 <br>
 
+Returns the package versions which attest to being created from the specified source code repository.
+
+```console
+depsdev packages github.com/eslint/espree
+```
+
+<br>
+
 **Use depsdev as a Go module**
 
 ```Go
@@ -165,6 +174,7 @@ func main() {
     fmt.Println(i)
 }
 ```
+
 Read the full [`package documentation here`](https://pkg.go.dev/github.com/edoardottt/depsdev/pkg/depsdev)
 
 Changelog 📌

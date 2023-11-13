@@ -51,4 +51,5 @@ func init() {
 	rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(graphCmd)
 	rootCmd.AddCommand(reqsCmd)
+	rootCmd.AddCommand(packagesCmd)
 }
