@@ -69,5 +69,5 @@ type OssFuzz struct {
 	LineCoverCount   int64     `json:"lineCoverCount,omitempty"`
 	LineCoverPercent int64     `json:"lineCoverPercent,omitempty"`
 	Date             time.Time `json:"date,omitempty"`
-	ConfigUrl        string    `json:"configUrl,omitempty"`
+	ConfigURL        string    `json:"configUrl,omitempty"`
 }
