@@ -25,6 +25,7 @@ type Project struct {
 	Description     string     `json:"description,omitempty"`
 	Homepage        string     `json:"homepage,omitempty"`
 	Scorecard       Scorecard  `json:"scorecard,omitempty"`
+	OssFuzz         OssFuzz    `json:"ossFuzz,omitempty"`
 }
 
 type ProjectKey struct {
@@ -61,4 +62,12 @@ type Scorecard struct {
 	OverallScore float64            `json:"overallScore,omitempty"`
 	Metadata     []string           `json:"metadata,omitempty"`
 	Date         time.Time          `json:"date,omitempty"`
+}
+
+type OssFuzz struct {
+	LineCount        int64     `json:"lineCount,omitempty"`
+	LineCoverCount   int64     `json:"lineCoverCount,omitempty"`
+	LineCoverPercent int64     `json:"lineCoverPercent,omitempty"`
+	Date             time.Time `json:"date,omitempty"`
+	ConfigUrl        string    `json:"configUrl,omitempty"`
 }
