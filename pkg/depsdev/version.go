@@ -24,6 +24,7 @@ type Version struct {
 	Links           []Links         `json:"links,omitempty"`
 	SlsaProvenances []SLAProvenance `json:"slsaProvenances,omitempty"`
 	PublishedAt     time.Time       `json:"publishedAt,omitempty"`
+	Registries      []string        `json:"registries,omitempty"`
 }
 
 type AdvisoryKeys struct {
