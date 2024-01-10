@@ -65,9 +65,9 @@ type Scorecard struct {
 }
 
 type OssFuzz struct {
-	LineCount        int64     `json:"lineCount,omitempty"`
-	LineCoverCount   int64     `json:"lineCoverCount,omitempty"`
-	LineCoverPercent int64     `json:"lineCoverPercent,omitempty"`
+	LineCount        string    `json:"lineCount,omitempty"`
+	LineCoverCount   string    `json:"lineCoverCount,omitempty"`
+	LineCoverPercent string    `json:"lineCoverPercent,omitempty"`
 	Date             time.Time `json:"date,omitempty"`
 	ConfigURL        string    `json:"configUrl,omitempty"`
 }
