@@ -14,6 +14,8 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
+import "time"
+
 type Package struct {
 	PackageKey PackageKey `json:"packageKey,omitempty"`
 	Versions   []Versions `json:"versions,omitempty"`
@@ -31,6 +33,7 @@ type VersionKey struct {
 }
 
 type Versions struct {
-	VersionKey VersionKey `json:"versionKey,omitempty"`
-	IsDefault  bool       `json:"isDefault,omitempty"`
+	VersionKey  VersionKey `json:"versionKey,omitempty"`
+	IsDefault   bool       `json:"isDefault,omitempty"`
+	PublishedAt time.Time  `json:"publishedAt,omitempty"`
 }
