@@ -17,14 +17,14 @@ package depsdev
 import "time"
 
 type Version struct {
-	VersionKey      VersionKey      `json:"versionKey,omitempty"`
-	IsDefault       bool            `json:"isDefault,omitempty"`
-	Licenses        []string        `json:"licenses,omitempty"`
-	AdvisoryKeys    []AdvisoryKeys  `json:"advisoryKeys,omitempty"`
-	Links           []Links         `json:"links,omitempty"`
-	SlsaProvenances []SLAProvenance `json:"slsaProvenances,omitempty"`
-	PublishedAt     time.Time       `json:"publishedAt,omitempty"`
-	Registries      []string        `json:"registries,omitempty"`
+	VersionKey      VersionKey        `json:"versionKey,omitempty"`
+	IsDefault       bool              `json:"isDefault,omitempty"`
+	Licenses        []string          `json:"licenses,omitempty"`
+	AdvisoryKeys    []AdvisoryKeys    `json:"advisoryKeys,omitempty"`
+	Links           []Links           `json:"links,omitempty"`
+	SlsaProvenances []SLSAProvenances `json:"slsaProvenances,omitempty"`
+	PublishedAt     time.Time         `json:"publishedAt,omitempty"`
+	Registries      []string          `json:"registries,omitempty"`
 }
 
 type AdvisoryKeys struct {
@@ -36,8 +36,9 @@ type Links struct {
 	URL   string `json:"url,omitempty"`
 }
 
-type SLAProvenance struct {
+type SLSAProvenances struct {
 	SourceRepository string `json:"sourceRepository,omitempty"`
 	Commit           string `json:"commit,omitempty"`
 	URL              string `json:"url,omitempty"`
+	Verified         bool   `json:"verified,omitempty"`
 }
