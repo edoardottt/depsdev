@@ -33,7 +33,8 @@ type VersionKey struct {
 }
 
 type Versions struct {
-	VersionKey  VersionKey `json:"versionKey,omitempty"`
-	IsDefault   bool       `json:"isDefault,omitempty"`
-	PublishedAt time.Time  `json:"publishedAt,omitempty"`
+	VersionKey      VersionKey        `json:"versionKey,omitempty"`
+	IsDefault       bool              `json:"isDefault,omitempty"`
+	PublishedAt     time.Time         `json:"publishedAt,omitempty"`
+	SlsaProvenances []SLSAProvenances `json:"slsaProvenances,omitempty"`
 }
