@@ -148,7 +148,7 @@ depsdev reqs npm slice-ansi 6.0.0
 
 <br>
 
-Returns the package versions which attest to being created from the specified source code repository.
+Returns known mappings between the requested project and package versions.
 
 ```console
 depsdev packages github.com/eslint/espree
