@@ -25,6 +25,7 @@ type Version struct {
 	SlsaProvenances []SLSAProvenances `json:"slsaProvenances,omitempty"`
 	PublishedAt     time.Time         `json:"publishedAt,omitempty"`
 	Registries      []string          `json:"registries,omitempty"`
+	RelatedProjects []RelatedProjects `json:"relatedProjects,omitempty"`
 }
 
 type AdvisoryKeys struct {
@@ -41,4 +42,10 @@ type SLSAProvenances struct {
 	Commit           string `json:"commit,omitempty"`
 	URL              string `json:"url,omitempty"`
 	Verified         bool   `json:"verified,omitempty"`
+}
+
+type RelatedProjects struct {
+	ProjectKey         ProjectKey `json:"projectKey,omitempty"`
+	RelationProvenance string     `json:"relationProvenance,omitempty"`
+	RelationType       string     `json:"relationType,omitempty"`
 }
