@@ -30,7 +30,7 @@ builds:
       - goos: windows
         goarch: 'arm64'
     binary: '{{ .ProjectName }}'
-    main: ./cmd/depsdev/
+    main: ./main.go
 
 archives:
 - format: zip
