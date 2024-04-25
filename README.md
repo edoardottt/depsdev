@@ -82,6 +82,8 @@ Examples 💡
 > The supported package managers are `go`, `npm`, `cargo`, `maven`, `pypi` and `nuget`.
 For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
 
+### CLI
+
 <br>
 
 Get information about a package, including a list of its available versions, with the default version marked if known.
@@ -156,16 +158,47 @@ depsdev packages github.com/eslint/espree
 
 <br>
 
-**Use depsdev as a Go module**
+### Use depsdev as a Go module
+
+You can use *v3* or *v3alpha*.
+
+#### v3
+
+Core features with a stability guarantee and deprecation policy. Recommended for most users.
 
 ```Go
+package main
+
 import (
     "fmt"
-    "github.com/edoardottt/depsdev/pkg/depsdev"
+    "github.com/edoardottt/depsdev/pkg/depsdev/v3"
 )
 
 func main() {
-    client := depsdev.NewAPI()
+    client := depsdev.NewV3API()
+    i, err := client.GetInfo("npm", "defangjs")
+    if err != nil {
+      fmt.Println(err)
+    }
+    
+    fmt.Println(i)
+}
+```
+
+#### v3alpha
+
+All the features of v3, with additional experimental features. May change in incompatible ways from time to time.
+
+```Go
+package main
+
+import (
+    "fmt"
+    "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+)
+
+func main() {
+    client := depsdev.NewV3AlphaAPI()
     i, err := client.GetInfo("npm", "defangjs")
     if err != nil {
       fmt.Println(err)

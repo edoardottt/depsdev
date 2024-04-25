@@ -19,31 +19,37 @@ import (
 	"net/url"
 
 	"github.com/edoardottt/depsdev/pkg/client"
+	def "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
+	"github.com/edoardottt/depsdev/pkg/input"
 )
 
-type API struct {
+type APIv3Alpha struct {
 	client *client.Client
 }
 
-// NewAPI creates and returns an API object.
-func NewAPI() *API {
-	return &API{
-		client: client.New(BasePath),
+// NewV3AlphaAPI creates and returns a V3Alpha API object.
+func NewV3AlphaAPI() *APIv3Alpha {
+	return &APIv3Alpha{
+		client: client.New(V3AlphaBasePath),
 	}
 }
 
 // GetInfo returns information about a package for a specific package manager.
-func (a *API) GetInfo(packageManager, packageName string) (Package, error) {
+func (a *APIv3Alpha) GetInfo(packageManager, packageName string) (def.Package, error) {
+	if !input.IsValidPackageManager(packageManager) {
+		return def.Package{}, input.ErrInvalidPackageManager
+	}
+
 	return getPackage(a.client, packageManager, packageName)
 }
 
 // getPackage returns a Package object.
-func getPackage(c *client.Client, packageManager, packageName string) (Package, error) {
-	var response Package
+func getPackage(c *client.Client, packageManager, packageName string) (def.Package, error) {
+	var response def.Package
 
 	var path = fmt.Sprintf(GetPackagePath, packageManager, url.PathEscape(packageName))
 	if err := c.Get(path, &response); err != nil {
-		return Package{}, err
+		return def.Package{}, err
 	}
 
 	return response, nil
@@ -51,17 +57,21 @@ func getPackage(c *client.Client, packageManager, packageName string) (Package, 
 
 // GetVersion returns information about a specific version of a package
 // for a specific package manager.
-func (a *API) GetVersion(packageManager, packageName, version string) (Version, error) {
+func (a *APIv3Alpha) GetVersion(packageManager, packageName, version string) (def.Version, error) {
+	if !input.IsValidPackageManager(packageManager) {
+		return def.Version{}, input.ErrInvalidPackageManager
+	}
+
 	return getVersion(a.client, packageManager, packageName, version)
 }
 
 // getVersion returns a Version object.
-func getVersion(c *client.Client, packageManager, packageName, version string) (Version, error) {
-	var response Version
+func getVersion(c *client.Client, packageManager, packageName, version string) (def.Version, error) {
+	var response def.Version
 
 	var path = fmt.Sprintf(GetVersionPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
-		return Version{}, err
+		return def.Version{}, err
 	}
 
 	return response, nil
@@ -69,68 +79,68 @@ func getVersion(c *client.Client, packageManager, packageName, version string) (
 
 // GetDependencies returns information about dependencies for a specific version of a package
 // for a specific package manager.
-func (a *API) GetDependencies(packageManager, packageName, version string) (Dependencies, error) {
+func (a *APIv3Alpha) GetDependencies(packageManager, packageName, version string) (def.Dependencies, error) {
 	return getDependencies(a.client, packageManager, packageName, version)
 }
 
 // getDependencies returns a Dependencies object.
-func getDependencies(c *client.Client, packageManager, packageName, version string) (Dependencies, error) {
-	var response Dependencies
+func getDependencies(c *client.Client, packageManager, packageName, version string) (def.Dependencies, error) {
+	var response def.Dependencies
 
 	var path = fmt.Sprintf(GetDependenciesPath, packageManager, url.PathEscape(packageName), version)
 	if err := c.Get(path, &response); err != nil {
-		return Dependencies{}, err
+		return def.Dependencies{}, err
 	}
 
 	return response, nil
 }
 
 // GetProject returns information about a project (hosted on GitHub, GitLab or BitBucket).
-func (a *API) GetProject(projectName string) (Project, error) {
+func (a *APIv3Alpha) GetProject(projectName string) (def.Project, error) {
 	return getProject(a.client, projectName)
 }
 
 // getProject returns a Project object.
-func getProject(c *client.Client, projectName string) (Project, error) {
-	var response Project
+func getProject(c *client.Client, projectName string) (def.Project, error) {
+	var response def.Project
 
 	var path = fmt.Sprintf(GetProjectPath, url.PathEscape(projectName))
 	if err := c.Get(path, &response); err != nil {
-		return Project{}, err
+		return def.Project{}, err
 	}
 
 	return response, nil
 }
 
 // GetAdvisory returns information about an advisory.
-func (a *API) GetAdvisory(advisory string) (Advisory, error) {
+func (a *APIv3Alpha) GetAdvisory(advisory string) (def.Advisory, error) {
 	return getAdvisory(a.client, advisory)
 }
 
 // getAdvisory returns an Advisory object.
-func getAdvisory(c *client.Client, advisory string) (Advisory, error) {
-	var response Advisory
+func getAdvisory(c *client.Client, advisory string) (def.Advisory, error) {
+	var response def.Advisory
 
 	var path = fmt.Sprintf(GetAdvisoryPath, advisory)
 	if err := c.Get(path, &response); err != nil {
-		return Advisory{}, err
+		return def.Advisory{}, err
 	}
 
 	return response, nil
 }
 
-// GetQuery returns the result of the inputted query.
-func (a *API) GetQuery(query string) (Package, error) {
+// Query returns the result of the inputted query.
+func (a *APIv3Alpha) Query(query string) (def.Package, error) {
 	return getQuery(a.client, query)
 }
 
 // getQuery returns a Package object given a query.
-func getQuery(c *client.Client, query string) (Package, error) {
-	var response Package
+func getQuery(c *client.Client, query string) (def.Package, error) {
+	var response def.Package
 
-	var path = GetQueryPath + `?` + query
+	var path = QueryPath + `?` + query
 	if err := c.Get(path, &response); err != nil {
-		return Package{}, err
+		return def.Package{}, err
 	}
 
 	return response, nil
@@ -138,12 +148,12 @@ func getQuery(c *client.Client, query string) (Package, error) {
 
 // GetRequirements returns the requirements for a given version in a system-specific format.
 // Requirements are currently available for Maven, npm and NuGet.
-func (a *API) GetRequirements(packageManager, packageName, version string) (Requirements, error) {
-	var response Requirements
+func (a *APIv3Alpha) GetRequirements(packageManager, packageName, version string) (def.Requirements, error) {
+	var response def.Requirements
 
 	var path = fmt.Sprintf(GetRequirementsPath, packageManager, url.PathEscape(packageName), version)
 	if err := a.client.Get(path, &response); err != nil {
-		return Requirements{}, err
+		return def.Requirements{}, err
 	}
 
 	return response, nil
@@ -152,12 +162,12 @@ func (a *API) GetRequirements(packageManager, packageName, version string) (Requ
 // GetPackageVersions returns the package versions which attest to being created from the specified
 // source code repository (hosted on GitHub, GitLab or BitBucket).
 // At most 1500 package versions are returned.
-func (a *API) GetPackageVersions(projectName string) (PackageVersions, error) {
-	var response PackageVersions
+func (a *APIv3Alpha) GetPackageVersions(projectName string) (def.PackageVersions, error) {
+	var response def.PackageVersions
 
 	var path = fmt.Sprintf(GetProjectPackageVersionsPath, url.PathEscape(projectName))
 	if err := a.client.Get(path, &response); err != nil {
-		return PackageVersions{}, err
+		return def.PackageVersions{}, err
 	}
 
 	return response, nil

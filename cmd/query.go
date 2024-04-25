@@ -39,7 +39,7 @@ and any given artifact may appear in many package versions.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		p, err := api.GetQuery(args[0])
+		p, err := api.Query(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}

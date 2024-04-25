@@ -16,7 +16,7 @@ package depsdev
 
 const (
 	// API base path.
-	BasePath = `https://api.deps.dev/v3alpha`
+	V3AlphaBasePath = `https://api.deps.dev/v3alpha`
 
 	// API routes.
 	GetPackagePath                = `/systems/%s/packages/%s`
@@ -24,7 +24,12 @@ const (
 	GetDependenciesPath           = `/systems/%s/packages/%s/versions/%s:dependencies`
 	GetProjectPath                = `/projects/%s`
 	GetAdvisoryPath               = `/advisories/%s`
-	GetQueryPath                  = `/query`
+	QueryPath                     = `/query`
 	GetRequirementsPath           = `/systems/%s/packages/%s/versions/%s:requirements`
 	GetProjectPackageVersionsPath = `/projects/%s:packageversions`
+	GetVersionBatchPath           = `/versionbatch`
+	GetProjectBatchPath           = `/projectbatch`
+	GetSimilarlyNamedPackagesPath = `/systems/%s/packages/%s:similarlyNamedPackages`
+	PurlLookupPath                = `/purl/%s`
+	PurlLookupBatch               = `/purlbatch`
 )

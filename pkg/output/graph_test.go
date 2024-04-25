@@ -19,7 +19,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
+	definitions "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/stretchr/testify/require"
 )
@@ -361,11 +361,13 @@ func TestGenerateGraph(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := depsdev.Dependencies{}
+			d := definitions.Dependencies{}
+
 			err := json.Unmarshal([]byte(tt.input), &d)
 			if err != nil {
 				log.Fatal("error while unmarshaling test input")
 			}
+
 			got, err := output.GenerateGraph(d)
 			require.Nil(t, err)
 			require.Equal(t, tt.want, got)
