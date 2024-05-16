@@ -18,9 +18,9 @@ import "time"
 
 type Project struct {
 	ProjectKey      ProjectKey `json:"projectKey,omitempty"`
-	OpenIssuesCount string     `json:"openIssuesCount,omitempty"`
-	StarsCount      string     `json:"starsCount,omitempty"`
-	ForksCount      string     `json:"forksCount,omitempty"`
+	OpenIssuesCount int        `json:"openIssuesCount,omitempty"`
+	StarsCount      int        `json:"starsCount,omitempty"`
+	ForksCount      int        `json:"forksCount,omitempty"`
 	License         string     `json:"license,omitempty"`
 	Description     string     `json:"description,omitempty"`
 	Homepage        string     `json:"homepage,omitempty"`
