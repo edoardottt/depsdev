@@ -50,7 +50,7 @@ type Documentation struct {
 type Checks struct {
 	Name          string        `json:"name,omitempty"`
 	Documentation Documentation `json:"documentation,omitempty"`
-	Score         string        `json:"score,omitempty"`
+	Score         float64       `json:"score,omitempty"`
 	Reason        string        `json:"reason,omitempty"`
 	Details       []string      `json:"details,omitempty"`
 }
@@ -65,9 +65,9 @@ type Scorecard struct {
 }
 
 type OssFuzz struct {
-	LineCount        string    `json:"lineCount,omitempty"`
-	LineCoverCount   string    `json:"lineCoverCount,omitempty"`
-	LineCoverPercent string    `json:"lineCoverPercent,omitempty"`
+	LineCount        int       `json:"lineCount,omitempty"`
+	LineCoverCount   int       `json:"lineCoverCount,omitempty"`
+	LineCoverPercent float64   `json:"lineCoverPercent,omitempty"`
 	Date             time.Time `json:"date,omitempty"`
 	ConfigURL        string    `json:"configUrl,omitempty"`
 }
