@@ -12,7 +12,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 */
 
-package depsdev
+package definitions
 
 type ErrorResponse struct {
 	Message string `json:"error,omitempty"`

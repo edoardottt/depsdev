@@ -12,7 +12,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 */
 
-package depsdev
+package definitions
 
 type Advisory struct {
 	AdvisoryKey AdvisoryKey `json:"advisoryKey,omitempty"`
