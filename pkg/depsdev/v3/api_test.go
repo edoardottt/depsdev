@@ -21,12 +21,24 @@ import (
 
 	def "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
 	"github.com/edoardottt/depsdev/pkg/depsdev/v3"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 var (
 	api = depsdev.NewV3API()
 )
+
+func TestGetProject(t *testing.T) {
+	t.Run("GetInfo npm defangjs", func(t *testing.T) {
+		got, err := api.GetProject("github.com/edoardottt/defangjs")
+		require.Nil(t, err)
+
+		// no checking of the actual value because they can change over time
+		//  we just ensure the call to the API and unmarshaling of the response works properly
+		assert.NotEmpty(t, got)
+	})
+}
 
 func TestGetInfo(t *testing.T) {
 	result := `{
