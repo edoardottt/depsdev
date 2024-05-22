@@ -15,6 +15,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"net"
@@ -113,4 +114,13 @@ func (c *Client) RawGet(path string) ([]byte, error) {
 
 func (c *Client) Get(path string, target interface{}) error {
 	return c.do(http.MethodGet, path, target, nil)
+}
+
+func (c *Client) Post(path string, body interface{}, target interface{}) error {
+	buf := bytes.Buffer{}
+	if err := json.NewEncoder(&buf).Encode(body); err != nil {
+		return err
+	}
+
+	return c.do(http.MethodPost, path, target, &buf)
 }

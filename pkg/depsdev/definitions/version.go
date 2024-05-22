@@ -49,3 +49,9 @@ type RelatedProjects struct {
 	RelationProvenance string     `json:"relationProvenance,omitempty"`
 	RelationType       string     `json:"relationType,omitempty"`
 }
+
+type VersionBatchRequest struct {
+	PackageManager string `json:"system"`
+	PackageName    string `json:"name"`
+	Version        string `json:"version"`
+}

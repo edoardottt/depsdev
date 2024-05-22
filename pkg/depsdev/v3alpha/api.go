@@ -15,6 +15,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package depsdev
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 
@@ -171,4 +172,148 @@ func (a *APIv3Alpha) GetPackageVersions(projectName string) (def.PackageVersions
 	}
 
 	return response, nil
+}
+
+// GetVersionBatch retrieves a batch of versions for the given version batch requests.
+// The response can be paginated, so the method returns an iterator that allows you to retrieve all the pages content sequentially.
+func (a *APIv3Alpha) GetVersionBatch(req []def.VersionBatchRequest) (*Iterator[def.Version], error) {
+	for _, r := range req {
+		if !input.IsValidPackageManager(r.PackageManager) {
+			return nil, input.ErrInvalidPackageManager
+		}
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cIn := getVersionBatch(ctx, a.client, req)
+	iter := Iterator[def.Version]{
+		cIn:     cIn,
+		item:    def.Version{},
+		err:     nil,
+		hasNext: true,
+		cancel:  cancel,
+	}
+
+	return &iter, nil
+}
+
+type versionBatchResponse struct {
+	Responses []struct {
+		Version def.Version `json:"version"`
+	} `json:"responses"`
+	NextPageToken string `json:"nextPageToken"`
+}
+
+func getVersionBatch(ctx context.Context, c *client.Client, req []def.VersionBatchRequest) <-chan batchJob[def.Version] {
+	cJob := make(chan batchJob[def.Version])
+
+	go func() {
+		defer close(cJob)
+
+		requests := []map[string]def.VersionBatchRequest{}
+		for _, r := range req {
+			requests = append(requests, map[string]def.VersionBatchRequest{"versionKey": r})
+		}
+
+		body := map[string]any{
+			"requests":  requests,
+			"pageToken": "",
+		}
+
+		response := versionBatchResponse{
+			NextPageToken: "first",
+		}
+
+		for response.NextPageToken != "" {
+			if err := c.Post(GetVersionBatchPath, body, &response); err != nil {
+				cJob <- batchJob[def.Version]{
+					Err: err,
+				}
+				return
+			}
+
+			for _, r := range response.Responses {
+				select {
+				case <-ctx.Done():
+					return
+				default:
+					cJob <- batchJob[def.Version]{
+						Item: r.Version,
+					}
+				}
+			}
+
+			body["pageToken"] = response.NextPageToken
+		}
+	}()
+
+	return cJob
+}
+
+// GetProjectBatch retrieves a batch of projects.
+// The response can be paginated, so the method returns an iterator that allows you to retrieve all the pages content sequentially.
+func (a *APIv3Alpha) GetProjectBatch(projectNames []string) (*Iterator[def.Project], error) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cIn := getProjectBatch(ctx, a.client, projectNames)
+	iter := Iterator[def.Project]{
+		cIn:     cIn,
+		item:    def.Project{},
+		err:     nil,
+		hasNext: true,
+		cancel:  cancel,
+	}
+
+	return &iter, nil
+}
+
+type projectBatchResponse struct {
+	Responses []struct {
+		Project def.Project `json:"project"`
+	} `json:"responses"`
+	NextPageToken string `json:"nextPageToken"`
+}
+
+func getProjectBatch(ctx context.Context, c *client.Client, projectNames []string) <-chan batchJob[def.Project] {
+	cJob := make(chan batchJob[def.Project])
+
+	go func() {
+		defer close(cJob)
+
+		requests := []map[string]def.ProjectKey{}
+		for _, n := range projectNames {
+			requests = append(requests, map[string]def.ProjectKey{"projectKey": {ID: n}})
+		}
+
+		body := map[string]any{
+			"requests":  requests,
+			"pageToken": "",
+		}
+
+		response := projectBatchResponse{
+			NextPageToken: "first",
+		}
+
+		for response.NextPageToken != "" {
+			if err := c.Post(GetProjectBatchPath, body, &response); err != nil {
+				cJob <- batchJob[def.Project]{
+					Err: err,
+				}
+				return
+			}
+
+			for _, r := range response.Responses {
+				select {
+				case <-ctx.Done():
+					return
+				default:
+					cJob <- batchJob[def.Project]{
+						Item: r.Project,
+					}
+				}
+			}
+
+			body["pageToken"] = response.NextPageToken
+		}
+	}()
+
+	return cJob
 }
