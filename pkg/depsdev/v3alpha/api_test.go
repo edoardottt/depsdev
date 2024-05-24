@@ -539,8 +539,10 @@ func TestGetVersionBatch(t *testing.T) {
 				Version:        "1.0.7",
 			},
 		})
+
 		require.Nil(t, err)
 		assert.NotNil(t, iter)
+
 		defer iter.Close()
 
 		expected := []def.Version{
@@ -646,8 +648,10 @@ func TestGetProjectBatch(t *testing.T) {
 			"github.com/facebook/react",
 			"github.com/angular/angular",
 		})
+
 		require.Nil(t, err)
 		assert.NotNil(t, iter)
+
 		defer iter.Close()
 
 		results, err := consumeIter(iter)
@@ -659,6 +663,7 @@ func TestGetProjectBatch(t *testing.T) {
 
 func consumeIter[T any](iter *depsdev.Iterator[T]) ([]T, error) {
 	l := []T{}
+
 	for iter.Next() {
 		v, err := iter.Item()
 		if err != nil {
@@ -666,5 +671,6 @@ func consumeIter[T any](iter *depsdev.Iterator[T]) ([]T, error) {
 		}
 		l = append(l, v)
 	}
+
 	return l, nil
 }

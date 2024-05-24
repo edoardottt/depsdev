@@ -228,6 +228,7 @@ func getVersionBatch(ctx context.Context, c *client.Client, req []def.VersionBat
 				cJob <- batchJob[def.Version]{
 					Err: err,
 				}
+
 				return
 			}
 
@@ -297,6 +298,7 @@ func getProjectBatch(ctx context.Context, c *client.Client, projectNames []strin
 				cJob <- batchJob[def.Project]{
 					Err: err,
 				}
+				
 				return
 			}
 
