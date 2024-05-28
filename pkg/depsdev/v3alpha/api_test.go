@@ -18,9 +18,11 @@ import (
 	"encoding/json"
 	"log"
 	"testing"
+	"time"
 
 	def "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
 	depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -521,4 +523,173 @@ func TestGetRequirements(t *testing.T) {
 
 		require.Equal(t, r, got)
 	})
+}
+
+func TestGetVersionBatch(t *testing.T) {
+	t.Run("GetVersion batch", func(t *testing.T) {
+		iter, err := api.GetVersionBatch([]def.VersionBatchRequest{
+			{
+				PackageManager: "NPM",
+				PackageName:    "@colors/colors",
+				Version:        "1.5.0",
+			},
+			{
+				PackageManager: "NPM",
+				PackageName:    "defangjs",
+				Version:        "1.0.7",
+			},
+		})
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		expected := []def.Version{
+			{
+				VersionKey: def.VersionKey{
+					System:  "NPM",
+					Name:    "@colors/colors",
+					Version: "1.5.0",
+				},
+				IsDefault:    false,
+				Licenses:     []string{"MIT"},
+				AdvisoryKeys: []def.AdvisoryKeys{},
+				Links: []def.Links{
+					{
+						Label: "HOMEPAGE",
+						URL:   "https://github.com/DABH/colors.js"},
+					{
+						Label: "ISSUE_TRACKER",
+						URL:   "https://github.com/DABH/colors.js/issues",
+					},
+					{
+						Label: "ORIGIN",
+						URL:   "https://registry.npmjs.org/@colors%2Fcolors/1.5.0",
+					},
+					{
+						Label: "SOURCE_REPO",
+						URL:   "git+ssh://git@github.com/DABH/colors.js.git",
+					},
+				},
+				SlsaProvenances: []def.SLSAProvenances{},
+				PublishedAt:     time.Date(2022, time.February, 12, 7, 39, 4, 0, time.UTC),
+				Registries:      []string{"https://registry.npmjs.org/"},
+				RelatedProjects: []def.RelatedProjects{
+					{
+						ProjectKey:         def.ProjectKey{ID: "github.com/dabh/colors.js"},
+						RelationProvenance: "UNVERIFIED_METADATA",
+						RelationType:       "ISSUE_TRACKER",
+					},
+					{
+						ProjectKey:         def.ProjectKey{ID: "github.com/dabh/colors.js"},
+						RelationProvenance: "UNVERIFIED_METADATA",
+						RelationType:       "SOURCE_REPO"},
+				},
+			},
+			{
+				VersionKey: def.VersionKey{
+					System:  "NPM",
+					Name:    "defangjs",
+					Version: "1.0.7",
+				},
+				IsDefault:    true,
+				Licenses:     []string{"GPL-3.0"},
+				AdvisoryKeys: []def.AdvisoryKeys{},
+				Links: []def.Links{
+					{
+						Label: "HOMEPAGE",
+						URL:   "https://github.com/edoardottt/defangjs#readme",
+					},
+					{
+
+						Label: "ISSUE_TRACKER",
+						URL:   "https://github.com/edoardottt/defangjs/issues",
+					},
+					{
+
+						Label: "ORIGIN",
+						URL:   "https://registry.npmjs.org/defangjs/1.0.7",
+					},
+					{
+
+						Label: "SOURCE_REPO",
+						URL:   "git+https://github.com/edoardottt/defangjs.git",
+					},
+				},
+				SlsaProvenances: []def.SLSAProvenances{},
+				PublishedAt:     time.Date(2023, time.May, 16, 9, 48, 31, 0, time.UTC),
+				Registries:      []string{"https://registry.npmjs.org/"},
+				RelatedProjects: []def.RelatedProjects{
+					{
+						ProjectKey:         def.ProjectKey{ID: "github.com/edoardottt/defangjs"},
+						RelationProvenance: "UNVERIFIED_METADATA",
+						RelationType:       "ISSUE_TRACKER",
+					},
+					{
+						ProjectKey:         def.ProjectKey{ID: "github.com/edoardottt/defangjs"},
+						RelationProvenance: "UNVERIFIED_METADATA",
+						RelationType:       "SOURCE_REPO",
+					},
+				},
+			},
+		}
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, expected, results)
+	})
+}
+
+func TestGetProjectBatch(t *testing.T) {
+	t.Run("GetProject batch", func(t *testing.T) {
+		iter, err := api.GetProjectBatch([]string{
+			"github.com/edoardottt/depsdev",
+			"github.com/facebook/react",
+			"github.com/angular/angular",
+		})
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, 3, len(results))
+	})
+
+	t.Run("GetProject batch multi pages", func(t *testing.T) {
+		const N = 300
+		projects := make([]string, 0, N)
+		for i := 0; i < N; i++ {
+			projects = append(projects, "github.com/edoardottt/depsdev")
+		}
+		iter, err := api.GetProjectBatch(projects)
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, N, len(results))
+	})
+}
+
+func consumeIter[T any](iter *depsdev.Iterator[T]) ([]T, error) {
+	l := []T{}
+
+	for iter.Next() {
+		v, err := iter.Item()
+		if err != nil {
+			return nil, err
+		}
+		l = append(l, v)
+	}
+
+	return l, nil
 }
