@@ -234,4 +234,4 @@ License 📝
 -------
 
 This repository is under [Apache2.0 License](https://github.com/edoardottt/depsdev/blob/main/LICENSE).  
-[edoardoottavianelli.it](https://www.edoardoottavianelli.it) to contact me.
+[edoardottt.com](https://edoardottt.com) to contact me.
