@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -15,6 +15,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"net"
@@ -113,4 +114,13 @@ func (c *Client) RawGet(path string) ([]byte, error) {
 
 func (c *Client) Get(path string, target interface{}) error {
 	return c.do(http.MethodGet, path, target, nil)
+}
+
+func (c *Client) Post(path string, body interface{}, target interface{}) error {
+	buf := bytes.Buffer{}
+	if err := json.NewEncoder(&buf).Encode(body); err != nil {
+		return err
+	}
+
+	return c.do(http.MethodPost, path, target, &buf)
 }

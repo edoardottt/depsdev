@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -17,12 +17,12 @@ package cmd
 import (
 	"os"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
+	depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
-var api *depsdev.API
+var api *depsdev.APIv3Alpha
 
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
@@ -30,7 +30,7 @@ var rootCmd = &cobra.Command{
 	Short: output.ShortDescription,
 	Long:  output.Banner,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		api = depsdev.NewAPI()
+		api = depsdev.NewV3AlphaAPI()
 	},
 }
 

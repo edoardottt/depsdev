@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -15,12 +15,12 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package depsdev
 
 type Requirements struct {
-	Nuget *NugetRequirement `json:"nuget,omitempty"`
-	Npm   *NpmRequirement   `json:"npm,omitempty"`
-	Maven *MavenRequirement `json:"maven,omitempty"`
+	Nuget *Nuget `json:"nuget,omitempty"`
+	Npm   *Npm   `json:"npm,omitempty"`
+	Maven *Maven `json:"maven,omitempty"`
 }
 
-type NugetRequirement struct {
+type Nuget struct {
 	DependependencyGroups []DependependencyGroup `json:"dependencyGroups,omitempty"`
 }
 
@@ -41,7 +41,7 @@ type Dependency struct {
 	Exclusions  []string `json:"exclusions,omitempty"`
 }
 
-type NpmRequirement struct {
+type Npm struct {
 	Dependencies NpmDependency `json:"dependencies,omitempty"`
 	Bundled      []Bundled     `json:"bundled,omitempty"`
 }
@@ -61,15 +61,15 @@ type NpmDependency struct {
 	BundleDependencies   []string     `json:"bundleDependencies"`
 }
 
-type MavenRequirement struct {
-	ID                   string             `json:"id,omitempty"`
-	Parent               Dependency         `json:"parent,omitempty"`
-	Activation           Activation         `json:"activation,omitempty"`
-	Dependencies         []Dependency       `json:"dependencies,omitempty"`
-	DependencyManagement []Dependency       `json:"dependency_management,omitempty"`
-	Properties           []Property         `json:"properties,omitempty"`
-	Repositories         []MavenRepository  `json:"repositories,omitempty"`
-	Profiles             []MavenRequirement `json:"profiles,omitempty"`
+type Maven struct {
+	ID                   string            `json:"id,omitempty"`
+	Parent               Dependency        `json:"parent,omitempty"`
+	Activation           Activation        `json:"activation,omitempty"`
+	Dependencies         []Dependency      `json:"dependencies,omitempty"`
+	DependencyManagement []Dependency      `json:"dependency_management,omitempty"`
+	Properties           []Property        `json:"properties,omitempty"`
+	Repositories         []MavenRepository `json:"repositories,omitempty"`
+	Profiles             []Maven           `json:"profiles,omitempty"`
 }
 
 type Property struct {

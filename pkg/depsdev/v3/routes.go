@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -16,7 +16,7 @@ package depsdev
 
 const (
 	// API base path.
-	BasePath = `https://api.deps.dev/v3alpha`
+	V3BasePath = `https://api.deps.dev/v3`
 
 	// API routes.
 	GetPackagePath                = `/systems/%s/packages/%s`
@@ -24,7 +24,7 @@ const (
 	GetDependenciesPath           = `/systems/%s/packages/%s/versions/%s:dependencies`
 	GetProjectPath                = `/projects/%s`
 	GetAdvisoryPath               = `/advisories/%s`
-	GetQueryPath                  = `/query`
+	QueryPath                     = `/query`
 	GetRequirementsPath           = `/systems/%s/packages/%s/versions/%s:requirements`
 	GetProjectPackageVersionsPath = `/projects/%s:packageversions`
 )

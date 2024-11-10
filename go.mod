@@ -1,10 +1,10 @@
 module github.com/edoardottt/depsdev
 
-go 1.19
+go 1.21
 
 require (
 	github.com/avast/retry-go v3.0.0+incompatible
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 )
 

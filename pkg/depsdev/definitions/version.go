@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -48,4 +48,10 @@ type RelatedProjects struct {
 	ProjectKey         ProjectKey `json:"projectKey,omitempty"`
 	RelationProvenance string     `json:"relationProvenance,omitempty"`
 	RelationType       string     `json:"relationType,omitempty"`
+}
+
+type VersionBatchRequest struct {
+	PackageManager string `json:"system"`
+	PackageName    string `json:"name"`
+	Version        string `json:"version"`
 }

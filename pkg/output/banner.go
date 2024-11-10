@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -17,10 +17,10 @@ package output
 import "fmt"
 
 const (
-	Version = `0.1.0`
+	Version = `0.2.0`
 	Banner  = `depsdev v` + Version + `
   > https://github.com/edoardottt/depsdev
-  > @edoardottt, https://www.edoardoottavianelli.it/`
+  > @edoardottt, https://edoardottt.com/`
 	ShortDescription = `CLI client for deps.dev API`
 )
 

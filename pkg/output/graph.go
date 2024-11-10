@@ -4,7 +4,7 @@ depsdev - CLI client for deps.dev API.
 Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 
 
-@author: edoardottt, https://www.edoardoottavianelli.it/
+@author: edoardottt, https://edoardottt.com/
 
 @repository: https://github.com/edoardottt/depsdev
 
@@ -20,7 +20,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/edoardottt/depsdev/pkg/depsdev"
+	definitions "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
 )
 
 var (
@@ -30,7 +30,7 @@ var (
 
 // GenerateGraph takes as input a Dependencies struct and
 // returns a Graphviz compatible graph.
-func GenerateGraph(d depsdev.Dependencies) (string, error) {
+func GenerateGraph(d definitions.Dependencies) (string, error) {
 	if d.Error != "" {
 		return "", fmt.Errorf("%w: %s", ErrGraphDependencies, d.Error)
 	}
