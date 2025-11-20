@@ -662,10 +662,12 @@ func TestGetProjectBatch(t *testing.T) {
 
 	t.Run("GetProject batch multi pages", func(t *testing.T) {
 		const N = 300
+
 		projects := make([]string, 0, N)
 		for i := 0; i < N; i++ {
 			projects = append(projects, "github.com/edoardottt/depsdev")
 		}
+
 		iter, err := api.GetProjectBatch(projects)
 
 		require.Nil(t, err)
@@ -688,6 +690,7 @@ func consumeIter[T any](iter *depsdev.Iterator[T]) ([]T, error) {
 		if err != nil {
 			return nil, err
 		}
+
 		l = append(l, v)
 	}
 

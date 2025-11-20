@@ -24,6 +24,11 @@ import (
 
 var api *depsdev.APIv3Alpha
 
+const (
+	minArgsThree = 3
+	minArgsTwo   = 2
+)
+
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
 	Use:   "depsdev",

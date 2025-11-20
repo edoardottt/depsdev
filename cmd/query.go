@@ -46,7 +46,7 @@ and any given artifact may appear in many package versions.`,
 
 		pJSON, err := output.IndentJSON(p)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(pJSON)

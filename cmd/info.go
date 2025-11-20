@@ -32,7 +32,7 @@ with the default version marked if known.
 If version is also specified, returns information about a specific package version 
 including its licenses and any security advisories known to affect it.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 2 {
+		if len(args) < minArgsTwo {
 			return fmt.Errorf("%s %w", "two", input.ErrArgumentsLeast)
 		}
 
@@ -43,7 +43,7 @@ including its licenses and any security advisories known to affect it.`,
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) > 2 {
+		if len(args) >= minArgsThree {
 			v, err := api.GetVersion(args[0], args[1], args[2])
 			if err != nil {
 				log.Fatal(err)
@@ -51,7 +51,7 @@ including its licenses and any security advisories known to affect it.`,
 
 			vJSON, err := output.IndentJSON(v)
 			if err != nil {
-				log.Fatalf(err.Error())
+				log.Fatal(err.Error())
 			}
 
 			fmt.Println(vJSON)
@@ -63,7 +63,7 @@ including its licenses and any security advisories known to affect it.`,
 
 			pJSON, err := output.IndentJSON(p)
 			if err != nil {
-				log.Fatalf(err.Error())
+				log.Fatal(err.Error())
 			}
 
 			fmt.Println(pJSON)

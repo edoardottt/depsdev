@@ -76,7 +76,6 @@ func (c *Client) do(method, path string, target interface{}, body io.Reader) err
 	}
 
 	resp, err := c.underlying.Do(req)
-
 	if err != nil {
 		return err
 	}
@@ -97,7 +96,6 @@ func (c *Client) RawGet(path string) ([]byte, error) {
 	}
 
 	resp, err := c.underlying.Do(req)
-
 	if err != nil {
 		return []byte{}, err
 	}
