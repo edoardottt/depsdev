@@ -348,7 +348,7 @@ func TestGetAdvisory(t *testing.T) {
 		  "CVE-2021-44228"
 		],
 		"cvss3Score": 10,
-		"cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H"
+		"cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H"
 	  }`
 
 	t.Run("GetAdvisory GHSA-jfh8-c2jp-5v3q", func(t *testing.T) {
