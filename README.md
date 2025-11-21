@@ -85,8 +85,6 @@ For more information [read the API documentation](https://docs.deps.dev/api/v3).
 
 ### CLI
 
-<br>
-
 Get information about a package, including a list of its available versions, with the default version marked if known.
 
 ```console
