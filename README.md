@@ -83,7 +83,7 @@ Examples 💡
 
 For more information [read the API documentation](https://docs.deps.dev/api/v3).
 
-### CLI
+### Command Line
 
 Get information about a package, including a list of its available versions, with the default version marked if known.
 
@@ -155,7 +155,7 @@ Returns known mappings between the requested project and package versions.
 depsdev packages github.com/eslint/espree
 ```
 
-### Use depsdev as a Go module
+### Go module
 
 You can use *v3* or *v3alpha*.
 
