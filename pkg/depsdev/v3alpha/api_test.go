@@ -32,78 +32,102 @@ var (
 
 func TestGetInfo(t *testing.T) {
 	result := `{
-		"packageKey": {
-		  "system": "NPM",
-		  "name": "defangjs"
+	"packageKey":{
+		"system":"NPM",
+		"name":"defangjs"
+	},
+	"purl":"pkg:npm/defangjs",
+	"versions":[
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.0"
+			},
+			"purl":"pkg:npm/defangjs@1.0.0",
+			"publishedAt":"2022-03-10T19:53:06Z",
+			"isDefault":false,
+			"isDeprecated":false
 		},
-		"versions": [
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.0"
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.1"
 			},
-			"publishedAt": "2022-03-10T19:53:06Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.1"
+			"purl":"pkg:npm/defangjs@1.0.1",
+			"publishedAt":"2022-03-11T13:44:30Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.2"
 			},
-			"publishedAt": "2022-03-11T13:44:30Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.2"
+			"purl":"pkg:npm/defangjs@1.0.2",
+			"publishedAt":"2022-03-11T13:52:09Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.3"
 			},
-			"publishedAt": "2022-03-11T13:52:09Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.3"
+			"purl":"pkg:npm/defangjs@1.0.3",
+			"publishedAt":"2022-03-12T15:41:16Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.4"
 			},
-			"publishedAt": "2022-03-12T15:41:16Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.4"
+			"purl":"pkg:npm/defangjs@1.0.4",
+			"publishedAt":"2022-03-17T18:13:31Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.5"
 			},
-			"publishedAt": "2022-03-17T18:13:31Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.5"
+			"purl":"pkg:npm/defangjs@1.0.5",
+			"publishedAt":"2022-05-07T13:17:15Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.6"
 			},
-			"publishedAt": "2022-05-07T13:17:15Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.6"
+			"purl":"pkg:npm/defangjs@1.0.6",
+			"publishedAt":"2022-09-17T12:46:20Z",
+			"isDefault":false,
+			"isDeprecated":false
+		},
+		{
+			"versionKey":{
+				"system":"NPM",
+				"name":"defangjs",
+				"version":"1.0.7"
 			},
-			"publishedAt": "2022-09-17T12:46:20Z"
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "defangjs",
-			  "version": "1.0.7"
-			},
-			"isDefault": true,
-			"publishedAt": "2023-05-16T09:48:31Z"
-		  }
-		]
-	  }`
+			"purl":"pkg:npm/defangjs@1.0.7",
+			"publishedAt":"2023-05-16T09:48:31Z",
+			"isDefault":true,
+			"isDeprecated":false
+		}
+	]
+}`
 
 	t.Run("GetInfo npm defangjs", func(t *testing.T) {
 		got, err := api.GetInfo("npm", "defangjs")
@@ -126,12 +150,22 @@ func TestGetVersion(t *testing.T) {
 		"name":"defangjs",
 		"version":"1.0.7"
 	},
+	"purl":"pkg:npm/defangjs@1.0.7",
 	"publishedAt":"2023-05-16T09:48:31Z",
 	"isDefault":true,
+	"isDeprecated":false,
 	"licenses":[
 		"GPL-3.0"
 	],
-	"advisoryKeys":[],
+	"licenseDetails":[
+		{
+			"license":"GPL-3.0",
+			"spdx":"GPL-3.0"
+		}
+	],
+	"advisoryKeys":[
+		
+	],
 	"links":[
 		{
 			"label":"HOMEPAGE",
@@ -150,8 +184,12 @@ func TestGetVersion(t *testing.T) {
 			"url":"git+https://github.com/edoardottt/defangjs.git"
 		}
 	],
-	"slsaProvenances":[],
-	"attestations":[],
+	"slsaProvenances":[
+		
+	],
+	"attestations":[
+		
+	],
 	"registries":[
 		"https://registry.npmjs.org/"
 	],
@@ -169,6 +207,13 @@ func TestGetVersion(t *testing.T) {
 			},
 			"relationProvenance":"UNVERIFIED_METADATA",
 			"relationType":"SOURCE_REPO"
+		}
+	],
+	"upstreamIdentifiers":[
+		{
+			"packageName":"defangjs",
+			"versionString":"1.0.7",
+			"source":"NPM_NPMJS_ORG"
 		}
 	]
 }`
@@ -528,17 +573,24 @@ func TestGetRequirements(t *testing.T) {
 
 func TestGetVersionBatch(t *testing.T) {
 	t.Run("GetVersion batch", func(t *testing.T) {
-		iter, err := api.GetVersionBatch([]def.VersionBatchRequest{
-			{
-				PackageManager: "NPM",
-				PackageName:    "@colors/colors",
-				Version:        "1.5.0",
+		iter, err := api.GetVersionBatch(def.VersionBatchBody{
+			Requests: []def.VersionBatchRequest{
+				{
+					VersionKey: def.VersionKey{
+						System:  "NPM",
+						Name:    "@colors/colors",
+						Version: "1.5.0",
+					},
+				},
+				{
+					VersionKey: def.VersionKey{
+						System:  "NPM",
+						Name:    "defangjs",
+						Version: "1.0.7",
+					},
+				},
 			},
-			{
-				PackageManager: "NPM",
-				PackageName:    "defangjs",
-				Version:        "1.0.7",
-			},
+			PageToken: "",
 		})
 
 		require.Nil(t, err)
@@ -553,8 +605,14 @@ func TestGetVersionBatch(t *testing.T) {
 					Name:    "@colors/colors",
 					Version: "1.5.0",
 				},
-				IsDefault:      false,
-				Licenses:       []string{"MIT"},
+				IsDefault: false,
+				Licenses:  []string{"MIT"},
+				LicenseDetails: []def.LicenseDetail{
+					{
+						License: "MIT",
+						Spdx:    "MIT",
+					},
+				},
 				AdvisoryKeys:   []def.AdvisoryKey{},
 				SlsaProvenance: []def.SlsaProvenance{},
 				Links: []def.Link{
@@ -574,10 +632,11 @@ func TestGetVersionBatch(t *testing.T) {
 						URL:   "git+ssh://git@github.com/DABH/colors.js.git",
 					},
 				},
-				Attestation: []def.Attestation{},
-				PublishedAt: time.Date(2022, time.February, 12, 7, 39, 4, 0, time.UTC),
-				Registries:  []string{"https://registry.npmjs.org/"},
-				RelatedProject: []def.RelatedProject{
+				Purl:         "pkg:npm/%40colors/colors@1.5.0",
+				Attestations: []def.Attestation{},
+				PublishedAt:  time.Date(2022, time.February, 12, 7, 39, 4, 0, time.UTC),
+				Registries:   []string{"https://registry.npmjs.org/"},
+				RelatedProjects: []def.RelatedProject{
 					{
 						ProjectKey:         def.ProjectKey{ID: "github.com/dabh/colors.js"},
 						RelationProvenance: "UNVERIFIED_METADATA",
@@ -588,6 +647,13 @@ func TestGetVersionBatch(t *testing.T) {
 						RelationProvenance: "UNVERIFIED_METADATA",
 						RelationType:       "SOURCE_REPO"},
 				},
+				UpstreamIdentifiers: []def.UpstreamIdentifier{
+					{
+						PackageName:   "@colors/colors",
+						VersionString: "1.5.0",
+						Source:        "NPM_NPMJS_ORG",
+					},
+				},
 			},
 			{
 				VersionKey: def.VersionKey{
@@ -595,9 +661,16 @@ func TestGetVersionBatch(t *testing.T) {
 					Name:    "defangjs",
 					Version: "1.0.7",
 				},
-				IsDefault:      true,
-				Licenses:       []string{"GPL-3.0"},
+				IsDefault: true,
+				Licenses:  []string{"GPL-3.0"},
+				LicenseDetails: []def.LicenseDetail{
+					{
+						License: "GPL-3.0",
+						Spdx:    "GPL-3.0",
+					},
+				},
 				AdvisoryKeys:   []def.AdvisoryKey{},
+				Purl:           "pkg:npm/defangjs@1.0.7",
 				SlsaProvenance: []def.SlsaProvenance{},
 				Links: []def.Link{
 					{
@@ -620,10 +693,10 @@ func TestGetVersionBatch(t *testing.T) {
 						URL:   "git+https://github.com/edoardottt/defangjs.git",
 					},
 				},
-				Attestation: make([]def.Attestation, 0),
-				PublishedAt: time.Date(2023, time.May, 16, 9, 48, 31, 0, time.UTC),
-				Registries:  []string{"https://registry.npmjs.org/"},
-				RelatedProject: []def.RelatedProject{
+				Attestations: make([]def.Attestation, 0),
+				PublishedAt:  time.Date(2023, time.May, 16, 9, 48, 31, 0, time.UTC),
+				Registries:   []string{"https://registry.npmjs.org/"},
+				RelatedProjects: []def.RelatedProject{
 					{
 						ProjectKey:         def.ProjectKey{ID: "github.com/edoardottt/defangjs"},
 						RelationProvenance: "UNVERIFIED_METADATA",
@@ -633,6 +706,13 @@ func TestGetVersionBatch(t *testing.T) {
 						ProjectKey:         def.ProjectKey{ID: "github.com/edoardottt/defangjs"},
 						RelationProvenance: "UNVERIFIED_METADATA",
 						RelationType:       "SOURCE_REPO",
+					},
+				},
+				UpstreamIdentifiers: []def.UpstreamIdentifier{
+					{
+						PackageName:   "defangjs",
+						VersionString: "1.0.7",
+						Source:        "NPM_NPMJS_ORG",
 					},
 				},
 			},
@@ -646,10 +726,20 @@ func TestGetVersionBatch(t *testing.T) {
 
 func TestGetProjectBatch(t *testing.T) {
 	t.Run("GetProject batch", func(t *testing.T) {
-		iter, err := api.GetProjectBatch([]string{
-			"github.com/edoardottt/depsdev",
-			"github.com/facebook/react",
-			"github.com/angular/angular",
+		iter, err := api.GetProjectBatch(def.ProjectBatchBody{
+			Requests: []def.ProjectBatchRequest{
+				{
+					ProjectKey: def.ProjectKey{
+						ID: "github.com/facebook/react",
+					},
+				},
+				{
+					ProjectKey: def.ProjectKey{
+						ID: "github.com/angular/angular",
+					},
+				},
+			},
+			PageToken: "",
 		})
 
 		require.Nil(t, err)
@@ -660,18 +750,25 @@ func TestGetProjectBatch(t *testing.T) {
 		results, err := consumeIter(iter)
 		require.NoError(t, err)
 
-		assert.Equal(t, 3, len(results))
+		assert.Equal(t, 2, len(results))
 	})
 
 	t.Run("GetProject batch multi pages", func(t *testing.T) {
 		const N = 300
 
-		projects := make([]string, 0, N)
-		for i := 0; i < N; i++ {
-			projects = append(projects, "github.com/edoardottt/depsdev")
+		reqs := def.ProjectBatchBody{
+			Requests:  []def.ProjectBatchRequest{},
+			PageToken: "",
 		}
 
-		iter, err := api.GetProjectBatch(projects)
+		projects := make([]def.ProjectBatchRequest, 0, N)
+		for i := 0; i < N; i++ {
+			projects = append(projects, def.ProjectBatchRequest{ProjectKey: def.ProjectKey{ID: "github.com/edoardottt/depsdev"}})
+		}
+
+		reqs.Requests = projects
+
+		iter, err := api.GetProjectBatch(reqs)
 
 		require.Nil(t, err)
 		assert.NotNil(t, iter)

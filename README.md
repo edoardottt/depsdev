@@ -167,18 +167,21 @@ Core features with a stability guarantee and deprecation policy. Recommended for
 package main
 
 import (
-    "fmt"
-    depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3"
+  "fmt"
+  "log"
+
+  depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3"
 )
 
 func main() {
-    client := depsdev.NewV3API()
-    i, err := client.GetInfo("npm", "defangjs")
-    if err != nil {
-      fmt.Println(err)
-    }
-    
-    fmt.Println(i)
+  client := depsdev.NewV3API()
+  package, err := client.GetInfo("npm", "defangjs")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  fmt.Println(package.PackageKey.Name)
+  //...
 }
 ```
 
@@ -190,18 +193,21 @@ All the features of v3, with additional experimental features. May change in inc
 package main
 
 import (
-    "fmt"
-    depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+  "fmt"
+  "log"
+
+  depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
 )
 
 func main() {
-    client := depsdev.NewV3AlphaAPI()
-    i, err := client.GetInfo("npm", "defangjs")
-    if err != nil {
-      fmt.Println(err)
-    }
-    
-    fmt.Println(i)
+  client := depsdev.NewV3AlphaAPI()
+  package, err := client.GetInfo("npm", "defangjs")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  fmt.Println(package.PackageKey.Name)
+  //...
 }
 ```
 

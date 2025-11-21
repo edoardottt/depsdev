@@ -17,6 +17,7 @@ package depsdev
 type Package struct {
 	PackageKey PackageKey `json:"packageKey,omitempty"`
 	Versions   []Version  `json:"versions,omitempty"`
+	Purl       string     `json:"purl,omitempty"`
 }
 
 type PackageKey struct {

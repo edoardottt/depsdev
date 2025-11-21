@@ -17,16 +17,20 @@ package depsdev
 import "time"
 
 type Version struct {
-	VersionKey     VersionKey       `json:"versionKey,omitempty"`
-	PublishedAt    time.Time        `json:"publishedAt,omitempty"`
-	IsDefault      bool             `json:"isDefault"`
-	Licenses       []string         `json:"licenses,omitempty"`
-	AdvisoryKeys   []AdvisoryKey    `json:"advisoryKeys,omitempty"`
-	Links          []Link           `json:"links,omitempty"`
-	SlsaProvenance []SlsaProvenance `json:"slsaProvenances"`
-	Attestation    []Attestation    `json:"attestations"`
-	Registries     []string         `json:"registries,omitempty"`
-	RelatedProject []RelatedProject `json:"relatedProjects,omitempty"`
+	VersionKey          VersionKey           `json:"versionKey,omitempty"`
+	PublishedAt         time.Time            `json:"publishedAt,omitempty"`
+	IsDefault           bool                 `json:"isDefault"`
+	IsDeprecated        bool                 `json:"IsDeprecated,omitempty"`
+	Licenses            []string             `json:"licenses,omitempty"`
+	LicenseDetails      []LicenseDetail      `json:"licenseDetails,omitempty"`
+	AdvisoryKeys        []AdvisoryKey        `json:"advisoryKeys,omitempty"`
+	Links               []Link               `json:"links,omitempty"`
+	Purl                string               `json:"purl,omitempty"`
+	SlsaProvenance      []SlsaProvenance     `json:"slsaProvenances"`
+	Attestations        []Attestation        `json:"attestations"`
+	Registries          []string             `json:"registries,omitempty"`
+	RelatedProjects     []RelatedProject     `json:"relatedProjects,omitempty"`
+	UpstreamIdentifiers []UpstreamIdentifier `json:"upstreamIdentifiers,omitempty"`
 }
 
 type Link struct {
@@ -48,15 +52,20 @@ type RelatedProject struct {
 	RelationType       string     `json:"relationType,omitempty"`
 }
 
-type VersionBatchRequest struct {
-	PackageManager string `json:"system,omitempty"`
-	PackageName    string `json:"name,omitempty"`
-	Version        string `json:"version,omitempty"`
-}
-
 type SlsaProvenance struct {
-	URL              string `json:"url,omitempty"`
-	Verified         bool   `json:"verified,omitempty"`
 	SourceRepository string `json:"sourceRepository,omitempty"`
 	Commit           string `json:"commit,omitempty"`
+	URL              string `json:"url,omitempty"`
+	Verified         bool   `json:"verified,omitempty"`
+}
+
+type LicenseDetail struct {
+	License string `json:"license,omitempty"`
+	Spdx    string `json:"spdx,omitempty"`
+}
+
+type UpstreamIdentifier struct {
+	PackageName   string `json:"packageName,omitempty"`
+	VersionString string `json:"versionString,omitempty"`
+	Source        string `json:"source,omitempty"`
 }
