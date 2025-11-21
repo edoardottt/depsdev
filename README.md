@@ -79,7 +79,8 @@ Examples 💡
 ----------
 
 > **Note**
-> The supported package managers are `go`, `npm`, `cargo`, `rubygems`, `maven`, `pypi` and `nuget`.
+> The supported package managers are `go`, `npm`, `cargo`, `rubygems`, `maven`, `pypi` and `nuget`.  
+
 For more information [read the API documentation](https://docs.deps.dev/api/v3).
 
 ### CLI
@@ -155,8 +156,6 @@ Returns known mappings between the requested project and package versions.
 ```console
 depsdev packages github.com/eslint/espree
 ```
-
-<br>
 
 ### Use depsdev as a Go module
 
