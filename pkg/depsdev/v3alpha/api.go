@@ -37,7 +37,7 @@ func NewV3AlphaAPI() *APIv3Alpha {
 
 // GetInfo returns information about a package for a specific package manager.
 func (a *APIv3Alpha) GetInfo(packageManager, packageName string) (def.Package, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Package{}, input.ErrInvalidPackageManager
 	}
 
@@ -59,7 +59,7 @@ func getPackage(c *client.Client, packageManager, packageName string) (def.Packa
 // GetVersion returns information about a specific version of a package
 // for a specific package manager.
 func (a *APIv3Alpha) GetVersion(packageManager, packageName, version string) (def.Version, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Version{}, input.ErrInvalidPackageManager
 	}
 
@@ -178,7 +178,7 @@ func (a *APIv3Alpha) GetPackageVersions(projectName string) (def.PackageVersions
 // The response can be paginated, so the method returns an iterator that allows you to retrieve all the pages content sequentially.
 func (a *APIv3Alpha) GetVersionBatch(req []def.VersionBatchRequest) (*Iterator[def.Version], error) {
 	for _, r := range req {
-		if !input.IsValidPackageManager(r.PackageManager) {
+		if !input.IsValidPackageManager(r.PackageManager, input.AllValidPackageManagers) {
 			return nil, input.ErrInvalidPackageManager
 		}
 	}

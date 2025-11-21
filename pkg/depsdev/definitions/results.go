@@ -14,6 +14,10 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
-type PackageVersions struct {
-	Versions []Version `json:"versions,omitempty"`
+type Results struct {
+	Results []Result `json:"results"`
+}
+
+type Result struct {
+	Versions Version `json:"version"`
 }

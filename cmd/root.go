@@ -17,12 +17,12 @@ package cmd
 import (
 	"os"
 
-	depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+	depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3"
 	"github.com/edoardottt/depsdev/pkg/output"
 	"github.com/spf13/cobra"
 )
 
-var api *depsdev.APIv3Alpha
+var api *depsdev.APIv3
 
 const (
 	minArgsThree = 3
@@ -35,7 +35,7 @@ var rootCmd = &cobra.Command{
 	Short: output.ShortDescription,
 	Long:  output.Banner,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		api = depsdev.NewV3AlphaAPI()
+		api = depsdev.NewV3API()
 	},
 }
 

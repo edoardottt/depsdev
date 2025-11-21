@@ -131,56 +131,57 @@ func TestGetInfo(t *testing.T) {
 
 func TestGetVersion(t *testing.T) {
 	result := `{
-		"versionKey": {
-		  "system": "NPM",
-		  "name": "defangjs",
-		  "version": "1.0.7"
+	"versionKey":{
+		"system":"NPM",
+		"name":"defangjs",
+		"version":"1.0.7"
+	},
+	"publishedAt":"2023-05-16T09:48:31Z",
+	"isDefault":true,
+	"licenses":[
+		"GPL-3.0"
+	],
+	"advisoryKeys":[],
+	"links":[
+		{
+			"label":"HOMEPAGE",
+			"url":"https://github.com/edoardottt/defangjs#readme"
 		},
-		"isDefault": true,
-		"licenses": [
-		  "GPL-3.0"
-		],
-		"links": [
-		  {
-			"label": "HOMEPAGE",
-			"url": "https://github.com/edoardottt/defangjs#readme"
-		  },
-		  {
-			"label": "ISSUE_TRACKER",
-			"url": "https://github.com/edoardottt/defangjs/issues"
-		  },
-		  {
-			"label": "ORIGIN",
-			"url": "https://registry.npmjs.org/defangjs/1.0.7"
-		  },
-		  {
-			"label": "SOURCE_REPO",
-			"url": "git+https://github.com/edoardottt/defangjs.git"
-		  }
-		],
-		"AdvisoryKeys": [],
-		"SlsaProvenances": [],
-		"publishedAt": "2023-05-16T09:48:31Z",
-		"registries": [
-		  "https://registry.npmjs.org/"
-		],
-		"relatedProjects": [
-		  {
-			"projectKey": {
-			  "id": "github.com/edoardottt/defangjs"
+		{
+			"label":"ISSUE_TRACKER",
+			"url":"https://github.com/edoardottt/defangjs/issues"
+		},
+		{
+			"label":"ORIGIN",
+			"url":"https://registry.npmjs.org/defangjs/1.0.7"
+		},
+		{
+			"label":"SOURCE_REPO",
+			"url":"git+https://github.com/edoardottt/defangjs.git"
+		}
+	],
+	"slsaProvenances":[],
+	"attestations":[],
+	"registries":[
+		"https://registry.npmjs.org/"
+	],
+	"relatedProjects":[
+		{
+			"projectKey":{
+				"id":"github.com/edoardottt/defangjs"
 			},
-			"relationProvenance": "UNVERIFIED_METADATA",
-			"relationType": "ISSUE_TRACKER"
-		  },
-		  {
-			"projectKey": {
-			  "id": "github.com/edoardottt/defangjs"
+			"relationProvenance":"UNVERIFIED_METADATA",
+			"relationType":"ISSUE_TRACKER"
+		},
+		{
+			"projectKey":{
+				"id":"github.com/edoardottt/defangjs"
 			},
-			"relationProvenance": "UNVERIFIED_METADATA",
-			"relationType": "SOURCE_REPO"
-		  }
-		]
-	  }`
+			"relationProvenance":"UNVERIFIED_METADATA",
+			"relationType":"SOURCE_REPO"
+		}
+	]
+}`
 
 	t.Run("GetVersion npm defangjs 1.0.7", func(t *testing.T) {
 		got, err := api.GetVersion("npm", "defangjs", "1.0.7")

@@ -29,7 +29,7 @@ type Project struct {
 }
 
 type ProjectKey struct {
-	ID string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type Repository struct {
@@ -50,24 +50,24 @@ type Documentation struct {
 type Checks struct {
 	Name          string        `json:"name,omitempty"`
 	Documentation Documentation `json:"documentation,omitempty"`
-	Score         float64       `json:"score,omitempty"`
+	Score         float64       `json:"score"`
 	Reason        string        `json:"reason,omitempty"`
 	Details       []string      `json:"details,omitempty"`
 }
 
 type Scorecard struct {
+	Date         time.Time          `json:"date,omitempty"`
 	Repository   Repository         `json:"repository,omitempty"`
 	Scorecard    ScorecardReference `json:"scorecard,omitempty"`
 	Checks       []Checks           `json:"checks,omitempty"`
-	OverallScore float64            `json:"overallScore,omitempty"`
+	OverallScore float64            `json:"overallScore"`
 	Metadata     []string           `json:"metadata,omitempty"`
-	Date         time.Time          `json:"date,omitempty"`
 }
 
 type OssFuzz struct {
-	LineCount        int       `json:"lineCount,omitempty"`
-	LineCoverCount   int       `json:"lineCoverCount,omitempty"`
-	LineCoverPercent float64   `json:"lineCoverPercent,omitempty"`
+	LineCount        int       `json:"lineCount"`
+	LineCoverCount   int       `json:"lineCoverCount"`
+	LineCoverPercent float64   `json:"lineCoverPercent"`
 	Date             time.Time `json:"date,omitempty"`
 	ConfigURL        string    `json:"configUrl,omitempty"`
 }

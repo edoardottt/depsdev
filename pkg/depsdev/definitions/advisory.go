@@ -19,7 +19,7 @@ type Advisory struct {
 	URL         string      `json:"url,omitempty"`
 	Title       string      `json:"title,omitempty"`
 	Aliases     []string    `json:"aliases,omitempty"`
-	Cvss3Score  float64     `json:"cvss3Score,omitempty"`
+	Cvss3Score  float64     `json:"cvss3Score"`
 	Cvss3Vector string      `json:"cvss3Vector,omitempty"`
 }
 

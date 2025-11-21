@@ -38,7 +38,7 @@ func NewV3API() *APIv3 {
 // including a list of its available versions,
 // with the default version marked if known.
 func (a *APIv3) GetInfo(packageManager, packageName string) (def.Package, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Package{}, input.ErrInvalidPackageManager
 	}
 
@@ -59,7 +59,7 @@ func getPackage(c *client.Client, packageManager, packageName string) (def.Packa
 // GetVersion returns information about a specific package version,
 // including its licenses and any security advisories known to affect it.
 func (a *APIv3) GetVersion(packageManager, packageName, version string) (def.Version, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Version{}, input.ErrInvalidPackageManager
 	}
 
@@ -127,16 +127,16 @@ func getAdvisory(c *client.Client, advisory string) (def.Advisory, error) {
 }
 
 // Query returns the result of the inputted query.
-func (a *APIv3) Query(query string) (def.Package, error) {
+func (a *APIv3) Query(query string) (def.Results, error) {
 	return getQuery(a.client, query)
 }
 
-func getQuery(c *client.Client, query string) (def.Package, error) {
-	var response def.Package
+func getQuery(c *client.Client, query string) (def.Results, error) {
+	var response def.Results
 
 	var path = QueryPath + `?` + query
 	if err := c.Get(path, &response); err != nil {
-		return def.Package{}, err
+		return def.Results{}, err
 	}
 
 	return response, nil

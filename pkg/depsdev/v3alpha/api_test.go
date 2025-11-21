@@ -121,56 +121,57 @@ func TestGetInfo(t *testing.T) {
 
 func TestGetVersion(t *testing.T) {
 	result := `{
-		"versionKey": {
-		  "system": "NPM",
-		  "name": "defangjs",
-		  "version": "1.0.7"
+	"versionKey":{
+		"system":"NPM",
+		"name":"defangjs",
+		"version":"1.0.7"
+	},
+	"publishedAt":"2023-05-16T09:48:31Z",
+	"isDefault":true,
+	"licenses":[
+		"GPL-3.0"
+	],
+	"advisoryKeys":[],
+	"links":[
+		{
+			"label":"HOMEPAGE",
+			"url":"https://github.com/edoardottt/defangjs#readme"
 		},
-		"isDefault": true,
-		"licenses": [
-		  "GPL-3.0"
-		],
-		"links": [
-		  {
-			"label": "HOMEPAGE",
-			"url": "https://github.com/edoardottt/defangjs#readme"
-		  },
-		  {
-			"label": "ISSUE_TRACKER",
-			"url": "https://github.com/edoardottt/defangjs/issues"
-		  },
-		  {
-			"label": "ORIGIN",
-			"url": "https://registry.npmjs.org/defangjs/1.0.7"
-		  },
-		  {
-			"label": "SOURCE_REPO",
-			"url": "git+https://github.com/edoardottt/defangjs.git"
-		  }
-		],
-		"AdvisoryKeys": [],
-		"SlsaProvenances": [],
-		"publishedAt": "2023-05-16T09:48:31Z",
-		"registries": [
-		  "https://registry.npmjs.org/"
-		],
-		"relatedProjects": [
-		  {
-			"projectKey": {
-			  "id": "github.com/edoardottt/defangjs"
+		{
+			"label":"ISSUE_TRACKER",
+			"url":"https://github.com/edoardottt/defangjs/issues"
+		},
+		{
+			"label":"ORIGIN",
+			"url":"https://registry.npmjs.org/defangjs/1.0.7"
+		},
+		{
+			"label":"SOURCE_REPO",
+			"url":"git+https://github.com/edoardottt/defangjs.git"
+		}
+	],
+	"slsaProvenances":[],
+	"attestations":[],
+	"registries":[
+		"https://registry.npmjs.org/"
+	],
+	"relatedProjects":[
+		{
+			"projectKey":{
+				"id":"github.com/edoardottt/defangjs"
 			},
-			"relationProvenance": "UNVERIFIED_METADATA",
-			"relationType": "ISSUE_TRACKER"
-		  },
-		  {
-			"projectKey": {
-			  "id": "github.com/edoardottt/defangjs"
+			"relationProvenance":"UNVERIFIED_METADATA",
+			"relationType":"ISSUE_TRACKER"
+		},
+		{
+			"projectKey":{
+				"id":"github.com/edoardottt/defangjs"
 			},
-			"relationProvenance": "UNVERIFIED_METADATA",
-			"relationType": "SOURCE_REPO"
-		  }
-		]
-	  }`
+			"relationProvenance":"UNVERIFIED_METADATA",
+			"relationType":"SOURCE_REPO"
+		}
+	]
+}`
 
 	t.Run("GetVersion npm defangjs 1.0.7", func(t *testing.T) {
 		got, err := api.GetVersion("npm", "defangjs", "1.0.7")
@@ -552,10 +553,11 @@ func TestGetVersionBatch(t *testing.T) {
 					Name:    "@colors/colors",
 					Version: "1.5.0",
 				},
-				IsDefault:    false,
-				Licenses:     []string{"MIT"},
-				AdvisoryKeys: []def.AdvisoryKeys{},
-				Links: []def.Links{
+				IsDefault:      false,
+				Licenses:       []string{"MIT"},
+				AdvisoryKeys:   []def.AdvisoryKey{},
+				SlsaProvenance: []def.SlsaProvenance{},
+				Links: []def.Link{
 					{
 						Label: "HOMEPAGE",
 						URL:   "https://github.com/DABH/colors.js"},
@@ -572,10 +574,10 @@ func TestGetVersionBatch(t *testing.T) {
 						URL:   "git+ssh://git@github.com/DABH/colors.js.git",
 					},
 				},
-				SlsaProvenances: []def.SLSAProvenances{},
-				PublishedAt:     time.Date(2022, time.February, 12, 7, 39, 4, 0, time.UTC),
-				Registries:      []string{"https://registry.npmjs.org/"},
-				RelatedProjects: []def.RelatedProjects{
+				Attestation: []def.Attestation{},
+				PublishedAt: time.Date(2022, time.February, 12, 7, 39, 4, 0, time.UTC),
+				Registries:  []string{"https://registry.npmjs.org/"},
+				RelatedProject: []def.RelatedProject{
 					{
 						ProjectKey:         def.ProjectKey{ID: "github.com/dabh/colors.js"},
 						RelationProvenance: "UNVERIFIED_METADATA",
@@ -593,10 +595,11 @@ func TestGetVersionBatch(t *testing.T) {
 					Name:    "defangjs",
 					Version: "1.0.7",
 				},
-				IsDefault:    true,
-				Licenses:     []string{"GPL-3.0"},
-				AdvisoryKeys: []def.AdvisoryKeys{},
-				Links: []def.Links{
+				IsDefault:      true,
+				Licenses:       []string{"GPL-3.0"},
+				AdvisoryKeys:   []def.AdvisoryKey{},
+				SlsaProvenance: []def.SlsaProvenance{},
+				Links: []def.Link{
 					{
 						Label: "HOMEPAGE",
 						URL:   "https://github.com/edoardottt/defangjs#readme",
@@ -617,10 +620,10 @@ func TestGetVersionBatch(t *testing.T) {
 						URL:   "git+https://github.com/edoardottt/defangjs.git",
 					},
 				},
-				SlsaProvenances: []def.SLSAProvenances{},
-				PublishedAt:     time.Date(2023, time.May, 16, 9, 48, 31, 0, time.UTC),
-				Registries:      []string{"https://registry.npmjs.org/"},
-				RelatedProjects: []def.RelatedProjects{
+				Attestation: make([]def.Attestation, 0),
+				PublishedAt: time.Date(2023, time.May, 16, 9, 48, 31, 0, time.UTC),
+				Registries:  []string{"https://registry.npmjs.org/"},
+				RelatedProject: []def.RelatedProject{
 					{
 						ProjectKey:         def.ProjectKey{ID: "github.com/edoardottt/defangjs"},
 						RelationProvenance: "UNVERIFIED_METADATA",

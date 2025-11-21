@@ -32,7 +32,7 @@ var graphCmd = &cobra.Command{
 		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
-		if !input.IsValidPackageManager(args[0]) {
+		if !input.IsValidPackageManager(args[0], input.AllValidPackageManagers) {
 			return input.ErrInvalidPackageManager
 		}
 

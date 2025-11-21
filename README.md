@@ -8,12 +8,12 @@
 
 <p align="center">
 
-  <a href="https://github.com/edoardottt/depsdev/actions">
-      <img src="https://github.com/edoardottt/depsdev/actions/workflows/go.yml/badge.svg" alt="go action">
-  </a>
-
   <a href="https://goreportcard.com/report/github.com/edoardottt/depsdev">
       <img src="https://goreportcard.com/badge/github.com/edoardottt/depsdev" alt="go report card">
+  </a>
+
+  <a href="https://github.com/edoardottt/depsdev/actions">
+      <img src="https://github.com/edoardottt/depsdev/actions/workflows/go.yml/badge.svg" alt="go action">
   </a>
 
 <br>
@@ -79,8 +79,8 @@ Examples 💡
 ----------
 
 > **Note**
-> The supported package managers are `go`, `npm`, `cargo`, `maven`, `pypi` and `nuget`.
-For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
+> The supported package managers are `go`, `npm`, `cargo`, `rubygems`, `maven`, `pypi` and `nuget`.
+For more information [read the API documentation](https://docs.deps.dev/api/v3).
 
 ### CLI
 
@@ -171,7 +171,7 @@ package main
 
 import (
     "fmt"
-    "github.com/edoardottt/depsdev/pkg/depsdev/v3"
+    depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3"
 )
 
 func main() {
@@ -194,7 +194,7 @@ package main
 
 import (
     "fmt"
-    "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+    depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
 )
 
 func main() {

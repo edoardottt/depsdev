@@ -36,7 +36,7 @@ including its licenses and any security advisories known to affect it.`,
 			return fmt.Errorf("%s %w", "two", input.ErrArgumentsLeast)
 		}
 
-		if !input.IsValidPackageManager(args[0]) {
+		if !input.IsValidPackageManager(args[0], input.AllValidPackageManagers) {
 			return input.ErrInvalidPackageManager
 		}
 
