@@ -29,10 +29,10 @@ var reqsCmd = &cobra.Command{
 	Long: `Returns the requirements for a given version in a system-specific format.
 	Requirements are currently available for Maven, npm and NuGet.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 3 {
+		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
-		if !input.Contains(args[0], []string{"npm", "maven", "nuget"}) {
+		if !input.Contains(args[0], []string{"npm", "maven", "nuget", "rubygems"}) {
 			return input.ErrInvalidPackageManagerForRequirements
 		}
 		return nil
@@ -45,7 +45,7 @@ var reqsCmd = &cobra.Command{
 
 		dJSON, err := output.IndentJSON(d)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(dJSON)

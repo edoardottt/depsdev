@@ -27,10 +27,11 @@ import (
 var queryCmd = &cobra.Command{
 	Use:   "query \"query-value\"",
 	Short: "Get info about multiple package versions using a query",
-	Long: `Get information about multiple package versions, which can be specified by name, content hash, or both.
-It is typical for hash queries to return many results; 
-hashes are matched against multiple artifacts that comprise package versions, 
-and any given artifact may appear in many package versions.`,
+	Long: `Query returns information about multiple package versions, which can be specified by name, content hash, or both.
+If a hash was specified in the request, it returns the artifacts that matched the hash.
+Querying by content hash is currently supported for npm, Cargo, Maven, NuGet, PyPI and RubyGems.
+It is typical for hash queries to return many results; hashes are matched against multiple release artifacts (such as JAR files)
+that comprise package versions, and any given artifact may appear in several package versions.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return fmt.Errorf("%s %w", "one", input.ErrArgumentLeast)
@@ -46,7 +47,7 @@ and any given artifact may appear in many package versions.`,
 
 		pJSON, err := output.IndentJSON(p)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(pJSON)

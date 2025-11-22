@@ -29,10 +29,10 @@ var graphCmd = &cobra.Command{
 	Short: "Generate a Graphviz compatible dependencies graph",
 	Long:  `Generate a Graphviz compatible dependencies graph for a specific version of a package.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 3 {
+		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
-		if !input.IsValidPackageManager(args[0]) {
+		if !input.IsValidPackageManager(args[0], input.AllValidPackageManagers) {
 			return input.ErrInvalidPackageManager
 		}
 
@@ -46,7 +46,7 @@ var graphCmd = &cobra.Command{
 
 		g, err := output.GenerateGraph(d)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(g)

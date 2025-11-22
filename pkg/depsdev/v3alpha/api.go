@@ -37,7 +37,7 @@ func NewV3AlphaAPI() *APIv3Alpha {
 
 // GetInfo returns information about a package for a specific package manager.
 func (a *APIv3Alpha) GetInfo(packageManager, packageName string) (def.Package, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Package{}, input.ErrInvalidPackageManager
 	}
 
@@ -59,7 +59,7 @@ func getPackage(c *client.Client, packageManager, packageName string) (def.Packa
 // GetVersion returns information about a specific version of a package
 // for a specific package manager.
 func (a *APIv3Alpha) GetVersion(packageManager, packageName, version string) (def.Version, error) {
-	if !input.IsValidPackageManager(packageManager) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Version{}, input.ErrInvalidPackageManager
 	}
 
@@ -176,26 +176,19 @@ func (a *APIv3Alpha) GetPackageVersions(projectName string) (def.PackageVersions
 
 // GetVersionBatch retrieves a batch of versions for the given version batch requests.
 // The response can be paginated, so the method returns an iterator that allows you to retrieve all the pages content sequentially.
-func (a *APIv3Alpha) GetVersionBatch(req []def.VersionBatchRequest) (*Iterator[def.Version], error) {
-	for _, r := range req {
-		if !input.IsValidPackageManager(r.PackageManager) {
+func (a *APIv3Alpha) GetVersionBatch(req def.VersionBatchBody) (*Iterator[def.Version], error) {
+	for _, v := range req.Requests {
+		if !input.IsValidPackageManager(v.VersionKey.System, input.AllValidPackageManagers) {
 			return nil, input.ErrInvalidPackageManager
 		}
 	}
 
-	requests := make([]map[string]def.VersionBatchRequest, 0, len(req))
-	for _, r := range req {
-		requests = append(requests, map[string]def.VersionBatchRequest{"versionKey": r})
-	}
-
-	body := &versionBatchBody{Requests: requests}
-
-	response := &versionBatchResponse{
+	response := &def.VersionBatchResponse{
 		NextPageToken: "first",
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
-	cIn := getBatch(ctx, a.client, GetVersionBatchPath, body, response)
+	cIn := getBatch(ctx, a.client, GetVersionBatchPath, &req, response)
 
 	iter := Iterator[def.Version]{
 		cIn:     cIn,
@@ -206,50 +199,15 @@ func (a *APIv3Alpha) GetVersionBatch(req []def.VersionBatchRequest) (*Iterator[d
 	return &iter, nil
 }
 
-type versionBatchBody struct {
-	Requests  []map[string]def.VersionBatchRequest `json:"requests"`
-	PageToken string                               `json:"pageToken"`
-}
-
-func (p *versionBatchBody) SetNextPageToken(token string) {
-	p.PageToken = token
-}
-
-type versionBatchResponse struct {
-	Responses []struct {
-		Version def.Version `json:"version"`
-	} `json:"responses"`
-	NextPageToken string `json:"nextPageToken"`
-}
-
-func (p *versionBatchResponse) GetNextPageToken() string {
-	return p.NextPageToken
-}
-func (p *versionBatchResponse) Items() []def.Version {
-	l := make([]def.Version, 0, len(p.Responses))
-	for _, r := range p.Responses {
-		l = append(l, r.Version)
-	}
-
-	return l
-}
-
 // GetProjectBatch retrieves a batch of projects.
 // The response can be paginated, so the method returns an iterator that allows you to retrieve all the pages content sequentially.
-func (a *APIv3Alpha) GetProjectBatch(projectNames []string) (*Iterator[def.Project], error) {
-	requests := make([]map[string]def.ProjectKey, 0, len(projectNames))
-	for _, n := range projectNames {
-		requests = append(requests, map[string]def.ProjectKey{"projectKey": {ID: n}})
-	}
-
-	body := &projectBatchBody{Requests: requests}
-
-	response := &projectBatchResponse{
+func (a *APIv3Alpha) GetProjectBatch(req def.ProjectBatchBody) (*Iterator[def.Project], error) {
+	response := &def.ProjectBatchResponse{
 		NextPageToken: "first",
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
-	cIn := getBatch(ctx, a.client, GetProjectBatchPath, body, response)
+	cIn := getBatch(ctx, a.client, GetProjectBatchPath, &req, response)
 
 	iter := Iterator[def.Project]{
 		cIn:     cIn,
@@ -258,33 +216,4 @@ func (a *APIv3Alpha) GetProjectBatch(projectNames []string) (*Iterator[def.Proje
 	}
 
 	return &iter, nil
-}
-
-type projectBatchBody struct {
-	Requests  []map[string]def.ProjectKey `json:"requests"`
-	PageToken string                      `json:"pageToken"`
-}
-
-func (p *projectBatchBody) SetNextPageToken(token string) {
-	p.PageToken = token
-}
-
-type projectBatchResponse struct {
-	Responses []struct {
-		Project def.Project `json:"project"`
-	} `json:"responses"`
-	NextPageToken string `json:"nextPageToken"`
-}
-
-func (p *projectBatchResponse) GetNextPageToken() string {
-	return p.NextPageToken
-}
-
-func (p *projectBatchResponse) Items() []def.Project {
-	l := make([]def.Project, 0, len(p.Responses))
-	for _, r := range p.Responses {
-		l = append(l, r.Project)
-	}
-
-	return l
 }

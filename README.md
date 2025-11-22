@@ -8,12 +8,12 @@
 
 <p align="center">
 
-  <a href="https://github.com/edoardottt/depsdev/actions">
-      <img src="https://github.com/edoardottt/depsdev/actions/workflows/go.yml/badge.svg" alt="go action">
-  </a>
-
   <a href="https://goreportcard.com/report/github.com/edoardottt/depsdev">
       <img src="https://goreportcard.com/badge/github.com/edoardottt/depsdev" alt="go report card">
+  </a>
+
+  <a href="https://github.com/edoardottt/depsdev/actions">
+      <img src="https://github.com/edoardottt/depsdev/actions/workflows/go.yml/badge.svg" alt="go action">
   </a>
 
 <br>
@@ -79,12 +79,11 @@ Examples 💡
 ----------
 
 > **Note**
-> The supported package managers are `go`, `npm`, `cargo`, `maven`, `pypi` and `nuget`.
-For more information [read the API documentation](https://docs.deps.dev/api/v3alpha/).
+> The supported package managers are `go`, `npm`, `cargo`, `rubygems`, `maven`, `pypi` and `nuget`.  
 
-### CLI
+For more information [read the API documentation](https://docs.deps.dev/api/v3).
 
-<br>
+### Command Line
 
 Get information about a package, including a list of its available versions, with the default version marked if known.
 
@@ -156,9 +155,7 @@ Returns known mappings between the requested project and package versions.
 depsdev packages github.com/eslint/espree
 ```
 
-<br>
-
-### Use depsdev as a Go module
+### Go module
 
 You can use *v3* or *v3alpha*.
 
@@ -170,18 +167,21 @@ Core features with a stability guarantee and deprecation policy. Recommended for
 package main
 
 import (
-    "fmt"
-    "github.com/edoardottt/depsdev/pkg/depsdev/v3"
+  "fmt"
+  "log"
+
+  depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3"
 )
 
 func main() {
-    client := depsdev.NewV3API()
-    i, err := client.GetInfo("npm", "defangjs")
-    if err != nil {
-      fmt.Println(err)
-    }
-    
-    fmt.Println(i)
+  client := depsdev.NewV3API()
+  package, err := client.GetInfo("npm", "defangjs")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  fmt.Println(package.PackageKey.Name)
+  //...
 }
 ```
 
@@ -193,18 +193,21 @@ All the features of v3, with additional experimental features. May change in inc
 package main
 
 import (
-    "fmt"
-    "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+  "fmt"
+  "log"
+
+  depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
 )
 
 func main() {
-    client := depsdev.NewV3AlphaAPI()
-    i, err := client.GetInfo("npm", "defangjs")
-    if err != nil {
-      fmt.Println(err)
-    }
-    
-    fmt.Println(i)
+  client := depsdev.NewV3AlphaAPI()
+  package, err := client.GetInfo("npm", "defangjs")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  fmt.Println(package.PackageKey.Name)
+  //...
 }
 ```
 

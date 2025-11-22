@@ -15,20 +15,20 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package depsdev
 
 type Dependencies struct {
-	Nodes []Nodes `json:"nodes,omitempty"`
-	Edges []Edges `json:"edges,omitempty"`
-	Error string  `json:"error,omitempty"`
+	Nodes []Node `json:"nodes,omitempty"`
+	Edges []Edge `json:"edges,omitempty"`
+	Error string `json:"error"`
 }
 
-type Nodes struct {
+type Node struct {
 	VersionKey VersionKey `json:"versionKey,omitempty"`
 	Relation   string     `json:"relation,omitempty"`
-	Bundled    bool       `json:"bundled,omitempty"`
+	Bundled    bool       `json:"bundled"`
 	Errors     []string   `json:"errors,omitempty"`
 }
 
-type Edges struct {
-	FromNode    int    `json:"fromNode,omitempty"`
+type Edge struct {
+	FromNode    int    `json:"fromNode"`
 	ToNode      int    `json:"toNode,omitempty"`
 	Requirement string `json:"requirement,omitempty"`
 }

@@ -43,7 +43,7 @@ var packagesCmd = &cobra.Command{
 
 		vJSON, err := output.IndentJSON(v)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(vJSON)

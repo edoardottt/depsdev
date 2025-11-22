@@ -29,10 +29,10 @@ var depsCmd = &cobra.Command{
 	Short: "Get info about a package's dependencies",
 	Long:  `Get information about a resolved dependency graph for the given package version.`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 3 {
+		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
-		if !input.IsValidPackageManager(args[0]) {
+		if !input.IsValidPackageManager(args[0], input.DepsValidPackageManagers) {
 			return input.ErrInvalidPackageManager
 		}
 
@@ -46,7 +46,7 @@ var depsCmd = &cobra.Command{
 
 		dJSON, err := output.IndentJSON(d)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(dJSON)

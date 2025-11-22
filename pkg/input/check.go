@@ -16,10 +16,15 @@ package input
 
 import "strings"
 
+var (
+	AllValidPackageManagers  = []string{"go", "rubygems", "npm", "cargo", "maven", "pypi", "nuget"}
+	DepsValidPackageManagers = []string{"npm", "cargo", "maven", "pypi"}
+	ReqsValidPackageManagers = []string{"npm", "nuget", "maven", "rubygems"}
+)
+
 // IsValidPackageManager checks if the inputted package name is valid.
-func IsValidPackageManager(input string) bool {
-	var PackageManagers = []string{"npm", "go", "maven", "cargo", "pypi", "nuget"}
-	for _, packageName := range PackageManagers {
+func IsValidPackageManager(input string, validpackageManagers []string) bool {
+	for _, packageName := range validpackageManagers {
 		if strings.ToLower(input) == packageName {
 			return true
 		}

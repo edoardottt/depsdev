@@ -15,9 +15,10 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package depsdev
 
 type Requirements struct {
-	Nuget *Nuget `json:"nuget,omitempty"`
-	Npm   *Npm   `json:"npm,omitempty"`
-	Maven *Maven `json:"maven,omitempty"`
+	Nuget    *Nuget          `json:"nuget,omitempty"`
+	Npm      *Npm            `json:"npm,omitempty"`
+	Maven    *Maven          `json:"maven,omitempty"`
+	RubyGems *DependencyList `json:"rubygems,omitempty"`
 }
 
 type Nuget struct {
@@ -42,23 +43,24 @@ type Dependency struct {
 }
 
 type Npm struct {
-	Dependencies NpmDependency `json:"dependencies,omitempty"`
-	Bundled      []Bundled     `json:"bundled,omitempty"`
+	Dependencies DependencyList `json:"dependencies,omitempty"`
+	Bundled      []Bundled      `json:"bundled,omitempty"`
 }
 
 type Bundled struct {
-	Path         string          `json:"path,omitempty"`
-	Name         string          `json:"name,omitempty"`
-	Version      string          `json:"version,omitempty"`
-	Dependencies []NpmDependency `json:"dependencies,omitempty"`
+	Path         string           `json:"path,omitempty"`
+	Name         string           `json:"name,omitempty"`
+	Version      string           `json:"version,omitempty"`
+	Dependencies []DependencyList `json:"dependencies,omitempty"`
 }
 
-type NpmDependency struct {
-	Dependencies         []Dependency `json:"dependencies"`
-	DevDependencies      []Dependency `json:"devDependencies"`
-	OptionalDependencies []Dependency `json:"optionalDependencies"`
-	PeerDependencies     []Dependency `json:"peerDependencies"`
-	BundleDependencies   []string     `json:"bundleDependencies"`
+type DependencyList struct {
+	Dependencies         []Dependency `json:"dependencies,omitempty"`
+	DevDependencies      []Dependency `json:"devDependencies,omitempty"`
+	OptionalDependencies []Dependency `json:"optionalDependencies,omitempty"`
+	PeerDependencies     []Dependency `json:"peerDependencies,omitempty"`
+	RuntimeDependencies  []Dependency `json:"runtimeDependencies,omitempty"`
+	BundleDependencies   []string     `json:"bundleDependencies,omitempty"`
 }
 
 type Maven struct {
@@ -81,15 +83,16 @@ type MavenRepository struct {
 	ID               string `json:"id,omitempty"`
 	URL              string `json:"url,omitempty"`
 	Layout           string `json:"layout,omitempty"`
-	ReleasesEnabled  string `json:"releases_enabled,omitempty"`
-	SnapshotsEnabled string `json:"snapshots_enabled,omitempty"`
+	ReleasesEnabled  string `json:"releasesEnabled,omitempty"`
+	SnapshotsEnabled string `json:"snapshotsEnabled,omitempty"`
 }
 
 type Activation struct {
-	JDK      JDK             `json:"jdk,omitempty"`
-	OS       OS              `json:"os,omitempty"`
-	Property PropertyWrapper `json:"property,omitempty"`
-	File     File            `json:"file,omitempty"`
+	JDK             JDK             `json:"jdk,omitempty"`
+	OS              OS              `json:"os,omitempty"`
+	Property        PropertyWrapper `json:"property,omitempty"`
+	File            File            `json:"file,omitempty"`
+	ActiveByDefault string          `json:"activeByDefault,omitempty"`
 }
 
 type JDK struct {

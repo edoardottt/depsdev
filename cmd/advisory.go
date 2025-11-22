@@ -43,7 +43,7 @@ var advisoryCmd = &cobra.Command{
 
 		aJSON, err := output.IndentJSON(a)
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatal(err.Error())
 		}
 
 		fmt.Println(aJSON)
