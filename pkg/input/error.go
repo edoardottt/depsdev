@@ -23,4 +23,5 @@ var (
 	ErrArgumentsLeast                       = errors.New("arguments must be specified")
 	ErrInvalidPackageManager                = errors.New("invalid package manager specified")
 	ErrInvalidPackageManagerForRequirements = errors.New("invalid package manager specified: requirements are currently available only for Maven, npm, RubyGems and NuGet")
+	ErrInvalidPackageManagerForDependencies = errors.New("invalid package manager specified: dependencies are currently available only for npm, cargo, maven and pypi")
 )

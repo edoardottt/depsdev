@@ -51,7 +51,7 @@ func BenchmarkGetInfo(b *testing.B) {
 		)
 
 		for i := 0; i < b.N; i++ {
-			info, err = api.GetInfo("npm", "react")
+			info, err = api.GetPackage("npm", "react")
 			require.NoError(b, err)
 		}
 

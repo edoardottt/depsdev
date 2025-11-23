@@ -129,8 +129,8 @@ func TestGetInfo(t *testing.T) {
 	]
 }`
 
-	t.Run("GetInfo npm defangjs", func(t *testing.T) {
-		got, err := api.GetInfo("npm", "defangjs")
+	t.Run("GetPackage npm defangjs", func(t *testing.T) {
+		got, err := api.GetPackage("npm", "defangjs")
 		require.Nil(t, err)
 
 		var d def.Package
@@ -769,6 +769,60 @@ func TestGetProjectBatch(t *testing.T) {
 		reqs.Requests = projects
 
 		iter, err := api.GetProjectBatch(reqs)
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, N, len(results))
+	})
+}
+
+func TestPurlLookupBatch(t *testing.T) {
+	t.Run("PurlLookup batch", func(t *testing.T) {
+		iter, err := api.PurlLookupBatch((def.PurlBatchBody{
+			Requests: []def.PurlBatchRequest{
+				{
+					Purl: "pkg:npm/%40colors/colors@1.5.0",
+				},
+				{
+					Purl: "pkg:nuget/castle.core@5.1.1",
+				},
+			},
+			PageToken: "",
+		}))
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, 2, len(results))
+	})
+
+	t.Run("PurlLookup batch multi pages", func(t *testing.T) {
+		const N = 300
+
+		reqs := def.PurlBatchBody{
+			Requests:  []def.PurlBatchRequest{},
+			PageToken: "",
+		}
+
+		projects := make([]def.PurlBatchRequest, 0, N)
+		for i := 0; i < N; i++ {
+			projects = append(projects, def.PurlBatchRequest{Purl: "pkg:npm/%40colors/colors@1.5.0"})
+		}
+
+		reqs.Requests = projects
+
+		iter, err := api.PurlLookupBatch(reqs)
 
 		require.Nil(t, err)
 		assert.NotNil(t, iter)

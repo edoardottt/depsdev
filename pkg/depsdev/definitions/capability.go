@@ -14,15 +14,12 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
-type Results struct {
-	Results []Result `json:"results"`
+type Capabilities struct {
+	Capabilities []CapabilityDetail `json:"capabilities,omitempty"`
 }
 
-type Result struct {
-	Versions  Version    `json:"version"`
-	Artifacts []Artifact `json:"artifact"`
-}
-
-type Artifact struct {
-	URL string `json:"url"`
+type CapabilityDetail struct {
+	Capability    string `json:"capability,omitempty"`
+	DirectCount   int    `json:"directCount"`
+	IndirectCount int    `json:"indirectCount"`
 }

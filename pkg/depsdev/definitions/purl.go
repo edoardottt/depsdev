@@ -14,15 +14,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
-type Results struct {
-	Results []Result `json:"results"`
-}
-
-type Result struct {
-	Versions  Version    `json:"version"`
-	Artifacts []Artifact `json:"artifact"`
-}
-
-type Artifact struct {
-	URL string `json:"url"`
+type Purl struct {
+	Package Package `json:"package,omitempty"`
+	Version Version `json:"version,omitempty"`
 }

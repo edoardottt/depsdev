@@ -14,15 +14,11 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
-type Results struct {
-	Results []Result `json:"results"`
+type ContainerImages struct {
+	ContainerImages []ContainerImage `json:"results,omitempty"`
 }
 
-type Result struct {
-	Versions  Version    `json:"version"`
-	Artifacts []Artifact `json:"artifact"`
-}
-
-type Artifact struct {
-	URL string `json:"url"`
+type ContainerImage struct {
+	Registry   string `json:"registry,omitempty"`
+	Repository string `json:"repository,omitempty"`
 }
