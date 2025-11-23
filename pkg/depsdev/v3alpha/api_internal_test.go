@@ -28,7 +28,7 @@ var (
 	api = NewV3AlphaAPI()
 )
 
-func BenchmarkGetInfo(b *testing.B) {
+func BenchmarkGetPackage(b *testing.B) {
 	b.Run("function", func(b *testing.B) {
 		var (
 			info def.Package

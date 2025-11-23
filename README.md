@@ -157,7 +157,7 @@ depsdev packages github.com/eslint/espree
 
 ### Go module
 
-You can use *v3* or *v3alpha*.
+You can use *v3* or *v3alpha* API.
 
 #### v3
 
@@ -175,7 +175,7 @@ import (
 
 func main() {
   client := depsdev.NewV3API()
-  p, err := client.GetInfo("npm", "defangjs")
+  p, err := client.GetPackage("npm", "defangjs")
   if err != nil {
     log.Fatal(err)
   }
@@ -201,7 +201,7 @@ import (
 
 func main() {
   client := depsdev.NewV3AlphaAPI()
-  p, err := client.GetInfo("npm", "defangjs")
+  p, err := client.GetPackage("npm", "defangjs")
   if err != nil {
     log.Fatal(err)
   }
