@@ -20,16 +20,19 @@ const (
 
 	// API routes.
 	GetPackagePath                = `/systems/%s/packages/%s`
+	GetSimilarlyNamedPackagesPath = `/systems/%s/packages/%s:similarlyNamedPackages`
 	GetVersionPath                = `/systems/%s/packages/%s/versions/%s`
+	GetRequirementsPath           = `/systems/%s/packages/%s/versions/%s:requirements`
+	GetCapabilitiesPath           = `/systems/%s/packages/%s/versions/%s:capabilities`
 	GetDependenciesPath           = `/systems/%s/packages/%s/versions/%s:dependencies`
+	GetDependentsPath             = `/systems/%s/packages/%s/versions/%s:dependents`
 	GetProjectPath                = `/projects/%s`
 	GetAdvisoryPath               = `/advisories/%s`
 	QueryPath                     = `/query`
-	GetRequirementsPath           = `/systems/%s/packages/%s/versions/%s:requirements`
 	GetProjectPackageVersionsPath = `/projects/%s:packageversions`
 	GetVersionBatchPath           = `/versionbatch`
 	GetProjectBatchPath           = `/projectbatch`
-	GetSimilarlyNamedPackagesPath = `/systems/%s/packages/%s:similarlyNamedPackages`
 	PurlLookupPath                = `/purl/%s`
-	PurlLookupBatch               = `/purlbatch`
+	PurlLookupBatchPath           = `/purlbatch`
+	QueryContainerImagesPath      = `/querycontainerimages/%s`
 )

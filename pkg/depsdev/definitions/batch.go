@@ -77,3 +77,37 @@ func (p *ProjectBatchResponse) Items() []Project {
 
 	return l
 }
+
+type PurlBatchRequest struct {
+	Purl string `json:"purl,omitempty"`
+}
+
+type PurlBatchBody struct {
+	Requests  []PurlBatchRequest `json:"requests"`
+	PageToken string             `json:"pageToken"`
+}
+
+func (p *PurlBatchBody) SetNextPageToken(token string) {
+	p.PageToken = token
+}
+
+type PurlBatchResponse struct {
+	Responses []struct {
+		Purl    Purl             `json:"result"`
+		Request PurlBatchRequest `json:"request"`
+	} `json:"responses"`
+	NextPageToken string `json:"nextPageToken"`
+}
+
+func (p *PurlBatchResponse) GetNextPageToken() string {
+	return p.NextPageToken
+}
+
+func (p *PurlBatchResponse) Items() []Purl {
+	l := make([]Purl, 0, len(p.Responses))
+	for _, r := range p.Responses {
+		l = append(l, r.Purl)
+	}
+
+	return l
+}

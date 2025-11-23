@@ -30,3 +30,8 @@ type VersionKey struct {
 	Name    string `json:"name,omitempty"`
 	Version string `json:"version,omitempty"`
 }
+
+type SimilarlyNamedPackages struct {
+	PackageKey PackageKey `json:"packageKey,omitempty"`
+	Packages   []Package  `json:"packages,omitempty"`
+}

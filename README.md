@@ -175,12 +175,12 @@ import (
 
 func main() {
   client := depsdev.NewV3API()
-  package, err := client.GetInfo("npm", "defangjs")
+  p, err := client.GetInfo("npm", "defangjs")
   if err != nil {
     log.Fatal(err)
   }
 
-  fmt.Println(package.PackageKey.Name)
+  fmt.Println(p.PackageKey.Name)
   //...
 }
 ```
@@ -201,12 +201,12 @@ import (
 
 func main() {
   client := depsdev.NewV3AlphaAPI()
-  package, err := client.GetInfo("npm", "defangjs")
+  p, err := client.GetInfo("npm", "defangjs")
   if err != nil {
     log.Fatal(err)
   }
 
-  fmt.Println(package.PackageKey.Name)
+  fmt.Println(p.PackageKey.Name)
   //...
 }
 ```

@@ -14,7 +14,9 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package main
 
-import "github.com/edoardottt/depsdev/cmd"
+import (
+	"github.com/edoardottt/depsdev/cmd"
+)
 
 func main() {
 	cmd.Execute()
