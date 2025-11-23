@@ -7,6 +7,7 @@ Free access to dependencies, licenses, advisories, and other critical health and
 @repository: https://github.com/edoardottt/depsdev
 
 @license: https://github.com/edoardottt/depsdev/blob/main/LICENSE
+
 */
 
 package depsdev
