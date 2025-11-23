@@ -49,7 +49,7 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(infoCmd)
+	rootCmd.AddCommand(packageCmd)
 	rootCmd.AddCommand(depsCmd)
 	rootCmd.AddCommand(advisoryCmd)
 	rootCmd.AddCommand(projectCmd)

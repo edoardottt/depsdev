@@ -36,7 +36,7 @@ var packagesCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		v, err := api.GetPackageVersions(args[0])
+		v, err := api.GetProjectPackageVersions(args[0])
 		if err != nil {
 			log.Fatal(err)
 		}

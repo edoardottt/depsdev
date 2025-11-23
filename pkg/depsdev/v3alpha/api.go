@@ -181,7 +181,7 @@ func (a *APIv3Alpha) GetRequirements(packageManager, packageName, version string
 // GetProjectPackageVersions returns known mappings between the requested project and package versions.
 // At most 1500 package versions are returned.
 // Mappings which were derived from attestations are served first.
-func (a *APIv3Alpha) GetPackageVersions(projectName string) (def.PackageVersions, error) {
+func (a *APIv3Alpha) GetProjectPackageVersions(projectName string) (def.PackageVersions, error) {
 	var response def.PackageVersions
 
 	var path = fmt.Sprintf(GetProjectPackageVersionsPath, url.PathEscape(projectName))

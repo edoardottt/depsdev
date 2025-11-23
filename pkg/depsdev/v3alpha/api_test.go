@@ -30,7 +30,7 @@ var (
 	api = depsdev.NewV3AlphaAPI()
 )
 
-func TestGetInfo(t *testing.T) {
+func TestGetPackage(t *testing.T) {
 	result := `{
 	"packageKey":{
 		"system":"NPM",
@@ -232,175 +232,6 @@ func TestGetVersion(t *testing.T) {
 	})
 }
 
-func TestGetDependencies(t *testing.T) {
-	result := `{
-		"nodes": [
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "pino",
-			  "version": "6.14.0"
-			},
-			"relation": "SELF",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "atomic-sleep",
-			  "version": "1.0.0"
-			},
-			"relation": "INDIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "fast-redact",
-			  "version": "3.5.0"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "fast-safe-stringify",
-			  "version": "2.1.1"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "flatstr",
-			  "version": "1.0.12"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "pino-std-serializers",
-			  "version": "3.2.0"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "process-warning",
-			  "version": "1.0.0"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "quick-format-unescaped",
-			  "version": "4.0.4"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  },
-		  {
-			"versionKey": {
-			  "system": "NPM",
-			  "name": "sonic-boom",
-			  "version": "1.4.1"
-			},
-			"relation": "DIRECT",
-			"errors": []
-		  }
-		],
-		"edges": [
-		  {
-			"toNode": 2,
-			"requirement": "^3.0.0"
-		  },
-		  {
-			"toNode": 3,
-			"requirement": "^2.0.8"
-		  },
-		  {
-			"toNode": 4,
-			"requirement": "^1.0.12"
-		  },
-		  {
-			"toNode": 5,
-			"requirement": "^3.1.0"
-		  },
-		  {
-			"toNode": 6,
-			"requirement": "^1.0.0"
-		  },
-		  {
-			"toNode": 7,
-			"requirement": "^4.0.3"
-		  },
-		  {
-			"toNode": 8,
-			"requirement": "^1.0.2"
-		  },
-		  {
-			"fromNode": 8,
-			"toNode": 1,
-			"requirement": "^1.0.0"
-		  },
-		  {
-			"fromNode": 8,
-			"toNode": 4,
-			"requirement": "^1.0.12"
-		  }
-		]
-	  }`
-
-	t.Run("GetDependencies npm pino 6.14.0", func(t *testing.T) {
-		got, err := api.GetDependencies("npm", "pino", "6.14.0")
-		require.Nil(t, err)
-
-		var d def.Dependencies
-
-		if err := json.Unmarshal([]byte(result), &d); err != nil {
-			log.Fatal(err)
-		}
-
-		require.Equal(t, d, got)
-	})
-}
-
-func TestGetAdvisory(t *testing.T) {
-	result := `{
-		"advisoryKey": {
-		  "id": "GHSA-jfh8-c2jp-5v3q"
-		},
-		"url": "https://osv.dev/vulnerability/GHSA-jfh8-c2jp-5v3q",
-		"title": "Remote code injection in Log4j",
-		"aliases": [
-		  "CVE-2021-44228"
-		],
-		"cvss3Score": 10,
-		"cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H"
-	  }`
-
-	t.Run("GetAdvisory GHSA-jfh8-c2jp-5v3q", func(t *testing.T) {
-		got, err := api.GetAdvisory("GHSA-jfh8-c2jp-5v3q")
-		require.Nil(t, err)
-
-		var a def.Advisory
-
-		if err := json.Unmarshal([]byte(result), &a); err != nil {
-			log.Fatal(err)
-		}
-
-		require.Equal(t, a, got)
-	})
-}
-
 func TestGetRequirements(t *testing.T) {
 	result := `{
 		"npm": {
@@ -568,6 +399,321 @@ func TestGetRequirements(t *testing.T) {
 		}
 
 		require.Equal(t, r, got)
+	})
+}
+
+func TestGetDependencies(t *testing.T) {
+	result := `{
+		"nodes": [
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "pino",
+			  "version": "6.14.0"
+			},
+			"relation": "SELF",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "atomic-sleep",
+			  "version": "1.0.0"
+			},
+			"relation": "INDIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "fast-redact",
+			  "version": "3.5.0"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "fast-safe-stringify",
+			  "version": "2.1.1"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "flatstr",
+			  "version": "1.0.12"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "pino-std-serializers",
+			  "version": "3.2.0"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "process-warning",
+			  "version": "1.0.0"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "quick-format-unescaped",
+			  "version": "4.0.4"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  },
+		  {
+			"versionKey": {
+			  "system": "NPM",
+			  "name": "sonic-boom",
+			  "version": "1.4.1"
+			},
+			"relation": "DIRECT",
+			"errors": []
+		  }
+		],
+		"edges": [
+		  {
+			"toNode": 2,
+			"requirement": "^3.0.0"
+		  },
+		  {
+			"toNode": 3,
+			"requirement": "^2.0.8"
+		  },
+		  {
+			"toNode": 4,
+			"requirement": "^1.0.12"
+		  },
+		  {
+			"toNode": 5,
+			"requirement": "^3.1.0"
+		  },
+		  {
+			"toNode": 6,
+			"requirement": "^1.0.0"
+		  },
+		  {
+			"toNode": 7,
+			"requirement": "^4.0.3"
+		  },
+		  {
+			"toNode": 8,
+			"requirement": "^1.0.2"
+		  },
+		  {
+			"fromNode": 8,
+			"toNode": 1,
+			"requirement": "^1.0.0"
+		  },
+		  {
+			"fromNode": 8,
+			"toNode": 4,
+			"requirement": "^1.0.12"
+		  }
+		]
+	  }`
+
+	t.Run("GetDependencies npm pino 6.14.0", func(t *testing.T) {
+		got, err := api.GetDependencies("npm", "pino", "6.14.0")
+		require.Nil(t, err)
+
+		var d def.Dependencies
+
+		if err := json.Unmarshal([]byte(result), &d); err != nil {
+			log.Fatal(err)
+		}
+
+		require.Equal(t, d, got)
+	})
+}
+
+func TestGetDependents(t *testing.T) {
+	t.Run("GetDependents npm pino 9.0.0", func(t *testing.T) {
+		got, err := api.GetDependents("npm", "pino", "9.0.0")
+		require.Nil(t, err)
+
+		require.GreaterOrEqual(t, got.DependentCount, 0)
+		require.GreaterOrEqual(t, got.DirectDependentCount, 0)
+		require.GreaterOrEqual(t, got.IndirectDependentCount, 0)
+	})
+}
+
+func TestGetProject(t *testing.T) {
+	t.Run("GetProject npm defangjs", func(t *testing.T) {
+		got, err := api.GetProject("github.com/edoardottt/defangjs")
+		require.Nil(t, err)
+
+		// no checking of the actual value because they can change over time
+		// we just ensure the call to the API and unmarshaling of the response works properly
+		assert.NotEmpty(t, got)
+	})
+}
+
+func TestGetProjectPackageVersions(t *testing.T) {
+	t.Run("GetProjectPackageVersions npm defangjs", func(t *testing.T) {
+		got, err := api.GetProjectPackageVersions("github.com/edoardottt/defangjs")
+		require.Nil(t, err)
+
+		// no checking of the actual value because they can change over time
+		// we just ensure the call to the API and unmarshaling of the response works properly
+		assert.NotEmpty(t, got)
+	})
+}
+
+func TestGetAdvisory(t *testing.T) {
+	result := `{
+		"advisoryKey": {
+		  "id": "GHSA-jfh8-c2jp-5v3q"
+		},
+		"url": "https://osv.dev/vulnerability/GHSA-jfh8-c2jp-5v3q",
+		"title": "Remote code injection in Log4j",
+		"aliases": [
+		  "CVE-2021-44228"
+		],
+		"cvss3Score": 10,
+		"cvss3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H"
+	  }`
+
+	t.Run("GetAdvisory GHSA-jfh8-c2jp-5v3q", func(t *testing.T) {
+		got, err := api.GetAdvisory("GHSA-jfh8-c2jp-5v3q")
+		require.Nil(t, err)
+
+		var a def.Advisory
+
+		if err := json.Unmarshal([]byte(result), &a); err != nil {
+			log.Fatal(err)
+		}
+
+		require.Equal(t, a, got)
+	})
+}
+
+func TestPurlLookup(t *testing.T) {
+	t.Run("PurlLookup", func(t *testing.T) {
+		result := `{
+		"version": {
+			"versionKey": {
+			"system": "NPM",
+			"name": "@colors/colors",
+			"version": "1.5.0"
+			},
+			"purl": "pkg:npm/%40colors/colors@1.5.0",
+			"publishedAt": "2022-02-12T07:39:04Z",
+			"isDefault": false,
+			"isDeprecated": false,
+			"licenses": [
+			"MIT"
+			],
+			"licenseDetails": [
+			{
+				"license": "MIT",
+				"spdx": "MIT"
+			}
+			],
+			"advisoryKeys": [],
+			"links": [
+			{
+				"label": "HOMEPAGE",
+				"url": "https://github.com/DABH/colors.js"
+			},
+			{
+				"label": "ISSUE_TRACKER",
+				"url": "https://github.com/DABH/colors.js/issues"
+			},
+			{
+				"label": "ORIGIN",
+				"url": "https://registry.npmjs.org/@colors%2Fcolors/1.5.0"
+			},
+			{
+				"label": "SOURCE_REPO",
+				"url": "git+ssh://git@github.com/DABH/colors.js.git"
+			}
+			],
+			"slsaProvenances": [],
+			"attestations": [],
+			"registries": [
+			"https://registry.npmjs.org/"
+			],
+			"relatedProjects": [
+			{
+				"projectKey": {
+				"id": "github.com/dabh/colors.js"
+				},
+				"relationProvenance": "UNVERIFIED_METADATA",
+				"relationType": "ISSUE_TRACKER"
+			},
+			{
+				"projectKey": {
+				"id": "github.com/dabh/colors.js"
+				},
+				"relationProvenance": "UNVERIFIED_METADATA",
+				"relationType": "SOURCE_REPO"
+			}
+			],
+			"upstreamIdentifiers": [
+			{
+				"packageName": "@colors/colors",
+				"versionString": "1.5.0",
+				"source": "NPM_NPMJS_ORG"
+			}
+			]
+		}
+		}`
+
+		got, err := api.PurlLookup("pkg:npm/%40colors/colors@1.5.0")
+		require.Nil(t, err)
+
+		var a def.Purl
+
+		if err := json.Unmarshal([]byte(result), &a); err != nil {
+			log.Fatal(err)
+		}
+
+		require.Equal(t, a, got)
+	})
+
+	t.Run("PurlLookup batch multi pages", func(t *testing.T) {
+		const N = 300
+
+		reqs := def.PurlBatchBody{
+			Requests:  []def.PurlBatchRequest{},
+			PageToken: "",
+		}
+
+		projects := make([]def.PurlBatchRequest, 0, N)
+		for i := 0; i < N; i++ {
+			projects = append(projects, def.PurlBatchRequest{Purl: "pkg:npm/%40colors/colors@1.5.0"})
+		}
+
+		reqs.Requests = projects
+
+		iter, err := api.PurlLookupBatch(reqs)
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		assert.Equal(t, N, len(results))
 	})
 }
 
@@ -781,7 +927,6 @@ func TestGetProjectBatch(t *testing.T) {
 		assert.Equal(t, N, len(results))
 	})
 }
-
 func TestPurlLookupBatch(t *testing.T) {
 	t.Run("PurlLookup batch", func(t *testing.T) {
 		iter, err := api.PurlLookupBatch((def.PurlBatchBody{
@@ -833,6 +978,90 @@ func TestPurlLookupBatch(t *testing.T) {
 		require.NoError(t, err)
 
 		assert.Equal(t, N, len(results))
+	})
+}
+
+func TestQuery(t *testing.T) {
+	result := `{
+		"results": [
+			{
+			"version": {
+				"versionKey": {
+				"system": "NPM",
+				"name": "defangjs",
+				"version": "1.0.7"
+				},
+				"purl": "pkg:npm/defangjs@1.0.7",
+				"publishedAt": "2023-05-16T09:48:31Z",
+				"isDefault": true,
+				"isDeprecated": false,
+				"licenses": [
+				"GPL-3.0"
+				],
+				"licenseDetails": [
+				{
+					"license": "GPL-3.0",
+					"spdx": "GPL-3.0"
+				}
+				],
+				"advisoryKeys": [],
+				"links": [
+				{
+					"label": "HOMEPAGE",
+					"url": "https://github.com/edoardottt/defangjs#readme"
+				},
+				{
+					"label": "ISSUE_TRACKER",
+					"url": "https://github.com/edoardottt/defangjs/issues"
+				},
+				{
+					"label": "ORIGIN",
+					"url": "https://registry.npmjs.org/defangjs/1.0.7"
+				},
+				{
+					"label": "SOURCE_REPO",
+					"url": "git+https://github.com/edoardottt/defangjs.git"
+				}
+				],
+				"slsaProvenances": [],
+				"attestations": [],
+				"registries": [
+				"https://registry.npmjs.org/"
+				],
+				"relatedProjects": [
+				{
+					"projectKey": {
+					"id": "github.com/edoardottt/defangjs"
+					},
+					"relationProvenance": "UNVERIFIED_METADATA",
+					"relationType": "ISSUE_TRACKER"
+				},
+				{
+					"projectKey": {
+					"id": "github.com/edoardottt/defangjs"
+					},
+					"relationProvenance": "UNVERIFIED_METADATA",
+					"relationType": "SOURCE_REPO"
+				}
+				],
+				"upstreamIdentifiers": []
+			},
+			"artifacts": []
+			}
+		]
+		}`
+
+	t.Run("Query versionKey.system=NPM&versionKey.name=defangjs&versionKey.version=1.0.7", func(t *testing.T) {
+		got, err := api.Query("versionKey.system=NPM&versionKey.name=defangjs&versionKey.version=1.0.7")
+		require.Nil(t, err)
+
+		var a def.Results
+
+		if err := json.Unmarshal([]byte(result), &a); err != nil {
+			log.Fatal(err)
+		}
+
+		require.Equal(t, a, got)
 	})
 }
 

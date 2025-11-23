@@ -63,7 +63,7 @@ Available Commands:
   deps        Get info about a package's dependencies
   graph       Generate a Graphviz compatible dependencies graph
   help        Help about any command
-  info        Get info about a package or a specific version of that
+  package     Get info about a package or a specific version of that
   packages    Get info about a project's package versions (GitHub, GitLab, or BitBucket)
   project     Get info about a project (GitHub, GitLab, or BitBucket)
   query       Get info about multiple package versions using a query
@@ -88,7 +88,7 @@ For more information [read the API documentation](https://docs.deps.dev/api/v3).
 Get information about a package, including a list of its available versions, with the default version marked if known.
 
 ```console
-depsdev info npm @colors/colors
+depsdev package npm @colors/colors
 ```
 
 <br>
@@ -96,7 +96,7 @@ depsdev info npm @colors/colors
 Get information about a specific package version including its licenses and any security advisories known to affect it.
 
 ```console
-depsdev info npm @colors/colors 1.5.0
+depsdev package npm @colors/colors 1.5.0
 ```
 
 <br>

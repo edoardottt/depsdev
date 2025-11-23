@@ -34,10 +34,9 @@ func NewV3API() *APIv3 {
 	}
 }
 
-// GetInfo returns information about a package,
-// including a list of its available versions,
+// GetPackage returns information about a package, including a list of its available versions,
 // with the default version marked if known.
-func (a *APIv3) GetInfo(packageManager, packageName string) (def.Package, error) {
+func (a *APIv3) GetPackage(packageManager, packageName string) (def.Package, error) {
 	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Package{}, input.ErrInvalidPackageManager
 	}
@@ -77,8 +76,12 @@ func getVersion(c *client.Client, packageManager, packageName, version string) (
 	return response, nil
 }
 
-// GetDependencies returns information about dependencies for a specific version of a package
-// for a specific package manager.
+// GetDependencies returns a resolved dependency graph for the given package version.
+// Dependencies are currently available for npm, Cargo, Maven and PyPI.
+// Dependencies are the resolution of the requirements (dependency constraints) specified by a version.
+// The dependency graph should be similar to one produced by installing the package version on a generic 64-bit Linux system,
+// with no other dependencies present. The precise meaning of this varies from system to system.
+// Example: npm react 18.2.0.
 func (a *APIv3) GetDependencies(packageManager, packageName, version string) (def.Dependencies, error) {
 	return getDependencies(a.client, packageManager, packageName, version)
 }
@@ -94,7 +97,8 @@ func getDependencies(c *client.Client, packageManager, packageName, version stri
 	return response, nil
 }
 
-// GetProject returns information about a project (hosted on GitHub, GitLab or BitBucket).
+// GetProject returns information about projects hosted by GitHub, GitLab, or BitBucket, when known to us.
+// Example: github.com/facebook/react.
 func (a *APIv3) GetProject(projectName string) (def.Project, error) {
 	return getProject(a.client, projectName)
 }
@@ -110,7 +114,8 @@ func getProject(c *client.Client, projectName string) (def.Project, error) {
 	return response, nil
 }
 
-// GetAdvisory returns information about an advisory.
+// GetAdvisory returns information about security advisories hosted by OSV.
+// Example: GHSA-2qrg-x229-3v8q.
 func (a *APIv3) GetAdvisory(advisory string) (def.Advisory, error) {
 	return getAdvisory(a.client, advisory)
 }
@@ -126,7 +131,15 @@ func getAdvisory(c *client.Client, advisory string) (def.Advisory, error) {
 	return response, nil
 }
 
-// Query returns the result of the inputted query.
+// Query returns information about multiple package versions, which can be specified by name, content hash, or both.
+// If a hash was specified in the request, it returns the artifacts that matched the hash.
+// Querying by content hash is currently supported for npm, Cargo, Maven, NuGet, PyPI and RubyGems.
+// It is typical for hash queries to return many results; hashes are matched against multiple release artifacts
+// (such as JAR files) that comprise package versions, and any given artifact may appear in several package versions.
+// Examples:
+// hash.type=SHA1&hash.value=ulXBPXrC%2FUTfnMgHRFVxmjPzdbk%3D
+// versionKey.system=NPM&versionKey.name=react&versionKey.version=18.2.0
+// End of examples.
 func (a *APIv3) Query(query string) (def.Results, error) {
 	return getQuery(a.client, query)
 }
@@ -143,7 +156,9 @@ func getQuery(c *client.Client, query string) (def.Results, error) {
 }
 
 // GetRequirements returns the requirements for a given version in a system-specific format.
-// Requirements are currently available for Maven, npm and NuGet.
+// Requirements are currently available for Maven, npm, NuGet and RubyGems.
+// Requirements are the dependency constraints specified by the version.
+// Example: nuget castle.core 5.1.1.
 func (a *APIv3) GetRequirements(packageManager, packageName, version string) (def.Requirements, error) {
 	var response def.Requirements
 
@@ -155,10 +170,11 @@ func (a *APIv3) GetRequirements(packageManager, packageName, version string) (de
 	return response, nil
 }
 
-// GetPackageVersions returns the package versions which attest to being created from the specified
-// source code repository (hosted on GitHub, GitLab or BitBucket).
+// GetProjectPackageVersions returns known mappings between the requested project and package versions.
 // At most 1500 package versions are returned.
-func (a *APIv3) GetPackageVersions(projectName string) (def.PackageVersions, error) {
+// Mappings which were derived from attestations are served first.
+// Example: github.com/facebook/react.
+func (a *APIv3) GetProjectPackageVersions(projectName string) (def.PackageVersions, error) {
 	var response def.PackageVersions
 
 	var path = fmt.Sprintf(GetProjectPackageVersionsPath, url.PathEscape(projectName))
