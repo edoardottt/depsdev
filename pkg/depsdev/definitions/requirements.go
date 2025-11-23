@@ -114,9 +114,3 @@ type File struct {
 	Exists  string `json:"exists,omitempty"`
 	Missing string `json:"missing,omitempty"`
 }
-
-type Dependent struct {
-	DependentCount         int `json:"dependentCount"`
-	DirectDependentCount   int `json:"directDependentCount"`
-	IndirectDependentCount int `json:"indirectDependentCount"`
-}

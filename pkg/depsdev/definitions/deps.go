@@ -32,3 +32,9 @@ type Edge struct {
 	ToNode      int    `json:"toNode,omitempty"`
 	Requirement string `json:"requirement,omitempty"`
 }
+
+type Dependent struct {
+	DependentCount         int `json:"dependentCount"`
+	DirectDependentCount   int `json:"directDependentCount"`
+	IndirectDependentCount int `json:"indirectDependentCount"`
+}
