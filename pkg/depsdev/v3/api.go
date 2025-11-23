@@ -174,7 +174,7 @@ func (a *APIv3) GetRequirements(packageManager, packageName, version string) (de
 // At most 1500 package versions are returned.
 // Mappings which were derived from attestations are served first.
 // Example: github.com/facebook/react.
-func (a *APIv3) GetPackageVersions(projectName string) (def.PackageVersions, error) {
+func (a *APIv3) GetProjectPackageVersions(projectName string) (def.PackageVersions, error) {
 	var response def.PackageVersions
 
 	var path = fmt.Sprintf(GetProjectPackageVersionsPath, url.PathEscape(projectName))
