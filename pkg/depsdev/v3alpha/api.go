@@ -194,7 +194,6 @@ func (a *APIv3Alpha) GetProjectPackageVersions(projectName string) (def.PackageV
 
 // GetDependents returns information about the number of distinct packages known to depend
 // on the given package version. Dependent counts are currently available for npm, Cargo, Maven and PyPI.
-//
 // Dependent counts are derived from the dependency graphs computed by deps.dev, which means that only public dependents are counted.
 // As such, dependent counts should be treated as indicative of relative popularity rather than precisely accurate.
 func (a *APIv3Alpha) GetDependents(packageManager, packageName, version string) (def.Dependent, error) {
@@ -212,7 +211,7 @@ func (a *APIv3Alpha) GetDependents(packageManager, packageName, version string) 
 	return response, nil
 }
 
-// GetCapabilityRequest returns counts for direct and indirect calls to Capslock capabilities for a given package version.
+// GetCapabilities returns counts for direct and indirect calls to Capslock capabilities for a given package version.
 // Currently only available for Go.
 func (a *APIv3Alpha) GetCapabilities(packageManager, packageName, version string) (def.Capabilities, error) {
 	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {

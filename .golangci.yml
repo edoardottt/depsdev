@@ -40,9 +40,6 @@ linters:
       - common-false-positives
       - legacy
       - std-error-handling
-    rules:
-      - path: pkg/output/banner.go
-        text: 'should be written without leading space as `//nolint: gochecknoglobals`'
     paths:
       - third_party$
       - builtin$
