@@ -116,7 +116,7 @@ func TestGetInfo(t *testing.T) {
 	  }`
 
 	t.Run("GetInfo npm defangjs", func(t *testing.T) {
-		got, err := api.GetInfo("npm", "defangjs")
+		got, err := api.GetPackage("npm", "defangjs")
 		require.Nil(t, err)
 
 		var d def.Package

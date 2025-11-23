@@ -34,10 +34,9 @@ func NewV3API() *APIv3 {
 	}
 }
 
-// GetInfo returns information about a package,
-// including a list of its available versions,
+// GetPackage returns information about a package, including a list of its available versions,
 // with the default version marked if known.
-func (a *APIv3) GetInfo(packageManager, packageName string) (def.Package, error) {
+func (a *APIv3) GetPackage(packageManager, packageName string) (def.Package, error) {
 	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Package{}, input.ErrInvalidPackageManager
 	}

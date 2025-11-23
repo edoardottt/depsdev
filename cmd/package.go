@@ -23,9 +23,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// infoCmd represents the info command when called with info subcommand.
-var infoCmd = &cobra.Command{
-	Use:   "info package-manager package-name [version]",
+// packageCmd represents the package command when called with package subcommand.
+var packageCmd = &cobra.Command{
+	Use:   "package package-manager package-name [version]",
 	Short: "Get info about a package or a specific version of that",
 	Long: `Get information about a package, including a list of its available versions, 
 with the default version marked if known.
@@ -56,7 +56,7 @@ including its licenses and any security advisories known to affect it.`,
 
 			fmt.Println(vJSON)
 		} else {
-			p, err := api.GetInfo(args[0], args[1])
+			p, err := api.GetPackage(args[0], args[1])
 			if err != nil {
 				log.Fatal(err)
 			}
