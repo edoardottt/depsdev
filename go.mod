@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/avast/retry-go v3.0.0+incompatible
-	github.com/spf13/cobra v1.10.1
+	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.11.1
 )
 
