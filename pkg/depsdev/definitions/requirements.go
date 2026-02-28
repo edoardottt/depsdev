@@ -19,10 +19,52 @@ type Requirements struct {
 	Npm      *Npm            `json:"npm,omitempty"`
 	Maven    *Maven          `json:"maven,omitempty"`
 	RubyGems *DependencyList `json:"rubygems,omitempty"`
+	Go       *DependencyList `json:"go,omitempty"`
+	Pypi     *Pypi           `json:"pypi,omitempty"`
+	Cargo    *Cargo          `json:"cargo,omitempty"`
 }
 
 type Nuget struct {
 	DependependencyGroups []DependependencyGroup `json:"dependencyGroups,omitempty"`
+}
+
+type Cargo struct {
+	Dependencies []CargoDependepency `json:"dependencies,omitempty"`
+	Features     []CargoFeatures     `json:"features,omitempty"`
+}
+
+type CargoDependepency struct {
+	Name                string   `json:"name,omitempty"`
+	Requirement         string   `json:"requirement,omitempty"`
+	Kind                string   `json:"kind,omitempty"`
+	Optional            bool     `json:"optional,omitempty"`
+	PackageAlias        string   `json:"packageAlias,omitempty"`
+	UsesDefaultFeatures bool     `json:"usesDefaultFeatures,omitempty"`
+	Features            []string `json:"features,omitempty"`
+	Target              string   `json:"target,omitempty"`
+}
+
+type CargoFeatures struct {
+	Name    string   `json:"name,omitempty"`
+	Implies []string `json:"implies,omitempty"`
+}
+
+type Pypi struct {
+	Dependencies          []PypiDependepency `json:"dependencies,omitempty"`
+	ProvidedExtras        []ProvidedExtras   `json:"providedExtras,omitempty"`
+	ExternalDependencies  []PypiDependepency `json:"externalDependencies,omitempty"`
+	RequiredPythonVersion string             `json:"requiredPythonVersion,omitempty"`
+}
+
+type PypiDependepency struct {
+	ProjectName       string `json:"projectName,omitempty"`
+	Extras            string `json:"extras,omitempty"`
+	VersionSpecifier  string `json:"versionSpecifier,omitempty"`
+	EnvironmentMarker string `json:"environmentMarker,omitempty"`
+}
+
+type ProvidedExtras struct {
+	ProvidedExtras string `json:"providedExtras,omitempty"`
 }
 
 type DependependencyGroup struct {
@@ -60,6 +102,8 @@ type DependencyList struct {
 	OptionalDependencies []Dependency `json:"optionalDependencies,omitempty"`
 	PeerDependencies     []Dependency `json:"peerDependencies,omitempty"`
 	RuntimeDependencies  []Dependency `json:"runtimeDependencies,omitempty"`
+	DirectDependencies   []Dependency `json:"directDependencies,omitempty"`
+	IndirectDependencies []Dependency `json:"indirectDependencies,omitempty"`
 	BundleDependencies   []string     `json:"bundleDependencies,omitempty"`
 }
 
