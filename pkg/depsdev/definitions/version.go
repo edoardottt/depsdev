@@ -31,6 +31,9 @@ type Version struct {
 	Registries          []string             `json:"registries,omitempty"`
 	RelatedProjects     []RelatedProject     `json:"relatedProjects,omitempty"`
 	UpstreamIdentifiers []UpstreamIdentifier `json:"upstreamIdentifiers,omitempty"`
+	DeprecatedReason    string               `json:"deprecatedReason,omitempty"`
+	Cooldown            Cooldown             `json:"cooldown,omitempty"`
+	ProjectStatus       ProjectStatus        `json:"projectStatus,omitempty"`
 }
 
 type Link struct {
@@ -68,4 +71,14 @@ type UpstreamIdentifier struct {
 	PackageName   string `json:"packageName,omitempty"`
 	VersionString string `json:"versionString,omitempty"`
 	Source        string `json:"source,omitempty"`
+}
+
+type Cooldown struct {
+	End         string `json:"end,omitempty"`
+	Description string `json:"description,omitempty"`
+}
+
+type ProjectStatus struct {
+	Status string `json:"status,omitempty"`
+	Reason string `json:"reason,omitempty"`
 }

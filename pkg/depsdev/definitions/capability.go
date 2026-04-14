@@ -14,12 +14,17 @@ Free access to dependencies, licenses, advisories, and other critical health and
 
 package depsdev
 
+// Capabilities represents the collection of Capslock capabilities for a package version.
 type Capabilities struct {
 	Capabilities []CapabilityDetail `json:"capabilities,omitempty"`
 }
 
+// CapabilityDetail describes a specific capability and the frequency of its usage.
 type CapabilityDetail struct {
-	Capability    string `json:"capability,omitempty"`
-	DirectCount   int    `json:"directCount"`
-	IndirectCount int    `json:"indirectCount"`
+	// Capability is the name of the Capslock capability (e.g., "CAPABILITY_NETWORK").
+	Capability string `json:"capability,omitempty"`
+	// DirectCount is the number of direct calls from the package to this capability.
+	DirectCount int `json:"directCount,omitempty"`
+	// IndirectCount is the number of calls to this capability via other dependencies.
+	IndirectCount int `json:"indirectCount,omitempty"`
 }
