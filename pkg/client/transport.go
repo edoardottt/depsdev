@@ -66,6 +66,7 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 		}
 
 		response = resp
+
 		return nil
 	}, options...); err != nil {
 		return nil, err

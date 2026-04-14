@@ -32,9 +32,11 @@ var reqsCmd = &cobra.Command{
 		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
+
 		if !input.Contains(args[0], []string{"npm", "maven", "nuget", "rubygems", "pypi", "cargo", "go"}) {
 			return input.ErrInvalidPackageManagerForRequirements
 		}
+
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {

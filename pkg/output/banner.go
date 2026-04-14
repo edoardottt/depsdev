@@ -17,7 +17,7 @@ package output
 import "fmt"
 
 const (
-	Version = `0.2.1`
+	Version = `0.2.2`
 	Banner  = `depsdev v` + Version + `
   > https://github.com/edoardottt/depsdev
   > @edoardottt, https://edoardottt.com/`

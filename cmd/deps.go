@@ -32,6 +32,7 @@ var depsCmd = &cobra.Command{
 		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
+
 		if !input.IsValidPackageManager(args[0], input.DepsValidPackageManagers) {
 			return input.ErrInvalidPackageManager
 		}

@@ -19,6 +19,15 @@ type ContainerImages struct {
 }
 
 type ContainerImage struct {
-	Registry   string `json:"registry,omitempty"`
-	Repository string `json:"repository,omitempty"`
+	Registry       string          `json:"registry,omitempty"`
+	Repository     string          `json:"repository,omitempty"`
+	DockerMetadata *DockerMetadata `json:"dockerMetadata,omitempty"`
+}
+
+type DockerMetadata struct {
+	DateRegistered string `json:"dateRegistered,omitempty"`
+	LastUpdated    string `json:"lastUpdated,omitempty"`
+	StarCount      string `json:"starCount,omitempty"`
+	PullCount      string `json:"pullCount,omitempty"`
+	IsOfficial     bool   `json:"isOfficial,omitempty"`
 }

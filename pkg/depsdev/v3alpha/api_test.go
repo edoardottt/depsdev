@@ -145,77 +145,74 @@ func TestGetPackage(t *testing.T) {
 
 func TestGetVersion(t *testing.T) {
 	result := `{
-	"versionKey":{
-		"system":"NPM",
-		"name":"defangjs",
-		"version":"1.0.7"
-	},
-	"purl":"pkg:npm/defangjs@1.0.7",
-	"publishedAt":"2023-05-16T09:48:31Z",
-	"isDefault":true,
-	"isDeprecated":false,
-	"licenses":[
-		"GPL-3.0"
-	],
-	"licenseDetails":[
-		{
-			"license":"GPL-3.0",
-			"spdx":"GPL-3.0"
-		}
-	],
-	"advisoryKeys":[
-		
-	],
-	"links":[
-		{
-			"label":"HOMEPAGE",
-			"url":"https://github.com/edoardottt/defangjs#readme"
-		},
-		{
-			"label":"ISSUE_TRACKER",
-			"url":"https://github.com/edoardottt/defangjs/issues"
-		},
-		{
-			"label":"ORIGIN",
-			"url":"https://registry.npmjs.org/defangjs/1.0.7"
-		},
-		{
-			"label":"SOURCE_REPO",
-			"url":"git+https://github.com/edoardottt/defangjs.git"
-		}
-	],
-	"slsaProvenances":[
-		
-	],
-	"attestations":[
-		
-	],
-	"registries":[
-		"https://registry.npmjs.org/"
-	],
-	"relatedProjects":[
-		{
-			"projectKey":{
-				"id":"github.com/edoardottt/defangjs"
-			},
-			"relationProvenance":"UNVERIFIED_METADATA",
-			"relationType":"ISSUE_TRACKER"
-		},
-		{
-			"projectKey":{
-				"id":"github.com/edoardottt/defangjs"
-			},
-			"relationProvenance":"UNVERIFIED_METADATA",
-			"relationType":"SOURCE_REPO"
-		}
-	],
-	"upstreamIdentifiers":[
-		{
-			"packageName":"defangjs",
-			"versionString":"1.0.7",
-			"source":"NPM_NPMJS_ORG"
-		}
-	]
+  "versionKey": {
+    "system": "NPM",
+    "name": "defangjs",
+    "version": "1.0.7"
+  },
+  "publishedAt": "2023-05-16T09:48:31Z",
+  "isDefault": true,
+  "licenses": [
+    "GPL-3.0"
+  ],
+  "AdvisoryKeys": [],
+  "licenseDetails": [
+    {
+      "license": "GPL-3.0",
+      "spdx": "GPL-3.0"
+    }
+  ],
+  "links": [
+    {
+      "label": "HOMEPAGE",
+      "url": "https://github.com/edoardottt/defangjs#readme"
+    },
+    {
+      "label": "ISSUE_TRACKER",
+      "url": "https://github.com/edoardottt/defangjs/issues"
+    },
+    {
+      "label": "ORIGIN",
+      "url": "https://registry.npmjs.org/defangjs/1.0.7"
+    },
+    {
+      "label": "SOURCE_REPO",
+      "url": "git+https://github.com/edoardottt/defangjs.git"
+    }
+  ],
+  "purl": "pkg:npm/defangjs@1.0.7",
+  "slsaProvenances": [],
+  "attestations": [],
+  "registries": [
+    "https://registry.npmjs.org/"
+  ],
+  "relatedProjects": [
+    {
+      "projectKey": {
+        "id": "github.com/edoardottt/defangjs"
+      },
+      "relationProvenance": "UNVERIFIED_METADATA",
+      "relationType": "ISSUE_TRACKER"
+    },
+    {
+      "projectKey": {
+        "id": "github.com/edoardottt/defangjs"
+      },
+      "relationProvenance": "UNVERIFIED_METADATA",
+      "relationType": "SOURCE_REPO"
+    }
+  ],
+  "upstreamIdentifiers": [
+    {
+      "packageName": "defangjs",
+      "versionString": "1.0.7",
+      "source": "NPM_NPMJS_ORG"
+    }
+  ],
+  "cooldown": {
+    "end": "2023-05-31T09:48:31Z"
+  },
+  "projectStatus": {}
 }`
 
 	t.Run("GetVersion npm defangjs 1.0.7", func(t *testing.T) {
@@ -382,9 +379,12 @@ func TestGetRequirements(t *testing.T) {
 			],
 			"optionalDependencies": [],
 			"peerDependencies": [],
-			"bundleDependencies": []
+			"bundleDependencies": [],
+			"PeerDependencyMetadata": []
 		  },
-		  "Bundled": []
+		  "Bundled": [],
+		  "CPU": [],
+		  "OS": []
 		}
 	  }`
 
@@ -672,7 +672,10 @@ func TestPurlLookup(t *testing.T) {
 				"versionString": "1.5.0",
 				"source": "NPM_NPMJS_ORG"
 			}
-			]
+			],
+			"cooldown": {
+			"end": "2022-02-27T07:39:04Z"
+			}
 		}
 		}`
 
@@ -800,6 +803,7 @@ func TestGetVersionBatch(t *testing.T) {
 						Source:        "NPM_NPMJS_ORG",
 					},
 				},
+				Cooldown: def.Cooldown{End: "2022-02-27T07:39:04Z"},
 			},
 			{
 				VersionKey: def.VersionKey{
@@ -861,6 +865,7 @@ func TestGetVersionBatch(t *testing.T) {
 						Source:        "NPM_NPMJS_ORG",
 					},
 				},
+				Cooldown: def.Cooldown{End: "2023-05-31T09:48:31Z"},
 			},
 		}
 		results, err := consumeIter(iter)
@@ -1044,7 +1049,8 @@ func TestQuery(t *testing.T) {
 					"relationType": "SOURCE_REPO"
 				}
 				],
-				"upstreamIdentifiers": []
+				"upstreamIdentifiers": [],
+				"cooldown": {"end": "2023-05-31T09:48:31Z"}
 			},
 			"artifacts": []
 			}
