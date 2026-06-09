@@ -131,6 +131,55 @@ func getAdvisory(c *client.Client, advisory string) (def.Advisory, error) {
 	return response, nil
 }
 
+/*
+
+Not supported for now.
+Maybe will be shipped when stable.
+
+// GetFindings returns information about safe dependency management on a package.
+func (a *APIv3) GetFindings(packageManager, packageName string) (def.Findings, error) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
+		return def.Findings{}, input.ErrInvalidPackageManager
+	}
+
+	return getFindings(a.client, packageManager, packageName)
+}
+
+// getFindings returns a Version object.
+func getFindings(c *client.Client, packageManager, packageName string) (def.Findings, error) {
+	var response def.Findings
+
+	var path = fmt.Sprintf(GetFindingsPath, packageManager, url.PathEscape(packageName))
+	if err := c.Get(path, &response); err != nil {
+		return def.Findings{}, err
+	}
+
+	return response, nil
+}
+
+// GetFindingsVersion returns information about safe dependency management on a specific version of a package.
+func (a *APIv3) GetFindingsVersion(packageManager, packageName, version string) (def.Findings, error) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
+		return def.Findings{}, input.ErrInvalidPackageManager
+	}
+
+	return getFindingsVersion(a.client, packageManager, packageName, version)
+}
+
+// getFindingsVersion returns a Version object.
+func getFindingsVersion(c *client.Client, packageManager, packageName, version string) (def.Findings, error) {
+	var response def.Findings
+
+	var path = fmt.Sprintf(GetFindingsVersionPath, packageManager, url.PathEscape(packageName), version)
+	if err := c.Get(path, &response); err != nil {
+		return def.Findings{}, err
+	}
+
+	return response, nil
+}
+
+*/
+
 // Query returns information about multiple package versions, which can be specified by name, content hash, or both.
 // If a hash was specified in the request, it returns the artifacts that matched the hash.
 // Querying by content hash is currently supported for npm, Cargo, Maven, NuGet, PyPI and RubyGems.

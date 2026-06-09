@@ -24,6 +24,10 @@ import (
 	"github.com/edoardottt/depsdev/pkg/input"
 )
 
+const (
+	FirstMarker = "first"
+)
+
 type APIv3Alpha struct {
 	client *client.Client
 }
@@ -245,6 +249,73 @@ func (a *APIv3Alpha) GetSimilarlyNamedPackages(packageManager, packageName strin
 	return response, nil
 }
 
+// GetFindings returns information about safe dependency management on a package.
+func (a *APIv3Alpha) GetFindings(packageManager, packageName string) (def.Findings, error) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
+		return def.Findings{}, input.ErrInvalidPackageManager
+	}
+
+	return getFindings(a.client, packageManager, packageName)
+}
+
+// getFindings returns a Findings object.
+func getFindings(c *client.Client, packageManager, packageName string) (def.Findings, error) {
+	var response def.Findings
+
+	var path = fmt.Sprintf(GetFindingsPath, packageManager, url.PathEscape(packageName))
+	if err := c.Get(path, &response); err != nil {
+		return def.Findings{}, err
+	}
+
+	return response, nil
+}
+
+// GetFindingsVersion returns information about safe dependency management on a specific version of a package.
+func (a *APIv3Alpha) GetFindingsVersion(packageManager, packageName, version string) (def.Findings, error) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
+		return def.Findings{}, input.ErrInvalidPackageManager
+	}
+
+	return getFindingsVersion(a.client, packageManager, packageName, version)
+}
+
+// getFindingsVersion returns a Findings object.
+func getFindingsVersion(c *client.Client, packageManager, packageName, version string) (def.Findings, error) {
+	var response def.Findings
+
+	var path = fmt.Sprintf(GetFindingsVersionPath, packageManager, url.PathEscape(packageName), version)
+	if err := c.Get(path, &response); err != nil {
+		return def.Findings{}, err
+	}
+
+	return response, nil
+}
+
+// GetFindingsBatch performs GetFindings requests for a batch of versions.
+// Large result sets may be paginated.
+func (a *APIv3Alpha) GetFindingsBatch(req def.FindingBatchBody) (*Iterator[def.Findings], error) {
+	for _, v := range req.Requests {
+		if !input.IsValidPackageManager(v.VersionKey.System, input.AllValidPackageManagers) {
+			return nil, input.ErrInvalidPackageManager
+		}
+	}
+
+	response := &def.FindingBatchResponse{
+		NextPageToken: FirstMarker,
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cIn := getBatch(ctx, a.client, GetFindingsBatchPath, &req, response)
+
+	iter := Iterator[def.Findings]{
+		cIn:     cIn,
+		hasNext: true,
+		cancel:  cancel,
+	}
+
+	return &iter, nil
+}
+
 // GetVersionBatch performs GetVersion requests for a batch of versions.
 // Large result sets may be paginated.
 func (a *APIv3Alpha) GetVersionBatch(req def.VersionBatchBody) (*Iterator[def.Version], error) {
@@ -255,7 +326,7 @@ func (a *APIv3Alpha) GetVersionBatch(req def.VersionBatchBody) (*Iterator[def.Ve
 	}
 
 	response := &def.VersionBatchResponse{
-		NextPageToken: "first",
+		NextPageToken: FirstMarker,
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -274,7 +345,7 @@ func (a *APIv3Alpha) GetVersionBatch(req def.VersionBatchBody) (*Iterator[def.Ve
 // Large result sets may be paginated.
 func (a *APIv3Alpha) GetProjectBatch(req def.ProjectBatchBody) (*Iterator[def.Project], error) {
 	response := &def.ProjectBatchResponse{
-		NextPageToken: "first",
+		NextPageToken: FirstMarker,
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -317,7 +388,7 @@ func (a *APIv3Alpha) PurlLookup(purl string) (def.Purl, error) {
 // In particular, there must be no subpath or qualifiers. Large result sets may be paginated.
 func (a *APIv3Alpha) PurlLookupBatch(req def.PurlBatchBody) (*Iterator[def.Purl], error) {
 	response := &def.PurlBatchResponse{
-		NextPageToken: "first",
+		NextPageToken: FirstMarker,
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
