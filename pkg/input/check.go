@@ -16,6 +16,7 @@ package input
 
 import "strings"
 
+//nolint:goconst
 var (
 	AllValidPackageManagers  = []string{"go", "rubygems", "npm", "cargo", "maven", "pypi", "nuget"}
 	DepsValidPackageManagers = []string{"npm", "cargo", "maven", "pypi"}
