@@ -28,6 +28,9 @@ const (
 	GetDependentsPath             = `/systems/%s/packages/%s/versions/%s:dependents`
 	GetProjectPath                = `/projects/%s`
 	GetAdvisoryPath               = `/advisories/%s`
+	GetFindingsPath               = `/systems/%s/packages/%s:findings`
+	GetFindingsVersionPath        = `/systems/%s/packages/%s/versions/%s:findings`
+	GetFindingsBatchPath          = `/findingsbatch`
 	QueryPath                     = `/query`
 	GetProjectPackageVersionsPath = `/projects/%s:packageversions`
 	GetVersionBatchPath           = `/versionbatch`

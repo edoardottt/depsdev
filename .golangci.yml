@@ -44,6 +44,7 @@ linters:
       - third_party$
       - builtin$
       - examples$
+      - pkg/depsdev/v3alpha/api_test.go
 formatters:
   exclusions:
     generated: lax

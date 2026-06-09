@@ -57,4 +57,5 @@ func init() {
 	rootCmd.AddCommand(graphCmd)
 	rootCmd.AddCommand(reqsCmd)
 	rootCmd.AddCommand(packagesCmd)
+	// rootCmd.AddCommand(findingsCmd) not supported in v3 for now.
 }

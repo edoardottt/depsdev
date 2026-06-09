@@ -112,3 +112,37 @@ func (p *PurlBatchResponse) Items() []Purl {
 
 	return l
 }
+
+type FindingBatchRequest struct {
+	VersionKey VersionKey `json:"versionKey,omitempty"`
+	PackageKey PackageKey `json:"packageKey,omitempty"`
+}
+
+type FindingBatchBody struct {
+	Requests  []FindingBatchRequest `json:"requests"`
+	PageToken string                `json:"pageToken"`
+}
+
+func (p *FindingBatchBody) SetNextPageToken(token string) {
+	p.PageToken = token
+}
+
+type FindingBatchResponse struct {
+	Responses []struct {
+		Findings Findings            `json:"findings"`
+		Request  FindingBatchRequest `json:"request"`
+	} `json:"responses"`
+	NextPageToken string `json:"nextPageToken"`
+}
+
+func (p *FindingBatchResponse) GetNextPageToken() string {
+	return p.NextPageToken
+}
+func (p *FindingBatchResponse) Items() []Findings {
+	l := make([]Findings, 0, len(p.Responses))
+	for _, r := range p.Responses {
+		l = append(l, r.Findings)
+	}
+
+	return l
+}
