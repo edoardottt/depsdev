@@ -3,19 +3,11 @@
   <br>
 </h1>
 <h4 align="center">CLI client (and Golang module) for deps.dev API.<br>Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.</h4>
-
 <h6 align="center"> Coded with 💙 by edoardottt </h6>
-
 <p align="center">
-
-  <a href="https://goreportcard.com/report/github.com/edoardottt/depsdev">
-      <img src="https://goreportcard.com/badge/github.com/edoardottt/depsdev" alt="go report card">
-  </a>
-
   <a href="https://github.com/edoardottt/depsdev/actions">
       <img src="https://github.com/edoardottt/depsdev/actions/workflows/go.yml/badge.svg" alt="go action">
   </a>
-
 <br>
   <!--Tweet button-->
   <a href="https://twitter.com/intent/tweet?text=depsdev%20-%20CLI%20client%20for%20deps.dev%20API.%20Free%20access%20to%20dependencies%2C%20licenses%2C%20advisories%2C%20and%20other%20critical%20health%20and%20security%20signals%20for%20open%20source%20package%20versions.%20https%3A%2F%2Fgithub.com%2Fedoardottt%2Fdepsdev%20%23golang%20%23github%20%23linux%20%23infosec%20%23bugbounty%20%23security" target="_blank">Share on Twitter!
