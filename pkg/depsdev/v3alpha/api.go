@@ -164,11 +164,11 @@ func getQuery(c *client.Client, query string) (def.Results, error) {
 }
 
 // GetRequirements returns the requirements for a given version in a system-specific format.
-// Requirements are currently available for Maven, npm, NuGet, and RubyGems.
+// Requirements are currently available for Cargo, Go, Maven, npm, NuGet, PyPI, and RubyGems.
 // Requirements are the dependency constraints specified by the version.
 // Example: /v3alpha/systems/nuget/packages/castle.core/versions/5.1.1:requirements.
 func (a *APIv3Alpha) GetRequirements(packageManager, packageName, version string) (def.Requirements, error) {
-	if !input.IsValidPackageManager(packageManager, input.ReqsValidPackageManagers) {
+	if !input.IsValidPackageManager(packageManager, input.AllValidPackageManagers) {
 		return def.Requirements{}, input.ErrInvalidPackageManager
 	}
 
@@ -291,11 +291,17 @@ func getFindingsVersion(c *client.Client, packageManager, packageName, version s
 	return response, nil
 }
 
-// GetFindingsBatch performs GetFindings requests for a batch of versions.
+// GetFindingsBatch performs GetFindings requests for a batch of packages/versions.
+// Each request must set either a VersionKey or a PackageKey.
 // Large result sets may be paginated.
 func (a *APIv3Alpha) GetFindingsBatch(req def.FindingBatchBody) (*Iterator[def.Findings], error) {
 	for _, v := range req.Requests {
-		if !input.IsValidPackageManager(v.VersionKey.System, input.AllValidPackageManagers) {
+		system := v.VersionKey.System
+		if system == "" {
+			system = v.PackageKey.System
+		}
+
+		if !input.IsValidPackageManager(system, input.AllValidPackageManagers) {
 			return nil, input.ErrInvalidPackageManager
 		}
 	}

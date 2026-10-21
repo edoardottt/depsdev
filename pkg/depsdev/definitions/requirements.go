@@ -215,15 +215,21 @@ type GoExclude struct {
 // --- PyPI ---
 
 type Pypi struct {
-	Dependencies          []PypiDependency `json:"dependencies,omitempty"`
-	ProvidedExtras        []ProvidedExtra  `json:"providedExtras,omitempty"`
-	ExternalDependencies  []PypiDependency `json:"externalDependencies,omitempty"`
-	RequiredPythonVersion string           `json:"requiredPythonVersion,omitempty"`
+	Dependencies          []PypiDependency         `json:"dependencies,omitempty"`
+	ProvidedExtras        []ProvidedExtra          `json:"providedExtras,omitempty"`
+	ExternalDependencies  []PypiExternalDependency `json:"externalDependencies,omitempty"`
+	RequiredPythonVersion string                   `json:"requiredPythonVersion,omitempty"`
 }
 
 type PypiDependency struct {
 	ProjectName       string `json:"projectName,omitempty"`
 	Extras            string `json:"extras,omitempty"`
+	VersionSpecifier  string `json:"versionSpecifier,omitempty"`
+	EnvironmentMarker string `json:"environmentMarker,omitempty"`
+}
+
+type PypiExternalDependency struct {
+	Name              string `json:"name,omitempty"`
 	VersionSpecifier  string `json:"versionSpecifier,omitempty"`
 	EnvironmentMarker string `json:"environmentMarker,omitempty"`
 }

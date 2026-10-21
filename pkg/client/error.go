@@ -24,7 +24,8 @@ var (
 )
 
 type ErrorResponse struct {
-	Message string `json:"error,omitempty"`
+	StatusCode int    `json:"-"`
+	Message    string `json:"error,omitempty"`
 }
 
 func (e *ErrorResponse) Error() string {
