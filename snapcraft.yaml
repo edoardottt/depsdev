@@ -5,7 +5,7 @@ description: |
       Free access to dependencies, licenses, advisories, and other critical health and security signals for open source package versions.
 version: 0.3.0
 grade: stable
-base: core20
+base: core24
 
 confinement: strict
 
@@ -19,5 +19,7 @@ apps:
 parts:
   depsdev:
     plugin: go
+    build-snaps:
+      - go/latest/stable
     source-type: git
     source: https://github.com/edoardottt/depsdev
