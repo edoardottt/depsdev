@@ -20,7 +20,7 @@ type Results struct {
 
 type Result struct {
 	Versions  Version    `json:"version"`
-	Artifacts []Artifact `json:"artifact"`
+	Artifacts []Artifact `json:"artifacts,omitempty"`
 }
 
 type Artifact struct {

@@ -27,14 +27,14 @@ var reqsCmd = &cobra.Command{
 	Use:   "reqs package-manager package-name version",
 	Short: "Get info about a package's requirements",
 	Long: `Returns the requirements for a given version in a system-specific format.
-	Requirements are currently available for Maven, npm and NuGet.`,
+	Requirements are currently available for Cargo, Go, Maven, npm, NuGet, PyPI and RubyGems.`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < minArgsThree {
 			return fmt.Errorf("%s %w", "three", input.ErrArgumentsLeast)
 		}
 
-		if !input.Contains(args[0], []string{"npm", "maven", "nuget", "rubygems", "pypi", "cargo", "go"}) {
-			return input.ErrInvalidPackageManagerForRequirements
+		if !input.IsValidPackageManager(args[0], input.AllValidPackageManagers) {
+			return input.ErrInvalidPackageManager
 		}
 
 		return nil
