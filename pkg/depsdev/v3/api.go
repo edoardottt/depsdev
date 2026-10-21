@@ -205,7 +205,7 @@ func getQuery(c *client.Client, query string) (def.Results, error) {
 }
 
 // GetRequirements returns the requirements for a given version in a system-specific format.
-// Requirements are currently available for Maven, npm, NuGet and RubyGems.
+// Requirements are currently available for Cargo, Go, Maven, npm, NuGet, PyPI and RubyGems.
 // Requirements are the dependency constraints specified by the version.
 // Example: nuget castle.core 5.1.1.
 func (a *APIv3) GetRequirements(packageManager, packageName, version string) (def.Requirements, error) {

@@ -520,7 +520,9 @@ func TestGetProjectPackageVersions(t *testing.T) {
 
 		// no checking of the actual value because they can change over time
 		// we just ensure the call to the API and unmarshaling of the response works properly
-		assert.NotEmpty(t, got)
+		require.NotEmpty(t, got.Versions)
+		assert.NotEmpty(t, got.Versions[0].RelationType)
+		assert.NotEmpty(t, got.Versions[0].RelationProvenance)
 	})
 }
 

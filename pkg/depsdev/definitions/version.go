@@ -20,7 +20,7 @@ type Version struct {
 	VersionKey          VersionKey           `json:"versionKey,omitempty"`
 	PublishedAt         time.Time            `json:"publishedAt,omitempty"`
 	IsDefault           bool                 `json:"isDefault"`
-	IsDeprecated        bool                 `json:"IsDeprecated,omitempty"`
+	IsDeprecated        bool                 `json:"isDeprecated,omitempty"`
 	Licenses            []string             `json:"licenses,omitempty"`
 	LicenseDetails      []LicenseDetail      `json:"licenseDetails,omitempty"`
 	AdvisoryKeys        []AdvisoryKey        `json:"advisoryKeys,omitempty"`

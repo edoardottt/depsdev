@@ -22,6 +22,7 @@ import (
 
 	def "github.com/edoardottt/depsdev/pkg/depsdev/definitions"
 	depsdev "github.com/edoardottt/depsdev/pkg/depsdev/v3alpha"
+	"github.com/edoardottt/depsdev/pkg/input"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -400,6 +401,27 @@ func TestGetRequirements(t *testing.T) {
 
 		require.Equal(t, r, got)
 	})
+
+	t.Run("GetRequirements go github.com/spf13/cobra v1.10.2", func(t *testing.T) {
+		got, err := api.GetRequirements("go", "github.com/spf13/cobra", "v1.10.2")
+		require.Nil(t, err)
+
+		assert.NotEmpty(t, got.Go.DirectDependencies)
+	})
+
+	t.Run("GetRequirements pypi requests 2.31.0", func(t *testing.T) {
+		got, err := api.GetRequirements("pypi", "requests", "2.31.0")
+		require.Nil(t, err)
+
+		assert.NotEmpty(t, got.Pypi.Dependencies)
+	})
+
+	t.Run("GetRequirements cargo serde 1.0.200", func(t *testing.T) {
+		got, err := api.GetRequirements("cargo", "serde", "1.0.200")
+		require.Nil(t, err)
+
+		assert.NotEmpty(t, got.Cargo.Dependencies)
+	})
 }
 
 func TestGetDependencies(t *testing.T) {
@@ -572,7 +594,9 @@ func TestGetProjectPackageVersions(t *testing.T) {
 
 		// no checking of the actual value because they can change over time
 		// we just ensure the call to the API and unmarshaling of the response works properly
-		assert.NotEmpty(t, got)
+		require.NotEmpty(t, got.Versions)
+		assert.NotEmpty(t, got.Versions[0].RelationType)
+		assert.NotEmpty(t, got.Versions[0].RelationProvenance)
 	})
 }
 
@@ -1068,6 +1092,66 @@ func TestQuery(t *testing.T) {
 		}
 
 		require.Equal(t, a, got)
+	})
+
+	t.Run("Query hash.type=SHA1&hash.value=ulXBPXrC%2FUTfnMgHRFVxmjPzdbk%3D", func(t *testing.T) {
+		got, err := api.Query("hash.type=SHA1&hash.value=ulXBPXrC%2FUTfnMgHRFVxmjPzdbk%3D")
+		require.Nil(t, err)
+
+		require.NotEmpty(t, got.Results)
+		assert.NotEmpty(t, got.Results[0].Artifacts)
+	})
+}
+
+func TestGetFindingsBatch(t *testing.T) {
+	t.Run("GetFindings batch package and version", func(t *testing.T) {
+		iter, err := api.GetFindingsBatch(def.FindingBatchBody{
+			Requests: []def.FindingBatchRequest{
+				{
+					PackageKey: def.PackageKey{
+						System: "NPM",
+						Name:   "react",
+					},
+				},
+				{
+					VersionKey: def.VersionKey{
+						System:  "NPM",
+						Name:    "react",
+						Version: "18.2.0",
+					},
+				},
+			},
+			PageToken: "",
+		})
+
+		require.Nil(t, err)
+		assert.NotNil(t, iter)
+
+		defer iter.Close()
+
+		results, err := consumeIter(iter)
+		require.NoError(t, err)
+
+		require.Equal(t, 2, len(results))
+		require.NotNil(t, results[0].PackageKey)
+		assert.Equal(t, "react", results[0].PackageKey.Name)
+		require.NotNil(t, results[1].VersionKey)
+		assert.Equal(t, "18.2.0", results[1].VersionKey.Version)
+	})
+
+	t.Run("GetFindings batch invalid package manager", func(t *testing.T) {
+		_, err := api.GetFindingsBatch(def.FindingBatchBody{
+			Requests: []def.FindingBatchRequest{
+				{
+					PackageKey: def.PackageKey{
+						System: "invalid",
+						Name:   "react",
+					},
+				},
+			},
+		})
+
+		require.ErrorIs(t, err, input.ErrInvalidPackageManager)
 	})
 }
 

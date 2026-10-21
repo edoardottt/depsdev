@@ -15,5 +15,17 @@ Free access to dependencies, licenses, advisories, and other critical health and
 package depsdev
 
 type PackageVersions struct {
-	Versions []Version `json:"versions,omitempty"`
+	Versions []PackageVersion `json:"versions,omitempty"`
+}
+
+// PackageVersion is a package version built from the source code of a project.
+type PackageVersion struct {
+	VersionKey VersionKey `json:"versionKey,omitempty"`
+	// RelationType can be SOURCE_REPO or ISSUE_TRACKER.
+	RelationType string `json:"relationType,omitempty"`
+	// RelationProvenance can be SLSA_ATTESTATION, GO_ORIGIN, PYPI_PUBLISH_ATTESTATION,
+	// RUBYGEMS_PUBLISH_ATTESTATION or UNVERIFIED_METADATA.
+	RelationProvenance string           `json:"relationProvenance,omitempty"`
+	SlsaProvenance     []SlsaProvenance `json:"slsaProvenances"`
+	Attestations       []Attestation    `json:"attestations"`
 }

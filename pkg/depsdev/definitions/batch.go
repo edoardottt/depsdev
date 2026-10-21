@@ -60,8 +60,8 @@ func (p *ProjectBatchBody) SetNextPageToken(token string) {
 
 type ProjectBatchResponse struct {
 	Responses []struct {
-		Project Project    `json:"project"`
-		Request ProjectKey `json:"request"`
+		Project Project             `json:"project"`
+		Request ProjectBatchRequest `json:"request"`
 	} `json:"responses"`
 	NextPageToken string `json:"nextPageToken"`
 }
@@ -113,9 +113,11 @@ func (p *PurlBatchResponse) Items() []Purl {
 	return l
 }
 
+// FindingBatchRequest must set either VersionKey or PackageKey: the API rejects
+// requests containing both keys, so the unset one is omitted from the JSON body.
 type FindingBatchRequest struct {
-	VersionKey VersionKey `json:"versionKey,omitempty"`
-	PackageKey PackageKey `json:"packageKey,omitempty"`
+	VersionKey VersionKey `json:"versionKey,omitzero"`
+	PackageKey PackageKey `json:"packageKey,omitzero"`
 }
 
 type FindingBatchBody struct {

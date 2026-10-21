@@ -16,8 +16,9 @@ package client
 
 import (
 	"encoding/json"
-	"fmt"
+	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	retry "github.com/avast/retry-go"
@@ -44,8 +45,17 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 		retry.LastErrorOnly(true),
 	}
 
+	attempt := 0
+
 	if err := retry.Do(func() error {
-		resp, err := t.underlying.RoundTrip(req)
+		r, err := requestForAttempt(req, attempt)
+		if err != nil {
+			return retry.Unrecoverable(err)
+		}
+
+		attempt++
+
+		resp, err := t.underlying.RoundTrip(r)
 		if err != nil {
 			return err
 		}
@@ -53,16 +63,13 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 		if resp.StatusCode >= Error400 {
 			defer func() { _ = resp.Body.Close() }()
 
-			var apiError ErrorResponse
-			if err := json.NewDecoder(resp.Body).Decode(&apiError); err != nil {
-				return fmt.Errorf("server error: %v %v - %w", ErrStatus, resp.StatusCode, err)
-			}
+			apiError := newErrorResponse(resp)
 
 			if resp.StatusCode < Error500 {
-				return retry.Unrecoverable(&apiError)
+				return retry.Unrecoverable(apiError)
 			}
 
-			return &apiError
+			return apiError
 		}
 
 		response = resp
@@ -73,4 +80,40 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	}
 
 	return response, nil
+}
+
+// requestForAttempt returns the request to send at the given attempt.
+// The body of a request is consumed when it is sent, so retries get a fresh copy of it.
+func requestForAttempt(req *http.Request, attempt int) (*http.Request, error) {
+	if attempt == 0 || req.GetBody == nil {
+		return req, nil
+	}
+
+	body, err := req.GetBody()
+	if err != nil {
+		return nil, err
+	}
+
+	r := req.Clone(req.Context())
+	r.Body = body
+
+	return r, nil
+}
+
+// newErrorResponse builds an ErrorResponse from the body of an error response.
+// The API replies with a plain text message, a JSON {"error": "..."} body is supported as well.
+func newErrorResponse(resp *http.Response) *ErrorResponse {
+	apiError := &ErrorResponse{StatusCode: resp.StatusCode}
+
+	body, err := io.ReadAll(resp.Body)
+	if err == nil && json.Unmarshal(body, apiError) == nil && apiError.Message != "" {
+		return apiError
+	}
+
+	apiError.Message = strings.TrimSpace(string(body))
+	if apiError.Message == "" {
+		apiError.Message = http.StatusText(resp.StatusCode)
+	}
+
+	return apiError
 }

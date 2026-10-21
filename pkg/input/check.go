@@ -19,7 +19,6 @@ import "strings"
 var (
 	AllValidPackageManagers  = []string{"go", "rubygems", "npm", "cargo", "maven", "pypi", "nuget"}
 	DepsValidPackageManagers = []string{"npm", "cargo", "maven", "pypi"}
-	ReqsValidPackageManagers = []string{"npm", "nuget", "maven", "rubygems"}
 )
 
 // IsValidPackageManager checks if the inputted package name is valid.
